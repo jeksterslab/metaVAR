@@ -361,10 +361,75 @@ sampling variance-covariance matrix for each individual <span class="math inline
 <span>  <span class="va">fit</span>,</span>
 <span>  ncores <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in .MetaMu(p = p, mu_start = mu_start): object 'varnames' not found</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; Running Model with 54 parameters</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Beginning initial fit attempt</span></span>
+<span><span class="co">#&gt; Running Model with 54 parameters</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Lowest minimum so far:  -31724767.5383823</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Solution found</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Solution found!  Final fit=-31724768 (started at 1571251)  (1 attempt(s): 1 valid, 0 errors)</span></span>
+<span><span class="co">#&gt;  Start values from best fit:</span></span>
+<span><span class="co">#&gt; 0.122038937304799,-0.00278062706138962,-0.00561185425365858,-0.0396135710728098,-0.00051625764533643,0.000786659733540775,0.0158065878342269,-0.000412983664173903,-0.000738916450286877,0.120321826115439,-0.00507096808791206,-6.37095700505735e-05,-0.0367701353090698,0.0031440116352232,-0.00497156987330953,0.009684815906288,0.00125893416704102,0.125336306971819,-0.00071041377392949,-0.00245843374630463,-0.039854604327409,0.000937844042787619,-0.00268786435662035,0.00930699457502895,0.0954303608841253,0.00257793352750584,-0.000939214667273276,-0.0376694141913889,0.00126712309189785,-0.00221341340458025,0.0946321949823871,0.000280899209376801,0.00108420417682248,-0.0401644517155693,-0.00345268609501754,0.093120278097422,0.000354677909268121,0.00235814035873813,-0.0371775233013141,0.0979459154359789,-0.000782368781903507,-0.00426586409537682,0.0966121046162382,-0.00306640853777855,0.0979542552362299,0.67674865077765,0.50413907899266,-0.103486538887421,-0.00159539982791195,0.582998182731147,0.40913643791505,0.00312583824617578,-0.00370139176131255,0.480855801944939</span></span></code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'meta' not found</span></span></code></pre></div>
+<span><span class="co">#&gt;              est    se         z      p    2.5%   97.5%</span></span>
+<span><span class="co">#&gt; sigma_11  0.0149 0e+00  707.1053 0.0000  0.0149  0.0149</span></span>
+<span><span class="co">#&gt; sigma_21 -0.0003 0e+00  -23.0975 0.0000 -0.0004 -0.0003</span></span>
+<span><span class="co">#&gt; sigma_31 -0.0007 0e+00  -44.6483 0.0000 -0.0007 -0.0007</span></span>
+<span><span class="co">#&gt; sigma_41 -0.0048 0e+00 -357.9703 0.0000 -0.0049 -0.0048</span></span>
+<span><span class="co">#&gt; sigma_51 -0.0001 0e+00   -5.0818 0.0000 -0.0001  0.0000</span></span>
+<span><span class="co">#&gt; sigma_61  0.0001 0e+00    7.7618 0.0000  0.0001  0.0001</span></span>
+<span><span class="co">#&gt; sigma_71  0.0019 0e+00  147.1476 0.0000  0.0019  0.0020</span></span>
+<span><span class="co">#&gt; sigma_81 -0.0001 0e+00   -3.9276 0.0001 -0.0001  0.0000</span></span>
+<span><span class="co">#&gt; sigma_91 -0.0001 0e+00   -7.0100 0.0000 -0.0001 -0.0001</span></span>
+<span><span class="co">#&gt; sigma_22  0.0145 0e+00  707.1051 0.0000  0.0144  0.0145</span></span>
+<span><span class="co">#&gt; sigma_32 -0.0006 0e+00  -39.3114 0.0000 -0.0006 -0.0006</span></span>
+<span><span class="co">#&gt; sigma_42  0.0001 0e+00    8.2407 0.0000  0.0001  0.0001</span></span>
+<span><span class="co">#&gt; sigma_52 -0.0044 0e+00 -340.1638 0.0000 -0.0044 -0.0044</span></span>
+<span><span class="co">#&gt; sigma_62  0.0004 0e+00   30.8198 0.0000  0.0004  0.0004</span></span>
+<span><span class="co">#&gt; sigma_72 -0.0006 0e+00  -50.1523 0.0000 -0.0007 -0.0006</span></span>
+<span><span class="co">#&gt; sigma_82  0.0012 0e+00   91.7835 0.0000  0.0011  0.0012</span></span>
+<span><span class="co">#&gt; sigma_92  0.0002 0e+00   12.1016 0.0000  0.0001  0.0002</span></span>
+<span><span class="co">#&gt; sigma_33  0.0158 0e+00  707.1018 0.0000  0.0157  0.0158</span></span>
+<span><span class="co">#&gt; sigma_43  0.0001 0e+00   10.2958 0.0000  0.0001  0.0002</span></span>
+<span><span class="co">#&gt; sigma_53 -0.0001 0e+00   -9.3108 0.0000 -0.0001 -0.0001</span></span>
+<span><span class="co">#&gt; sigma_63 -0.0050 0e+00 -366.6800 0.0000 -0.0050 -0.0050</span></span>
+<span><span class="co">#&gt; sigma_73  0.0001 0e+00    4.0515 0.0001  0.0000  0.0001</span></span>
+<span><span class="co">#&gt; sigma_83 -0.0004 0e+00  -29.0482 0.0000 -0.0004 -0.0004</span></span>
+<span><span class="co">#&gt; sigma_93  0.0012 0e+00   87.6288 0.0000  0.0011  0.0012</span></span>
+<span><span class="co">#&gt; sigma_44  0.0107 0e+00  707.1056 0.0000  0.0106  0.0107</span></span>
+<span><span class="co">#&gt; sigma_54  0.0003 0e+00   25.7658 0.0000  0.0002  0.0003</span></span>
+<span><span class="co">#&gt; sigma_64 -0.0001 0e+00   -8.8498 0.0000 -0.0001 -0.0001</span></span>
+<span><span class="co">#&gt; sigma_74 -0.0042 0e+00 -358.8856 0.0000 -0.0042 -0.0042</span></span>
+<span><span class="co">#&gt; sigma_84  0.0001 0e+00   12.7534 0.0000  0.0001  0.0002</span></span>
+<span><span class="co">#&gt; sigma_94 -0.0002 0e+00  -17.3181 0.0000 -0.0002 -0.0002</span></span>
+<span><span class="co">#&gt; sigma_55  0.0103 0e+00  707.1055 0.0000  0.0103  0.0103</span></span>
+<span><span class="co">#&gt; sigma_65  0.0000 0e+00    0.5953 0.5517  0.0000  0.0000</span></span>
+<span><span class="co">#&gt; sigma_75  0.0002 0e+00   16.4730 0.0000  0.0002  0.0002</span></span>
+<span><span class="co">#&gt; sigma_85 -0.0041 0e+00 -361.9022 0.0000 -0.0042 -0.0041</span></span>
+<span><span class="co">#&gt; sigma_95 -0.0004 0e+00  -37.4439 0.0000 -0.0004 -0.0004</span></span>
+<span><span class="co">#&gt; sigma_66  0.0103 0e+00  707.1061 0.0000  0.0102  0.0103</span></span>
+<span><span class="co">#&gt; sigma_76  0.0000 0e+00    2.6131 0.0090  0.0000  0.0000</span></span>
+<span><span class="co">#&gt; sigma_86  0.0003 0e+00   32.2984 0.0000  0.0003  0.0004</span></span>
+<span><span class="co">#&gt; sigma_96 -0.0038 0e+00 -337.3687 0.0000 -0.0039 -0.0038</span></span>
+<span><span class="co">#&gt; sigma_77  0.0113 0e+00  707.1067 0.0000  0.0113  0.0113</span></span>
+<span><span class="co">#&gt; sigma_87 -0.0002 0e+00  -20.0701 0.0000 -0.0002 -0.0002</span></span>
+<span><span class="co">#&gt; sigma_97 -0.0004 0e+00  -32.1802 0.0000 -0.0004 -0.0003</span></span>
+<span><span class="co">#&gt; sigma_88  0.0111 0e+00  707.1053 0.0000  0.0110  0.0111</span></span>
+<span><span class="co">#&gt; sigma_98 -0.0003 0e+00  -23.2029 0.0000 -0.0003 -0.0002</span></span>
+<span><span class="co">#&gt; sigma_99  0.0111 0e+00  707.1052 0.0000  0.0111  0.0111</span></span>
+<span><span class="co">#&gt; mu_1      0.6767 1e-04 5545.3365 0.0000  0.6765  0.6770</span></span>
+<span><span class="co">#&gt; mu_2      0.5041 1e-04 4188.7834 0.0000  0.5039  0.5044</span></span>
+<span><span class="co">#&gt; mu_3     -0.1035 1e-04 -824.1681 0.0000 -0.1037 -0.1032</span></span>
+<span><span class="co">#&gt; mu_4     -0.0016 1e-04  -15.4401 0.0000 -0.0018 -0.0014</span></span>
+<span><span class="co">#&gt; mu_5      0.5830 1e-04 5738.7743 0.0000  0.5828  0.5832</span></span>
+<span><span class="co">#&gt; mu_6      0.4091 1e-04 4036.9596 0.0000  0.4089  0.4093</span></span>
+<span><span class="co">#&gt; mu_7      0.0031 1e-04   29.4194 0.0000  0.0029  0.0033</span></span>
+<span><span class="co">#&gt; mu_8     -0.0037 1e-04  -35.2016 0.0000 -0.0039 -0.0035</span></span>
+<span><span class="co">#&gt; mu_9      0.4809 1e-04 4561.9373 0.0000  0.4806  0.4811</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
