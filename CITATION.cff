@@ -1,0 +1,36 @@
+# --------------------------------------------
+# CITATION file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# --------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "metaVAR" in publications use:'
+type: software
+license: MIT
+title: 'metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients'
+version: 0.9.1
+abstract: Estimates the mean vector and covariance matrix of the multivariate meta-analysis
+  of vector autoregressive model coefficients.
+authors:
+- family-names: Pesigan
+  given-names: Ivan Jacob Agaloos
+  email: r.jeksterslab@gmail.com
+  orcid: https://orcid.org/0000-0003-4818-8420
+preferred-citation:
+  type: manual
+  title: 'metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients'
+  authors:
+  - family-names: Pesigan
+    given-names: Ivan Jacob Agaloos
+    email: r.jeksterslab@gmail.com
+    orcid: https://orcid.org/0000-0003-4818-8420
+  year: '2024'
+  notes: R package version 0.9.1
+repository-code: https://github.com/jeksterslab/metaVAR
+url: https://jeksterslab.github.io/metaVAR/
+contact:
+- family-names: Pesigan
+  given-names: Ivan Jacob Agaloos
+  email: r.jeksterslab@gmail.com
+  orcid: https://orcid.org/0000-0003-4818-8420
+

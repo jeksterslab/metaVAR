@@ -1,0 +1,51 @@
+---
+title: "metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients"
+author: "Ivan Jacob Agaloos Pesigan"
+output: rmarkdown::html_vignette
+bibliography: "vignettes.bib"
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
+nocite: |
+  @RCoreTeam-2023
+  @Bollen-1987
+  @Deboeck-Preacher-2015
+  @Ryan-Hamaker-2021
+  @Wang-Zhang-2020
+vignette: >
+  %\VignetteIndexEntry{metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<!-- badges: start -->
+[![Make Project](https://github.com/jeksterslab/metaVAR/actions/workflows/make.yml/badge.svg)](https://github.com/jeksterslab/metaVAR/actions/workflows/make.yml)
+[![R-CMD-check](https://github.com/jeksterslab/metaVAR/actions/workflows/check-full.yml/badge.svg)](https://github.com/jeksterslab/metaVAR/actions/workflows/check-full.yml)
+[![R Package Test Coverage](https://github.com/jeksterslab/metaVAR/actions/workflows/test-coverage.yml/badge.svg)](https://github.com/jeksterslab/metaVAR/actions/workflows/test-coverage.yml)
+[![Lint R Package](https://github.com/jeksterslab/metaVAR/actions/workflows/lint.yml/badge.svg)](https://github.com/jeksterslab/metaVAR/actions/workflows/lint.yml)
+[![Package Website (GitHub Pages)](https://github.com/jeksterslab/metaVAR/actions/workflows/pkgdown-gh-pages.yml/badge.svg)](https://github.com/jeksterslab/metaVAR/actions/workflows/pkgdown-gh-pages.yml)
+[![Compile LaTeX](https://github.com/jeksterslab/metaVAR/actions/workflows/latex.yml/badge.svg)](https://github.com/jeksterslab/metaVAR/actions/workflows/latex.yml)
+[![Shell Check](https://github.com/jeksterslab/metaVAR/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/jeksterslab/metaVAR/actions/workflows/shellcheck.yml)
+[![pages-build-deployment](https://github.com/jeksterslab/metaVAR/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/jeksterslab/metaVAR/actions/workflows/pages/pages-build-deployment)
+[![codecov](https://codecov.io/gh/jeksterslab/metaVAR/branch/main/graph/badge.svg?token=KVLUET3DJ6)](https://codecov.io/gh/jeksterslab/metaVAR)
+<!-- badges: end -->
+
+## Description
+
+Estimates the mean vector and covariance matrix of the multivariate meta-analysis of vector autoregressive model coefficients.
+
+## Installation
+
+You can install the development version of `metaVAR` from
+[GitHub](https://github.com/jeksterslab/metaVAR) with:
+
+```r
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("jeksterslab/metaVAR")
+```
+
+## Documentation
+
+See
+[GitHub Pages](https://jeksterslab.github.io/metaVAR/index.html)
+for package documentation.
+
+## References
