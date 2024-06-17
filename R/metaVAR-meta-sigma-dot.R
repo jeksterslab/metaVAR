@@ -1,4 +1,5 @@
 .MetaSigma <- function(p,
+                       varnames,
                        sigma_l_start = NULL) {
   if (is.null(sigma_l_start)) {
     sigma_l_start <- diag(p)

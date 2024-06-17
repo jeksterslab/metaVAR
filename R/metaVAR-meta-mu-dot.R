@@ -1,4 +1,5 @@
 .MetaMu <- function(p,
+                    varnames,
                     mu_start = NULL) {
   if (is.null(mu_start)) {
     mu_start <- rep(x = 0, times = p)
