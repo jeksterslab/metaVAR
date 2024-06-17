@@ -30,10 +30,12 @@
   }
   mu <- .MetaMu(
     p = p,
+    varnames = varnames,
     mu_start = mu_start
   )
   sigma <- .MetaSigma(
     p = p,
+    varnames = varnames,
     sigma_l_start = sigma_l_start
   )
   sigma_l <- sigma$sigma_l
