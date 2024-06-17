@@ -1,5 +1,6 @@
 Package: metaVAR
-Title: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients
+Title: Multivariate Meta-Analysis of Vector Autoregressive Model
+        Coefficients
 Version: 0.9.1
 Authors@R: 
     person(given = "Ivan Jacob Agaloos",
@@ -9,20 +10,18 @@ Authors@R:
            comment = c(ORCID = "0000-0003-4818-8420"))
 Description: Estimates the mean vector and covariance matrix of the
     multivariate meta-analysis of vector autoregressive model coefficients.
-URL: https://github.com/jeksterslab/metaVAR, https://jeksterslab.github.io/metaVAR/
+URL: https://github.com/jeksterslab/metaVAR,
+        https://jeksterslab.github.io/metaVAR/
 BugReports: https://github.com/jeksterslab/metaVAR/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
-Depends: R (>= 3.5.0),
-    OpenMx
-Imports:
-    numDeriv,
-    Matrix
-Suggests:
-    knitr,
-    rmarkdown,
-    testthat,
-    simStateSpace
+Depends: R (>= 3.5.0), OpenMx
+Imports: numDeriv, Matrix
+Suggests: knitr, rmarkdown, testthat, simStateSpace
 RoxygenNote: 7.3.1
+NeedsCompilation: no
+Packaged: 2024-06-17 21:27:03 UTC; root
+Author: Ivan Jacob Agaloos Pesigan [aut, cre, cph]
+    (<https://orcid.org/0000-0003-4818-8420>)
+Maintainer: Ivan Jacob Agaloos Pesigan <r.jeksterslab@gmail.com>
