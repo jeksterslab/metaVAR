@@ -59,6 +59,9 @@ psi_l <- list(
 )
 ```
 
+The SimBeta function from the simStateSpace package generates random transition matrices from the multivariate normal distribution. Note that the function generates transition matrices that are weakly stationary.
+
+
 ```{r}
 #| echo = FALSE
 library(simStateSpace)

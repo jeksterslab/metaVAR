@@ -37,7 +37,7 @@ FitDTVAR <- function(data,
                      psi_start = NULL,
                      psi_lbound = NULL,
                      psi_ubound = NULL,
-                     try = 100,
+                     try = 1000,
                      ncores = NULL) {
   args <- list(
     data = data,
