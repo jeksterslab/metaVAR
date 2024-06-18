@@ -1,5 +1,5 @@
-.FitDTVARTheta <- function(p) {
-  varnames <- paste0("y", seq_len(p))
+.FitDTVARTheta <- function(p,
+                           varnames) {
   # R
   # measurement error
   return(

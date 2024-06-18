@@ -7,14 +7,24 @@
                       psi_start = NULL,
                       psi_lbound = NULL,
                       psi_ubound = NULL,
-                      try = 100,
+                      try = 1000,
                       ncores = NULL) {
   p <- length(observed)
+  idx <- seq_len(p)
+  statenames <- paste0(
+    "eta",
+    idx
+  )
+  varnames <- paste0(
+    "y",
+    idx
+  )
   ids <- sort(
     unique(data[, id])
   )
   beta <- .FitDTVARBeta(
     p = p,
+    statenames = statenames,
     beta_start = beta_start,
     beta_lbound = beta_lbound,
     beta_ubound = beta_ubound
@@ -28,7 +38,10 @@
     psi_lbound = psi_lbound,
     psi_ubound = psi_ubound
   )
-  theta <- .FitDTVARTheta(p = p)
+  theta <- .FitDTVARTheta(
+    p = p,
+    varnames = varnames
+  )
   mu0 <- .FitDTVARMu0(p = p)
   sigma0 <- .FitDTVARSigma0(p = p)
   x <- .FitDTVARX()
@@ -49,7 +62,7 @@
     x0 = "mu0",
     P0 = "sigma0",
     u = "x",
-    dimnames = paste0("y", seq_len(p))
+    dimnames = paste0("y", idx)
   )
   if (par) {
     OpenMx::mxOption(

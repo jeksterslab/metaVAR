@@ -1,9 +1,9 @@
 .FitDTVARBeta <- function(p,
+                          statenames,
                           beta_start = NULL,
                           beta_lbound = NULL,
                           beta_ubound = NULL) {
   idx <- seq_len(p)
-  statenames <- paste0("eta", idx)
   # A
   # auto regression and cross regression coefficients
   if (is.null(beta_start)) {
