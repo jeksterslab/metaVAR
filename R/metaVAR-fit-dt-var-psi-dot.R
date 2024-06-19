@@ -24,20 +24,10 @@
       x = .Machine$double.xmin,
       times = p
     )
-  } else {
-    psi_lbound <- rep(
-      x = psi_lbound,
-      times = p
-    )
   }
   if (is.null(psi_ubound)) {
     psi_ubound <- rep(
       x = NA,
-      times = p
-    )
-  } else {
-    psi_ubound <- rep(
-      x = psi_ubound,
       times = p
     )
   }

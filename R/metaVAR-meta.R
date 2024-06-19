@@ -75,6 +75,15 @@ Meta <- function(object,
                  sigma_l_start = NULL,
                  try = 1000,
                  ncores = NULL) {
+  stopifnot(
+    inherits(
+      object,
+      "metavardtvar"
+    ) | inherits(
+      object,
+      "metavarctvar"
+    )
+  )
   args <- list(
     object = object,
     mu_start = mu_start,
