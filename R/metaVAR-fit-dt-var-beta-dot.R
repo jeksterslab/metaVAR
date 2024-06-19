@@ -30,22 +30,10 @@
       nrow = p,
       ncol = p
     )
-  } else {
-    beta_lbound <- matrix(
-      data = beta_lbound,
-      nrow = p,
-      ncol = p
-    )
   }
   if (is.null(beta_ubound)) {
     beta_ubound <- matrix(
       data = NA,
-      nrow = p,
-      ncol = p
-    )
-  } else {
-    beta_ubound <- matrix(
-      data = beta_ubound,
       nrow = p,
       ncol = p
     )

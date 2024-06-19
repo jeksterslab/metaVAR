@@ -2,6 +2,7 @@
 
 S3method(print,metavarmeta)
 S3method(summary,metavarmeta)
+export(FitCTVAR)
 export(FitDTVAR)
 export(Meta)
 import(OpenMx)

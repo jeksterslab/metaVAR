@@ -78,6 +78,7 @@ is the sampling variance-covariance matrix of \eqn{\mathbf{y}_{i}}.
 }
 \seealso{
 Other Meta-Analysis of VAR Functions: 
+\code{\link{FitCTVAR}()},
 \code{\link{FitDTVAR}()}
 }
 \author{
