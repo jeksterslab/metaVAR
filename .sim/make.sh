@@ -7,5 +7,5 @@
 #SBATCH --error=make-simStateSpace.err
 
 cd /scratch/ibp5092/simStateSpace
-apptainer exec /scratch/ibp5092/sif/docs-mplus.sif make all
+#apptainer exec /scratch/ibp5092/sif/docs-mplus.sif make all
 apptainer exec /scratch/ibp5092/sif/docs-mplus.sif make auto

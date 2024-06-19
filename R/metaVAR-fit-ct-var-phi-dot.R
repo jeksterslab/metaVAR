@@ -5,7 +5,7 @@
                          phi_ubound = NULL) {
   idx <- seq_len(p)
   # A
-  # auto effect and cross effect coefficients 
+  # auto effect and cross effect coefficients
   if (is.null(phi_start)) {
     phi_start <- -1 * diag(p)
   }
@@ -37,7 +37,7 @@
       nrow = p,
       ncol = p
     )
-    diag(phi_ubound) <- .Machine$double.xmin,
+    diag(phi_ubound) <- .Machine$double.xmin
   }
   return(
     OpenMx::mxMatrix(
