@@ -26,7 +26,7 @@
       }
     }
   }
-  sigma_l <- OpenMx::mxMatrix(
+  sigma_l <- mxMatrix(
     type = "Full",
     nrow = p,
     ncol = p,
@@ -41,7 +41,7 @@
     ),
     name = "sigma_l"
   )
-  sigma <- OpenMx::mxAlgebra(
+  sigma <- mxAlgebra(
     expression = sigma_l %*% t(sigma_l),
     dimnames = list(
       varnames,

@@ -8,6 +8,11 @@
   # auto effect and cross effect coefficients
   if (is.null(phi_start)) {
     phi_start <- -1 * diag(p)
+  } else {
+    stopifnot(
+      is.matrix(phi_start),
+      dim(phi_start) == c(p, p)
+    )
   }
   phi_labels <- matrix(
     data = "0",
@@ -26,21 +31,31 @@
   }
   if (is.null(phi_lbound)) {
     phi_lbound <- matrix(
-      data = NA,
+      data = -10,
       nrow = p,
       ncol = p
+    )
+  } else {
+    stopifnot(
+      is.matrix(phi_lbound),
+      dim(phi_lbound) == c(p, p)
     )
   }
   if (is.null(phi_ubound)) {
     phi_ubound <- matrix(
-      data = NA,
+      data = 10,
       nrow = p,
       ncol = p
     )
     diag(phi_ubound) <- .Machine$double.xmin
+  } else {
+    stopifnot(
+      is.matrix(phi_ubound),
+      dim(phi_ubound) == c(p, p)
+    )
   }
   return(
-    OpenMx::mxMatrix(
+    mxMatrix(
       type = "Full",
       nrow = p,
       ncol = p,

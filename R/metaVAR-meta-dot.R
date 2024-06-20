@@ -22,7 +22,7 @@
   if (!is.null(ncores)) {
     ncores <- as.integer(ncores)
     if (ncores > 1) {
-      OpenMx::mxOption(
+      mxOption(
         key = "Number of Threads",
         value = ncores
       )
@@ -45,7 +45,7 @@
     length = n
   )
   for (i in seq_len(n)) {
-    model_i[[i]] <- OpenMx::mxModel(
+    model_i[[i]] <- mxModel(
       model = paste0(
         "Model_",
         i
@@ -53,30 +53,30 @@
       sigma_l,
       sigma,
       mu,
-      OpenMx::mxData(
+      mxData(
         type = "cov",
         observed = vcov_y[[i]],
         means = y[[i]],
         numObs = n
       ),
-      OpenMx::mxExpectationNormal(
+      mxExpectationNormal(
         covariance = "sigma",
         means = "mu"
       ),
-      OpenMx::mxFitFunctionML()
+      mxFitFunctionML()
     )
   }
-  model <- OpenMx::mxModel(
+  model <- mxModel(
     model = "Model",
     model_i,
-    OpenMx::mxFitFunctionMultigroup(
+    mxFitFunctionMultigroup(
       paste0(
         "Model_",
         seq_len(n)
       )
     )
   )
-  OpenMx::mxTryHard(
+  mxTryHard(
     model = model,
     extraTries = try
   )

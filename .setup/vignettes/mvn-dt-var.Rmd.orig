@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 ```{r}
 #| echo = FALSE
 set.seed(42)
-n <- 10
+n <- 100
 time <- 100
 k <- p <- 3
 iden <- diag(k)
@@ -59,10 +59,6 @@ psi_l <- list(
 )
 ```
 
-> **_NOTE:_**  This example depends on the development version of simStateSpace (1.2.1.9000).
-
-The SimBeta function from the simStateSpace package generates random transition matrices from the multivariate normal distribution. Note that the function generates transition matrices that are weakly stationary.
-
 ```{r}
 #| echo = FALSE
 library(simStateSpace)
@@ -75,7 +71,7 @@ beta_mu <- matrix(
   nrow = p
 )
 beta_sigma <- 0.10 * diag(p * p)
-beta <- SimBeta(
+beta <- SimBetaN(
   n = n,
   beta = beta_mu,
   vcov_beta_vec_l = t(chol(beta_sigma))
@@ -255,6 +251,10 @@ and covariance matrix
 \end{array}
 \right) .
 \end{equation}
+
+> **_NOTE:_**  This example depends on the development version of simStateSpace (1.2.1.9000).
+
+The SimBetaN function from the simStateSpace package generates random transition matrices from the multivariate normal distribution. Note that the function generates transition matrices that are weakly stationary.
 
 Let the dynamic process noise $\boldsymbol{\Psi}$ be given by
 

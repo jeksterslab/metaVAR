@@ -8,6 +8,11 @@
   # auto regression and cross regression coefficients
   if (is.null(beta_start)) {
     beta_start <- diag(p)
+  } else {
+    stopifnot(
+      is.matrix(beta_start),
+      dim(beta_start) == c(p, p)
+    )
   }
   beta_labels <- matrix(
     data = "0",
@@ -30,6 +35,11 @@
       nrow = p,
       ncol = p
     )
+  } else {
+    stopifnot(
+      is.matrix(beta_lbound),
+      dim(beta_lbound) == c(p, p)
+    )
   }
   if (is.null(beta_ubound)) {
     beta_ubound <- matrix(
@@ -37,9 +47,14 @@
       nrow = p,
       ncol = p
     )
+  } else {
+    stopifnot(
+      is.matrix(beta_ubound),
+      dim(beta_ubound) == c(p, p)
+    )
   }
   return(
-    OpenMx::mxMatrix(
+    mxMatrix(
       type = "Full",
       nrow = p,
       ncol = p,

@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 ```{r}
 #| echo = FALSE
 set.seed(42)
-n <- 10
+n <- 100
 time <- 100
 delta_t <- 0.10
 k <- p <- 3
@@ -54,20 +54,7 @@ sigma0_l <- list(
 mu <- list(
   null_vec
 )
-sigma <- matrix(
-  data = c(
-    0.24455556,
-    0.02201587,
-    -0.05004762,
-    0.02201587,
-    0.07067800,
-    0.01539456,
-    -0.05004762,
-    0.01539456,
-    0.07553061
-  ),
-  nrow = p
-)
+sigma <- 0.1 * iden
 sigma_l <- list(
   t(chol(sigma))
 )
@@ -82,10 +69,6 @@ theta_l <- list(
   t(chol(theta))
 )
 ```
-
-> **_NOTE:_**  This example depends on the development version of simStateSpace (1.2.1.9000).
-
-The SimPhi function from the simStateSpace package generates random drift matrices from the multivariate normal distribution. Note that the function generates drift matrices that are stable.
 
 ```{r}
 #| echo = FALSE
@@ -105,7 +88,7 @@ phi_mu <- matrix(
   nrow = k
 )
 phi_sigma <- 0.10 * diag(p * p)
-phi <- SimPhi(
+phi <- SimPhiN(
   n = n,
   phi = phi_mu,
   vcov_phi_vec_l = t(chol(phi_sigma))
@@ -340,6 +323,10 @@ and covariance matrix
 \right) .
 \end{equation}
 
+> **_NOTE:_**  This example depends on the development version of simStateSpace (1.2.1.9000).
+
+The SimPhiN function from the simStateSpace package generates random drift matrices from the multivariate normal distribution. Note that the function generates drift matrices that are stable.
+
 Let the dynamic process noise covariance matrix $\boldsymbol{\Sigma}$ be given by
 
 \begin{equation}
@@ -383,7 +370,7 @@ theta_l
 library(simStateSpace)
 sim <- SimSSMOUIVary(
   n = 5,
-  time = length(seq(from = 0, to = 5, by = delta_t)),
+  time = length(seq(from = 0, to = 20, by = delta_t)),
   delta_t = delta_t,
   mu0 = mu0,
   sigma0_l = sigma0_l,
@@ -448,6 +435,8 @@ fit <- FitCTVAR(
   observed = paste0("y", seq_len(k)),
   id = "id",
   time = "time",
+  phi_start = phi_mu,
+  sigma_start = diag(sigma),
   ncores = parallel::detectCores()
 )
 ```
