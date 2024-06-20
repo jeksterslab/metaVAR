@@ -11,6 +11,11 @@
       x = 1,
       times = p
     )
+  } else {
+    stopifnot(
+      is.vector(sigma_start),
+      length(sigma_start) == p
+    )
   }
   sigma_labels <- paste0(
     "sigma_",
@@ -24,15 +29,25 @@
       x = .Machine$double.xmin,
       times = p
     )
+  } else {
+    stopifnot(
+      is.vector(sigma_lbound),
+      length(sigma_lbound) == p
+    )
   }
   if (is.null(sigma_ubound)) {
     sigma_ubound <- rep(
       x = NA,
       times = p
     )
+  } else {
+    stopifnot(
+      is.vector(sigma_ubound),
+      length(sigma_ubound) == p
+    )
   }
   return(
-    OpenMx::mxMatrix(
+    mxMatrix(
       type = "Diag",
       nrow = p,
       ncol = p,

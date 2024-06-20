@@ -2,7 +2,7 @@
   # u
   # covariates
   return(
-    OpenMx::mxMatrix(
+    mxMatrix(
       type = "Zero",
       nrow = 1,
       ncol = 1,

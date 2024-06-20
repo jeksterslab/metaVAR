@@ -19,7 +19,7 @@
     nrow = 1
   )
   return(
-    OpenMx::mxMatrix(
+    mxMatrix(
       type = "Full",
       nrow = 1,
       ncol = p,

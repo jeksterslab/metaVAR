@@ -3,12 +3,12 @@
   # initial condition
   # covariance
   return(
-    OpenMx::mxMatrix(
+    mxMatrix(
       type = "Full",
       nrow = p,
       ncol = p,
       free = FALSE,
-      values = 1,
+      values = diag(p),
       labels = NA,
       lbound = 10,
       ubound = -10,

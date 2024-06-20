@@ -1,1 +1,1 @@
-# metaVAR 0.9.1 (simulation version)
+# metaVAR 0.9.1

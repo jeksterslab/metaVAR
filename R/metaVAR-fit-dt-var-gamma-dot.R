@@ -2,7 +2,7 @@
   # B
   # latent variables on covariates
   return(
-    OpenMx::mxMatrix(
+    mxMatrix(
       type = "Zero",
       nrow = p,
       ncol = 1,
