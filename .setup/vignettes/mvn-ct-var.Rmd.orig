@@ -34,20 +34,7 @@ null_vec <- rep(x = 0, times = k)
 mu0 <- list(
   null_vec
 )
-sigma0 <- matrix(
-  data = c(
-    1.0,
-    0.2,
-    0.2,
-    0.2,
-    1.0,
-    0.2,
-    0.2,
-    0.2,
-    1.0
-  ),
-  nrow = 3
-)
+sigma0 <- 0.01 * diag(p)
 sigma0_l <- list(
   t(chol(sigma0))
 )
@@ -87,7 +74,7 @@ phi_mu <- matrix(
   ),
   nrow = k
 )
-phi_sigma <- 0.10 * diag(p * p)
+phi_sigma <- 0.01 * diag(p * p)
 phi <- SimPhiN(
   n = n,
   phi = phi_mu,
