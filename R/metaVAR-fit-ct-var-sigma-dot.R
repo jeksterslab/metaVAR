@@ -8,7 +8,7 @@
   # process noise
   if (is.null(sigma_start)) {
     sigma_start <- rep(
-      x = 1,
+      x = 0.10,
       times = p
     )
   } else {

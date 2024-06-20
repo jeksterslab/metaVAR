@@ -7,7 +7,7 @@
   # A
   # auto effect and cross effect coefficients
   if (is.null(phi_start)) {
-    phi_start <- -1 * diag(p)
+    phi_start <- -0.10 * diag(p)
   } else {
     stopifnot(
       is.matrix(phi_start),
@@ -31,7 +31,7 @@
   }
   if (is.null(phi_lbound)) {
     phi_lbound <- matrix(
-      data = -10,
+      data = NA,
       nrow = p,
       ncol = p
     )
@@ -43,7 +43,7 @@
   }
   if (is.null(phi_ubound)) {
     phi_ubound <- matrix(
-      data = 10,
+      data = NA,
       nrow = p,
       ncol = p
     )

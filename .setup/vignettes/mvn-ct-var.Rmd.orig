@@ -422,8 +422,6 @@ fit <- FitCTVAR(
   observed = paste0("y", seq_len(k)),
   id = "id",
   time = "time",
-  phi_start = phi_mu,
-  sigma_start = diag(sigma),
   ncores = parallel::detectCores()
 )
 ```
