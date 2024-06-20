@@ -5,8 +5,8 @@ articles:
   metaVAR: metaVAR.html
   mvn-ct-var: mvn-ct-var.html
   mvn-dt-var: mvn-dt-var.html
-  session: session/session.html
-last_built: 2024-06-19T17:01Z
+  session: session.html
+last_built: 2024-06-20T21:22Z
 urls:
   reference: https://github.com/jeksterslab/metaVAR/reference
   article: https://github.com/jeksterslab/metaVAR/articles
