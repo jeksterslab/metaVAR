@@ -8,7 +8,7 @@
   # process noise
   if (is.null(psi_start)) {
     psi_start <- rep(
-      x = 1,
+      x = 0.10,
       times = p
     )
   } else {
