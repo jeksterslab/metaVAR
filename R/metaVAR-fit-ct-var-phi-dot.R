@@ -31,7 +31,7 @@
   }
   if (is.null(phi_lbound)) {
     phi_lbound <- matrix(
-      data = NA,
+      data = -10,
       nrow = p,
       ncol = p
     )
@@ -43,7 +43,7 @@
   }
   if (is.null(phi_ubound)) {
     phi_ubound <- matrix(
-      data = NA,
+      data = 10,
       nrow = p,
       ncol = p
     )

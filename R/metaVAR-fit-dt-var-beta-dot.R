@@ -7,7 +7,7 @@
   # A
   # auto regression and cross regression coefficients
   if (is.null(beta_start)) {
-    beta_start <- diag(p)
+    beta_start <- 0.10 * diag(p)
   } else {
     stopifnot(
       is.matrix(beta_start),
@@ -31,7 +31,7 @@
   }
   if (is.null(beta_lbound)) {
     beta_lbound <- matrix(
-      data = NA,
+      data = -10,
       nrow = p,
       ncol = p
     )
@@ -43,7 +43,7 @@
   }
   if (is.null(beta_ubound)) {
     beta_ubound <- matrix(
-      data = NA,
+      data = 10,
       nrow = p,
       ncol = p
     )
