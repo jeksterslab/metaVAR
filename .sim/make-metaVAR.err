@@ -1,0 +1,110 @@
+Cloning into 'dotfiles'...
+find: ‘/scratch/ibp5092/metaVAR/.setup/cpp’: No such file or directory
+find: ‘/scratch/ibp5092/metaVAR/src’: No such file or directory
+ℹ Updating metaVAR documentation
+ℹ Loading metaVAR
+Loading required package: OpenMx
+To take full advantage of multiple cores, use:
+  mxOption(key='Number of Threads', value=parallel::detectCores()) #now
+  Sys.setenv(OMP_NUM_THREADS=parallel::detectCores()) #before library(OpenMx)
+ℹ Updating metaVAR documentation
+ℹ Loading metaVAR
+
+
+processing file: /scratch/ibp5092/metaVAR/vignettes/mvn-ct-var.Rmd.orig
+output file: /scratch/ibp5092/metaVAR/vignettes/mvn-ct-var.Rmd
+
+
+
+processing file: /scratch/ibp5092/metaVAR/vignettes/mvn-dt-var.Rmd.orig
+output file: /scratch/ibp5092/metaVAR/vignettes/mvn-dt-var.Rmd
+
+ℹ Updating metaVAR documentation
+ℹ Loading metaVAR
+Loading required package: OpenMx
+To take full advantage of multiple cores, use:
+  mxOption(key='Number of Threads', value=parallel::detectCores()) #now
+  Sys.setenv(OMP_NUM_THREADS=parallel::detectCores()) #before library(OpenMx)
+ℹ Updating metaVAR documentation
+ℹ Loading metaVAR
+
+
+processing file: README.Rmd
+output file: README.knit.md
+
+
+Preview created: /scratch/ibp5092/metaVAR/README.html
+
+Output created: README.md
+Converting parsed Rd's to LaTeX 
+Warning in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  :
+  texi2dvi script/program not available, using emulation
+This is makeindex, version 2.17 [TeX Live 2024] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (26 entries accepted, 0 rejected).
+Sorting entries....done (122 comparisons).
+Generating output file Rd2.ind....done (46 lines written, 2 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is makeindex, version 2.17 [TeX Live 2024] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (26 entries accepted, 0 rejected).
+Sorting entries....done (122 comparisons).
+Generating output file Rd2.ind....done (46 lines written, 2 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+sh: 1: /usr/bin/xdg-open: not found
+Warning in system(paste(preview, output)) : error in running command
+✔ 'CITATION.cff' generated
+✔ Congratulations! 'CITATION.cff' is valid
+
+
+processing file: /scratch/ibp5092/metaVAR/.setup/latex/metaVAR-001-description.Rtex
+output file: /scratch/ibp5092/metaVAR/detritus/tex/metaVAR-001-description.tex
+
+
+
+processing file: /scratch/ibp5092/metaVAR/.setup/latex/metaVAR-999-session.Rtex
+output file: /scratch/ibp5092/metaVAR/detritus/tex/metaVAR-999-session.tex
+
+
+
+processing file: /scratch/ibp5092/metaVAR/.setup/latex/metaVAR-zzz-references.Rtex
+output file: /scratch/ibp5092/metaVAR/detritus/tex/metaVAR-zzz-references.tex
+
+
+
+processing file: /scratch/ibp5092/metaVAR/.setup/latex/metaVAR-zzz-tests-benchmark.Rtex
+output file: /scratch/ibp5092/metaVAR/detritus/tex/metaVAR-zzz-tests-benchmark.tex
+
+
+
+processing file: /scratch/ibp5092/metaVAR/.setup/latex/metaVAR-zzz-tests-external.Rtex
+output file: /scratch/ibp5092/metaVAR/detritus/tex/metaVAR-zzz-tests-external.tex
+
+
+
+processing file: /scratch/ibp5092/metaVAR/.setup/latex/metaVAR-zzz-tests-internal.Rtex
+output file: /scratch/ibp5092/metaVAR/detritus/tex/metaVAR-zzz-tests-internal.tex
+
+
+
+processing file: /scratch/ibp5092/metaVAR/.setup/latex/metaVAR-zzz-tests-staging.Rtex
+output file: /scratch/ibp5092/metaVAR/detritus/tex/metaVAR-zzz-tests-staging.tex
+
+
+------------
+Latexmk: Some operations failed, for the following tex file(s)
+  /scratch/ibp5092/metaVAR/detritus/tex/metaVAR-zzz-references.tex
+── Installing package metaVAR into temporary library ───────────────────────────
+── Finished building pkgdown site for package metaVAR ──────────────────────────
+No 'qmd' files found in /scratch/ibp5092/metaVAR or /scratch/ibp5092/metaVAR/.setup/quarto.
+Cloning into 'metaVAR'...
+mv: cannot move 'metaVAR/.git' to '/scratch/ibp5092/metaVAR/.git': File exists
+To github.com:jeksterslab/metaVAR.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'github.com:jeksterslab/metaVAR.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+make: *** [Makefile:135: auto] Error 1

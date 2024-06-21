@@ -43,7 +43,7 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] metaVAR_0.9.1            OpenMx_2.21.11           simStateSpace_1.2.1.9000
+#> [1] metaVAR_0.9.1       OpenMx_2.21.11      simStateSpace_1.2.2
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] digest_0.6.35       numDeriv_2016.8-1.1 xfun_0.45          
@@ -450,7 +450,7 @@ installed.packages()
 #> metaVAR         "0.9.1"      NA           
 #> rlang           "1.1.4"      NA           
 #> rProject        "0.0.13"     NA           
-#> simStateSpace   "1.2.1.9000" NA           
+#> simStateSpace   "1.2.2"      NA           
 #> tinytex         "0.51.1"     NA           
 #> xfun            "0.45"       NA           
 #> abind           "1.4-5"      NA           

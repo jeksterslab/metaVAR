@@ -1,7 +1,7 @@
 metaVAR
 ================
 Ivan Jacob Agaloos Pesigan
-2024-06-20
+2024-06-21
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
