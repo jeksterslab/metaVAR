@@ -2,7 +2,7 @@
   # D
   # observed variables on covariates
   return(
-    mxMatrix(
+    OpenMx::mxMatrix(
       type = "Zero",
       nrow = p,
       ncol = 1,

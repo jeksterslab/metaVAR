@@ -52,7 +52,7 @@
       par <- TRUE
     }
   }
-  expectation <- mxExpectationStateSpace(
+  expectation <- OpenMx::mxExpectationStateSpace(
     A = "beta",
     B = "gamma",
     C = "lambda",
@@ -65,7 +65,7 @@
     dimnames = paste0("y", idx)
   )
   if (par) {
-    mxOption(
+    OpenMx::mxOption(
       key = "Number of Threads",
       value = 1
     )
@@ -77,7 +77,7 @@
       cl = cl,
       X = ids,
       fun = function(i) {
-        model <- mxModel(
+        model <- OpenMx::mxModel(
           model = "DTVAR",
           beta,
           gamma,
@@ -89,13 +89,13 @@
           sigma0,
           x,
           expectation,
-          mxFitFunctionML(),
-          mxData(
+          OpenMx::mxFitFunctionML(),
+          OpenMx::mxData(
             observed = data[which(data[, id] == i), ],
             type = "raw"
           )
         )
-        mxTryHard(
+        OpenMx::mxTryHard(
           model = model,
           extraTries = try
         )
@@ -105,7 +105,7 @@
     output <- lapply(
       X = ids,
       FUN = function(i) {
-        model <- mxModel(
+        model <- OpenMx::mxModel(
           model = "DTVAR",
           beta,
           gamma,
@@ -117,13 +117,13 @@
           sigma0,
           x,
           expectation,
-          mxFitFunctionML(),
-          mxData(
+          OpenMx::mxFitFunctionML(),
+          OpenMx::mxData(
             observed = data[which(data[, id] == i), ],
             type = "raw"
           )
         )
-        mxTryHard(
+        OpenMx::mxTryHard(
           model = model,
           extraTries = try
         )

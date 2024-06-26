@@ -46,7 +46,7 @@
   mu0 <- .FitCTVARMu0(p = p)
   sigma0 <- .FitCTVARSigma0(p = p)
   x <- .FitCTVARX()
-  time <- mxMatrix(
+  time <- OpenMx::mxMatrix(
     "Full",
     nrow = 1,
     ncol = 1,
@@ -64,7 +64,7 @@
       par <- TRUE
     }
   }
-  expectation <- mxExpectationStateSpaceContinuousTime(
+  expectation <- OpenMx::mxExpectationStateSpaceContinuousTime(
     A = "phi",
     B = "gamma",
     C = "lambda",
@@ -78,7 +78,7 @@
     dimnames = varnames
   )
   if (par) {
-    mxOption(
+    OpenMx::mxOption(
       key = "Number of Threads",
       value = 1
     )
@@ -90,7 +90,7 @@
       cl = cl,
       X = ids,
       fun = function(i) {
-        model <- mxModel(
+        model <- OpenMx::mxModel(
           model = "CTVAR",
           phi,
           gamma,
@@ -103,13 +103,13 @@
           x,
           time,
           expectation,
-          mxFitFunctionML(),
-          mxData(
+          OpenMx::mxFitFunctionML(),
+          OpenMx::mxData(
             observed = data[which(data[, id] == i), ],
             type = "raw"
           )
         )
-        mxTryHard(
+        OpenMx::mxTryHard(
           model = model,
           extraTries = try
         )
@@ -119,7 +119,7 @@
     output <- lapply(
       X = ids,
       FUN = function(i) {
-        model <- mxModel(
+        model <- OpenMx::mxModel(
           model = "CTVAR",
           phi,
           gamma,
@@ -132,13 +132,13 @@
           x,
           time,
           expectation,
-          mxFitFunctionML(),
-          mxData(
+          OpenMx::mxFitFunctionML(),
+          OpenMx::mxData(
             observed = data[which(data[, id] == i), ],
             type = "raw"
           )
         )
-        mxTryHard(
+        OpenMx::mxTryHard(
           model = model,
           extraTries = try
         )

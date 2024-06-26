@@ -61,7 +61,10 @@ Fit First Order Continuous-Time Vector Autoregressive Model by ID
 \seealso{
 Other Meta-Analysis of VAR Functions: 
 \code{\link{FitDTVAR}()},
-\code{\link{Meta}()}
+\code{\link{Meta}()},
+\code{\link{Meta.default}()},
+\code{\link{Meta.metavarctvar}()},
+\code{\link{Meta.metavardtvar}()}
 }
 \author{
 Ivan Jacob Agaloos Pesigan

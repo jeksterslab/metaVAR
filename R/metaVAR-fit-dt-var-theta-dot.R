@@ -3,7 +3,7 @@
   # R
   # measurement error
   return(
-    mxMatrix(
+    OpenMx::mxMatrix(
       type = "Diag",
       nrow = p,
       ncol = p,

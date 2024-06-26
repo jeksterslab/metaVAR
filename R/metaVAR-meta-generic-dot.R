@@ -1,11 +1,11 @@
-.Meta <- function(y,
-                  vcov_y,
-                  n,
-                  p,
-                  mu_start = NULL,
-                  sigma_l_start = NULL,
-                  try = 1000,
-                  ncores = NULL) {
+.MetaGeneric <- function(y,
+                         vcov_y,
+                         n,
+                         p,
+                         mu_start = NULL,
+                         sigma_l_start = NULL,
+                         try = 1000,
+                         ncores = NULL) {
   varnames <- paste0(
     "y",
     seq_len(p)
@@ -22,7 +22,7 @@
   if (!is.null(ncores)) {
     ncores <- as.integer(ncores)
     if (ncores > 1) {
-      mxOption(
+      OpenMx::mxOption(
         key = "Number of Threads",
         value = ncores
       )
@@ -45,7 +45,7 @@
     length = n
   )
   for (i in seq_len(n)) {
-    model_i[[i]] <- mxModel(
+    model_i[[i]] <- OpenMx::mxModel(
       model = paste0(
         "Model_",
         i
@@ -53,30 +53,30 @@
       sigma_l,
       sigma,
       mu,
-      mxData(
+      OpenMx::mxData(
         type = "cov",
         observed = vcov_y[[i]],
         means = y[[i]],
         numObs = n
       ),
-      mxExpectationNormal(
+      OpenMx::mxExpectationNormal(
         covariance = "sigma",
         means = "mu"
       ),
-      mxFitFunctionML()
+      OpenMx::mxFitFunctionML()
     )
   }
-  model <- mxModel(
+  model <- OpenMx::mxModel(
     model = "Model",
     model_i,
-    mxFitFunctionMultigroup(
+    OpenMx::mxFitFunctionMultigroup(
       paste0(
         "Model_",
         seq_len(n)
       )
     )
   )
-  mxTryHard(
+  OpenMx::mxTryHard(
     model = model,
     extraTries = try
   )
