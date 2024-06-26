@@ -31,9 +31,6 @@
     <loc>https://github.com/jeksterslab/metaVAR/news/index.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/metaVAR/reference/FitCTVAR.html</loc>
-  </url>
-  <url>
     <loc>https://github.com/jeksterslab/metaVAR/reference/FitDTVAR.html</loc>
   </url>
   <url>
@@ -41,9 +38,6 @@
   </url>
   <url>
     <loc>https://github.com/jeksterslab/metaVAR/reference/Meta.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/metaVAR/reference/Meta.metavarctvar.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/metaVAR/reference/Meta.metavardtvar.html</loc>
@@ -55,16 +49,10 @@
     <loc>https://github.com/jeksterslab/metaVAR/reference/metaVAR-package.html</loc>
   </url>
   <url>
-    <loc>https://github.com/jeksterslab/metaVAR/reference/print.metavarctvar.html</loc>
-  </url>
-  <url>
     <loc>https://github.com/jeksterslab/metaVAR/reference/print.metavardtvar.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/metaVAR/reference/print.metavarmeta.html</loc>
-  </url>
-  <url>
-    <loc>https://github.com/jeksterslab/metaVAR/reference/summary.metavarctvar.html</loc>
   </url>
   <url>
     <loc>https://github.com/jeksterslab/metaVAR/reference/summary.metavardtvar.html</loc>
