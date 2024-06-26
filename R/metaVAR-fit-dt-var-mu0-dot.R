@@ -3,7 +3,7 @@
   # initial condition
   # mean
   return(
-    mxMatrix(
+    OpenMx::mxMatrix(
       type = "Full",
       nrow = p,
       ncol = 1,

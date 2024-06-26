@@ -57,7 +57,10 @@ Fit First Order Discrete-Time Vector Autoregressive Model by ID
 \seealso{
 Other Meta-Analysis of VAR Functions: 
 \code{\link{FitCTVAR}()},
-\code{\link{Meta}()}
+\code{\link{Meta}()},
+\code{\link{Meta.default}()},
+\code{\link{Meta.metavarctvar}()},
+\code{\link{Meta.metavardtvar}()}
 }
 \author{
 Ivan Jacob Agaloos Pesigan

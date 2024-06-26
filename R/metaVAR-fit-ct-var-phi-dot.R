@@ -55,7 +55,7 @@
     )
   }
   return(
-    mxMatrix(
+    OpenMx::mxMatrix(
       type = "Full",
       nrow = p,
       ncol = p,
