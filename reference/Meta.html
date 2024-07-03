@@ -33,7 +33,7 @@ from each individual."><!-- mathjax --><script src="https://cdnjs.cloudflare.com
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/mvn-dt-var.html">Multivariate Normal (Discrete-Time Vector Autoregressive Model)</a>
+    <a class="dropdown-item" href="../articles/fit-dt-var-id.html">Multivariate Meta-Analysis of VAR Estimates</a>
     <a class="dropdown-item" href="../articles/session.html">metaVAR: Session</a>
   </div>
 </li>
@@ -57,7 +57,7 @@ from each individual."><!-- mathjax --><script src="https://cdnjs.cloudflare.com
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Fit Multivariate Meta-Analysis</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jeksterslab/metaVAR/blob/HEAD/R/metaVAR-methods-meta-generic.R"><code>R/metaVAR-methods-meta-generic.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jeksterslab/metaVAR/blob/HEAD/R/metaVAR-meta.R"><code>R/metaVAR-meta.R</code></a></small>
       <div class="d-none name"><code>Meta.Rd</code></div>
     </div>
 
@@ -70,22 +70,41 @@ from each individual.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Meta</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Meta</span><span class="op">(</span><span class="va">y</span>, <span class="va">v</span>, mu_start <span class="op">=</span> <span class="cn">NULL</span>, sigma_l_start <span class="op">=</span> <span class="cn">NULL</span>, try <span class="op">=</span> <span class="fl">1000</span>, ncores <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>y</dt>
-<dd><p>R object.</p><ul><li><p>Object of class <code>metavarctvar</code>.</p></li>
-<li><p>Object of class <code>metavardtvar</code>.</p></li>
-<li><p>Object of class <code>list</code>
-each element of which is a numeric vector
-of estimated coefficients.</p></li>
-</ul></dd>
+<dd><p>A list.
+Each element of the list is a numeric vector
+of estimated coefficients.</p></dd>
 
 
-<dt>...</dt>
-<dd><p>Additional arguments.</p></dd>
+<dt>v</dt>
+<dd><p>A list.
+Each element of the list
+is a sampling variance-covariance matrix of <code>y</code>.</p></dd>
+
+
+<dt>mu_start</dt>
+<dd><p>Numeric matrix.
+Matrix of starting values of <code>mu</code>.</p></dd>
+
+
+<dt>sigma_l_start</dt>
+<dd><p>Numeric matrix.
+Matrix of starting values of <code>t(chol(sigma))</code>.</p></dd>
+
+
+<dt>try</dt>
+<dd><p>Positive integer.
+Number of extra tries for <code><a href="https://rdrr.io/pkg/OpenMx/man/mxTryHard.html" class="external-link">OpenMx::mxTryHard()</a></code>.</p></dd>
+
+
+<dt>ncores</dt>
+<dd><p>Positive integer.
+Number of cores to use.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -125,13 +144,6 @@ where
 in \(\boldsymbol{\mu}\) and \(\boldsymbol{\Sigma}\), and
 \(\mathbb{V} \left( \mathbf{y}_{i} \right)\)
 is the sampling variance-covariance matrix of \(\mathbf{y}_{i}\).</p>
-    </div>
-    <div class="section level2">
-    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Other Meta-Analysis of VAR Functions: 
-<code><a href="FitDTVAR.html">FitDTVAR</a>()</code>,
-<code><a href="Meta.default.html">Meta.default</a>()</code>,
-<code><a href="Meta.metavardtvar.html">Meta.metavardtvar</a>()</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
