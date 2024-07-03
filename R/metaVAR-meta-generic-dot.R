@@ -1,5 +1,5 @@
 .MetaGeneric <- function(y,
-                         vcov_y,
+                         v,
                          n,
                          p,
                          mu_start = NULL,
@@ -12,13 +12,13 @@
   )
   estimates <- .CheckEstimates(
     y = y,
-    vcov_y = vcov_y,
+    v = v,
     p = p,
     varnames = varnames,
     ncores = ncores
   )
   y <- estimates$y
-  vcov_y <- estimates$vcov_y
+  v <- estimates$v
   if (!is.null(ncores)) {
     ncores <- as.integer(ncores)
     if (ncores > 1) {
@@ -55,7 +55,7 @@
       mu,
       OpenMx::mxData(
         type = "cov",
-        observed = vcov_y[[i]],
+        observed = v[[i]],
         means = y[[i]],
         numObs = n
       ),

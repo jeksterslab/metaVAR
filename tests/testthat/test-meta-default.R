@@ -26,7 +26,7 @@ lapply(
             )
             list(
               y = colMeans(y),
-              vcov_y = cov(y)
+              v = cov(y)
             )
           },
           mu = mu,
@@ -46,7 +46,7 @@ lapply(
       lapply(
         X = sim,
         FUN = function(i) {
-          return(i$vcov_y)
+          return(i$v)
         }
       )
     }
@@ -56,10 +56,10 @@ lapply(
       sigma = sigma
     )
     y <- bar(sim)
-    vcov_y <- baz(sim)
+    v <- baz(sim)
     meta <- Meta(
       y = y,
-      vcov_y = vcov_y,
+      v = v,
       mu_start = NULL,
       sigma_l_start = NULL,
       try = 1000,
@@ -73,14 +73,14 @@ lapply(
             abs(
               c(
                 c(
+                  mu,
                   sigma[
                     lower.tri(
                       x = sigma,
                       diag = TRUE
                     )
                   ]
-                ),
-                mu
+                )
               ) - round(
                 x = summary(meta)[, "est"],
                 digits = 2

@@ -16,9 +16,9 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 Depends:
-    R (>= 3.5.0)
+    R (>= 3.5.0),
+    OpenMx
 Imports:
-    OpenMx,
     numDeriv,
     Matrix
 Suggests:
@@ -26,4 +26,4 @@ Suggests:
     rmarkdown,
     testthat,
     simStateSpace
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2

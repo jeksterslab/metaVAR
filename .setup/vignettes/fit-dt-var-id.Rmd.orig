@@ -1,9 +1,16 @@
 ---
-title: "Multivariate Normal (Discrete-Time Vector Autoregressive Model)"
+title: "Multivariate Meta-Analysis of VAR Estimates"
 author: Ivan Jacob Agaloos Pesigan
+date: "`r Sys.Date()`"
+bibliography: "vignettes.bib"
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
+nocite: |
+  @RCoreTeam-2024
+  @Neale-Hunter-Pritikin-etal-2015
+  @Hunter-2017
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Multivariate Normal (Discrete-Time Vector Autoregressive Model)}
+  %\VignetteIndexEntry{Multivariate Meta-Analysis of VAR Estimates}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,7 +19,7 @@ vignette: >
 #| include = FALSE
 knitr::opts_chunk$set(
   collapse = TRUE,
-  fig.path = "fig-vignettes-mvn-dt-var-",
+  fig.path = "fig-vignettes-fit-dt-var-id-mx-",
   fig.cap = "",
   fig.width = 11,
   fig.height = 8,
@@ -239,8 +246,6 @@ and covariance matrix
 \right) .
 \end{equation}
 
-> **_NOTE:_**  This example depends on the development version of simStateSpace (1.2.1.9000).
-
 The SimBetaN function from the simStateSpace package generates random transition matrices from the multivariate normal distribution. Note that the function generates transition matrices that are weakly stationary.
 
 Let the dynamic process noise $\boldsymbol{\Psi}$ be given by
@@ -315,20 +320,16 @@ plot(sim)
 
 ## Model Fitting
 
-The FitDTVAR function fits a DT-VAR model on each individual $i$.
-
-
-```{r}
-#| include = FALSE
-library(metaVAR)
-```
+The FitDTVARIDMx function fits a DT-VAR model on each individual $i$.
 
 ```{r}
-library(metaVAR)
-fit <- FitDTVAR(
+library(fitDTVARMx)
+fit <- FitDTVARIDMx(
   data = data,
   observed = paste0("y", seq_len(k)),
   id = "id",
+  beta_start = beta_mu,
+  psi_start = psi,
   ncores = parallel::detectCores()
 )
 fit
@@ -338,11 +339,38 @@ fit
 
 The Meta function performs multivariate meta-analysis using the estimated transition matrices $\boldsymbol{\beta}$
 and the corresponding sampling variance-covariance matrix for each individual $i$.
+The estimates and the sampling variance-covariance matrix for each individual $i$
+can be extracted from `fit` using the `coef` and `vcov` functions, respectively.
+Using the argument `psi = FALSE` excludes the process noise estimates.
 
 ```{r}
+library(metaVAR)
 meta <- Meta(
-  fit,
+  y = coef(fit, psi = FALSE),
+  v = vcov(fit, psi = FALSE),
   ncores = parallel::detectCores()
 )
 summary(meta)
+```
+
+The `coef` and `vcov` functions extract the estimated mean vector and covariance matrix from the output of the `Meta` function.
+
+```{r}
+coef(meta)
+vcov(meta)
+```
+
+The following shows the difference between the estimated mean vector and covariance matrix and the population values.
+
+```{r}
+tol <- 0.1
+all(abs(coef(meta) - c(beta_mu)) <= tol)
+all(abs(c(vcov(meta)) - c(beta_sigma)) <= tol)
+```
+
+## References
+
+```{r}
+#| include = FALSE
+rm(list = ls())
 ```
