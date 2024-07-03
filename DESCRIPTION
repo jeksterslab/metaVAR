@@ -16,12 +16,12 @@ BugReports: https://github.com/jeksterslab/metaVAR/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-Depends: R (>= 3.5.0)
-Imports: OpenMx, numDeriv, Matrix
+Depends: R (>= 3.5.0), OpenMx
+Imports: numDeriv, Matrix
 Suggests: knitr, rmarkdown, testthat, simStateSpace
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2024-06-26 23:07:21 UTC; root
+Packaged: 2024-07-03 06:29:13 UTC; root
 Author: Ivan Jacob Agaloos Pesigan [aut, cre, cph]
     (<https://orcid.org/0000-0003-4818-8420>)
 Maintainer: Ivan Jacob Agaloos Pesigan <r.jeksterslab@gmail.com>

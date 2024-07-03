@@ -1,5 +1,5 @@
 .CheckEstimates <- function(y,
-                            vcov_y,
+                            v,
                             p,
                             varnames,
                             ncores = NULL) {
@@ -23,9 +23,9 @@
         return(x)
       }
     )
-    vcov_y <- parallel::parLapply(
+    v <- parallel::parLapply(
       cl = cl,
-      X = vcov_y,
+      X = v,
       fun = function(x) {
         if (
           any(
@@ -52,8 +52,8 @@
         return(x)
       }
     )
-    vcov_y <- lapply(
-      X = vcov_y,
+    v <- lapply(
+      X = v,
       FUN = function(x) {
         if (
           any(
@@ -76,7 +76,7 @@
   return(
     list(
       y = y,
-      vcov_y = vcov_y
+      v = v
     )
   )
 }

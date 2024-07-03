@@ -10,6 +10,7 @@
       paste0(
         "sigma_",
         x,
+        "_",
         y
       )
     }
@@ -25,8 +26,8 @@
     seq_len(p)
   )
   varnames <- c(
-    sigma_names,
-    mu_names
+    mu_names,
+    sigma_names
   )
   chol2cov <- function(x,
                        p,
@@ -40,13 +41,13 @@
     sigma <- sigma_l %*% t(sigma_l)
     out <- unname(
       c(
+        x[(k + 1):length(x)],
         sigma[
           lower.tri(
             x = sigma,
             diag = TRUE
           )
-        ],
-        x[(k + 1):length(x)]
+        ]
       )
     )
     return(

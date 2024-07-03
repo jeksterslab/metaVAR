@@ -43,7 +43,12 @@
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
-#' @param y Object of class `metavardtvar`.
+#' @param y A list.
+#'   Each element of the list is a numeric vector
+#'   of estimated coefficients.
+#' @param v A list.
+#'   Each element of the list
+#'   is a sampling variance-covariance matrix of `y`.
 #' @param mu_start Numeric matrix.
 #'   Matrix of starting values of `mu`.
 #' @param sigma_l_start Numeric matrix.
@@ -52,26 +57,54 @@
 #'   Number of extra tries for [OpenMx::mxTryHard()].
 #' @param ncores Positive integer.
 #'   Number of cores to use.
-#' @param ... Additional arguments.
 #'
 #' @family Meta-Analysis of VAR Functions
 #' @keywords metaVAR meta
+#' @import OpenMx
 #' @importFrom stats coef vcov
-#' @importFrom Matrix nearPD
 #' @export
-Meta.metavardtvar <- function(y,
-                              mu_start = NULL,
-                              sigma_l_start = NULL,
-                              try = 1000,
-                              ncores = NULL,
-                              ...) {
-  return(
-    .MetaMx(
-      object = y,
-      mu_start = mu_start,
-      sigma_l_start = sigma_l_start,
-      try = try,
-      ncores = ncores
+Meta <- function(y,
+                 v,
+                 mu_start = NULL,
+                 sigma_l_start = NULL,
+                 try = 1000,
+                 ncores = NULL) {
+  n <- length(y)
+  p <- length(y[[1]])
+  args <- list(
+    y = y,
+    v = v,
+    n = n,
+    p = p,
+    mu_start = mu_start,
+    sigma_l_start = sigma_l_start,
+    try = try,
+    ncores = ncores
+  )
+  output <- .MetaGeneric(
+    y = y,
+    v = v,
+    n = n,
+    p = p,
+    mu_start = mu_start,
+    sigma_l_start = sigma_l_start,
+    try = try,
+    ncores = ncores
+  )
+  out <- list(
+    call = match.call(),
+    args = args,
+    fun = "Meta",
+    output = output,
+    transform = .Transform(
+      coef = coef(output),
+      vcov = vcov(output),
+      p = p
     )
   )
+  class(out) <- c(
+    "metavarmeta",
+    class(out)
+  )
+  return(out)
 }
