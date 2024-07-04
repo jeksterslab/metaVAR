@@ -70,7 +70,18 @@ from each individual.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Meta</span><span class="op">(</span><span class="va">y</span>, <span class="va">v</span>, mu_start <span class="op">=</span> <span class="cn">NULL</span>, sigma_l_start <span class="op">=</span> <span class="cn">NULL</span>, try <span class="op">=</span> <span class="fl">1000</span>, ncores <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Meta</span><span class="op">(</span></span>
+<span>  <span class="va">y</span>,</span>
+<span>  <span class="va">v</span>,</span>
+<span>  mu_start <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mu_lbound <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mu_ubound <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sigma_l_start <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sigma_l_lbound <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sigma_l_ubound <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  try <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  ncores <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -88,13 +99,33 @@ is a sampling variance-covariance matrix of <code>y</code>.</p></dd>
 
 
 <dt>mu_start</dt>
-<dd><p>Numeric matrix.
-Matrix of starting values of <code>mu</code>.</p></dd>
+<dd><p>Numeric vector.
+Optional vector of starting values for <code>mu</code>.</p></dd>
+
+
+<dt>mu_lbound</dt>
+<dd><p>Numeric vector.
+Optional vector of lower bound values for <code>mu</code>.</p></dd>
+
+
+<dt>mu_ubound</dt>
+<dd><p>Numeric vector.
+Optional vector of upper bound values for <code>mu</code>.</p></dd>
 
 
 <dt>sigma_l_start</dt>
 <dd><p>Numeric matrix.
-Matrix of starting values of <code>t(chol(sigma))</code>.</p></dd>
+Optional matrix of starting values for <code>t(chol(sigma))</code>.</p></dd>
+
+
+<dt>sigma_l_lbound</dt>
+<dd><p>Numeric matrix.
+Optional matrix of lower bound values for <code>t(chol(sigma))</code>.</p></dd>
+
+
+<dt>sigma_l_ubound</dt>
+<dd><p>Numeric matrix.
+Optional matrix of upper bound values for <code>t(chol(sigma))</code>.</p></dd>
 
 
 <dt>try</dt>
