@@ -246,7 +246,7 @@ and covariance matrix
 \right) .
 \end{equation}
 
-The SimBetaN function from the simStateSpace package generates random transition matrices from the multivariate normal distribution. Note that the function generates transition matrices that are weakly stationary.
+The `SimBetaN` function from the `simStateSpace` package generates random transition matrices from the multivariate normal distribution. Note that the function generates transition matrices that are weakly stationary.
 
 Let the dynamic process noise $\boldsymbol{\Psi}$ be given by
 
@@ -300,7 +300,7 @@ sim <- SimSSMVARIVary(
 plot(sim, type = "l")
 ```
 
-### Using the SimSSMVARIVary Function from the simStateSpace Package to Simulate Data
+### Using the `SimSSMVARIVary` Function from the `simStateSpace` Package to Simulate Data
 
 ```{r error}
 library(simStateSpace)
@@ -320,7 +320,7 @@ plot(sim)
 
 ## Model Fitting
 
-The FitDTVARIDMx function fits a DT-VAR model on each individual $i$.
+The `FitDTVARIDMx` function from the `fitDTVARMx` package fits a DT-VAR model on each individual $i$.
 
 ```{r}
 library(fitDTVARMx)
@@ -337,29 +337,26 @@ fit
 
 ## Multivariate Meta-Analysis
 
-The Meta function performs multivariate meta-analysis using the estimated transition matrices $\boldsymbol{\beta}$
+The `MetaVAR` function performs multivariate meta-analysis using the estimated transition matrices $\boldsymbol{\beta}$
 and the corresponding sampling variance-covariance matrix for each individual $i$.
-The estimates and the sampling variance-covariance matrix for each individual $i$
-can be extracted from `fit` using the `coef` and `vcov` functions, respectively.
-Using the argument `psi = FALSE` excludes the process noise estimates.
 
 ```{r}
 library(metaVAR)
-meta <- Meta(
-  y = coef(fit),
-  v = vcov(fit),
+meta <- MetaVAR(
+  object = fit,
   ncores = parallel::detectCores()
 )
 summary(meta)
 ```
 
-The `coef` and `vcov` functions extract the estimated mean vector and covariance matrix from the output of the `Meta` function.
+The `coef` and `vcov` functions extract the estimated mean vector and covariance matrix from the output of the `MetaVAR` function.
 
 ```{r}
 coef(meta)
 vcov(meta)
 ```
 
+<!--
 The following shows the difference between the estimated mean vector and covariance matrix and the population values.
 
 ```{r}
@@ -367,6 +364,7 @@ tol <- 0.1
 all(abs(coef(meta) - c(beta_mu)) <= tol)
 all(abs(c(vcov(meta)) - c(beta_sigma)) <= tol)
 ```
+-->
 
 ## References
 

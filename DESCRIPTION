@@ -20,7 +20,10 @@ Depends:
     OpenMx
 Imports:
     numDeriv,
-    Matrix
+    Matrix,
+    fitDTVARMx
+Remotes:
+    jeksterslab/fitDTVARMx
 Suggests:
     knitr,
     rmarkdown,
