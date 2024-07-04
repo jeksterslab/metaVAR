@@ -49,10 +49,18 @@
 #' @param v A list.
 #'   Each element of the list
 #'   is a sampling variance-covariance matrix of `y`.
-#' @param mu_start Numeric matrix.
-#'   Matrix of starting values of `mu`.
+#' @param mu_start Numeric vector.
+#'   Optional vector of starting values for `mu`.
+#' @param mu_lbound Numeric vector.
+#'   Optional vector of lower bound values for `mu`.
+#' @param mu_ubound Numeric vector.
+#'   Optional vector of upper bound values for `mu`.
 #' @param sigma_l_start Numeric matrix.
-#'   Matrix of starting values of `t(chol(sigma))`.
+#'   Optional matrix of starting values for `t(chol(sigma))`.
+#' @param sigma_l_lbound Numeric matrix.
+#'   Optional matrix of lower bound values for `t(chol(sigma))`.
+#' @param sigma_l_ubound Numeric matrix.
+#'   Optional matrix of upper bound values for `t(chol(sigma))`.
 #' @param try Positive integer.
 #'   Number of extra tries for [OpenMx::mxTryHard()].
 #' @param ncores Positive integer.
@@ -66,7 +74,11 @@
 Meta <- function(y,
                  v,
                  mu_start = NULL,
+                 mu_lbound = NULL,
+                 mu_ubound = NULL,
                  sigma_l_start = NULL,
+                 sigma_l_lbound = NULL,
+                 sigma_l_ubound = NULL,
                  try = 1000,
                  ncores = NULL) {
   n <- length(y)
@@ -77,7 +89,11 @@ Meta <- function(y,
     n = n,
     p = p,
     mu_start = mu_start,
+    mu_lbound = mu_lbound,
+    mu_ubound = mu_ubound,
     sigma_l_start = sigma_l_start,
+    sigma_l_lbound = sigma_l_lbound,
+    sigma_l_ubound = sigma_l_ubound,
     try = try,
     ncores = ncores
   )
@@ -87,7 +103,11 @@ Meta <- function(y,
     n = n,
     p = p,
     mu_start = mu_start,
+    mu_lbound = mu_lbound,
+    mu_ubound = mu_ubound,
     sigma_l_start = sigma_l_start,
+    sigma_l_lbound = sigma_l_lbound,
+    sigma_l_ubound = sigma_l_ubound,
     try = try,
     ncores = ncores
   )

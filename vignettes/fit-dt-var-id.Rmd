@@ -1,7 +1,7 @@
 ---
 title: "Multivariate Meta-Analysis of VAR Estimates"
 author: Ivan Jacob Agaloos Pesigan
-date: "2024-07-03"
+date: "2024-07-04"
 bibliography: "vignettes.bib"
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
 nocite: |
@@ -357,8 +357,8 @@ Using the argument `psi = FALSE` excludes the process noise estimates.
 ``` r
 library(metaVAR)
 meta <- Meta(
-  y = coef(fit, psi = FALSE),
-  v = vcov(fit, psi = FALSE),
+  y = coef(fit),
+  v = vcov(fit),
   ncores = parallel::detectCores()
 )
 #> Running Model with 54 parameters
@@ -382,6 +382,7 @@ meta <- Meta(
 
 ``` r
 summary(meta)
+#> $estimates
 #>                           est     se        z      p    2.5%   97.5%
 #> mu_beta_11             0.6805 0.0010 667.9590 0.0000  0.6785  0.6825
 #> mu_beta_21             0.4911 0.0011 440.4851 0.0000  0.4890  0.4933
@@ -437,6 +438,10 @@ summary(meta)
 #> sigma_beta_23_beta_23  0.0122 0.0002  70.7106 0.0000  0.0119  0.0126
 #> sigma_beta_33_beta_23 -0.0010 0.0001  -8.7604 0.0000 -0.0012 -0.0007
 #> sigma_beta_33_beta_33  0.0096 0.0001  70.7107 0.0000  0.0094  0.0099
+#> 
+#> $heterogeneity
+#> beta_11 beta_21 beta_31 beta_12 beta_22 beta_32 beta_13 beta_23 beta_33 
+#>  0.9441  0.9530  0.9526  0.9553  0.9445  0.9639  0.9576  0.9634  0.9540
 ```
 
 The `coef` and `vcov` functions extract the estimated mean vector and covariance matrix from the output of the `Meta` function.

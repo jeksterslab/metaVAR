@@ -1,5 +1,5 @@
-.MetaAverageWithin <- function(v,
-                               n) {
+.AverageWithin <- function(v,
+                           n) {
   sum_v_inv <- colSums(
     do.call(
       what = "rbind",

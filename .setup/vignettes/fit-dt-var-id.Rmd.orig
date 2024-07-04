@@ -346,8 +346,8 @@ Using the argument `psi = FALSE` excludes the process noise estimates.
 ```{r}
 library(metaVAR)
 meta <- Meta(
-  y = coef(fit, psi = FALSE),
-  v = vcov(fit, psi = FALSE),
+  y = coef(fit),
+  v = vcov(fit),
   ncores = parallel::detectCores()
 )
 summary(meta)

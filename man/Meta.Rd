@@ -4,7 +4,18 @@
 \alias{Meta}
 \title{Fit Multivariate Meta-Analysis}
 \usage{
-Meta(y, v, mu_start = NULL, sigma_l_start = NULL, try = 1000, ncores = NULL)
+Meta(
+  y,
+  v,
+  mu_start = NULL,
+  mu_lbound = NULL,
+  mu_ubound = NULL,
+  sigma_l_start = NULL,
+  sigma_l_lbound = NULL,
+  sigma_l_ubound = NULL,
+  try = 1000,
+  ncores = NULL
+)
 }
 \arguments{
 \item{y}{A list.
@@ -15,11 +26,23 @@ of estimated coefficients.}
 Each element of the list
 is a sampling variance-covariance matrix of \code{y}.}
 
-\item{mu_start}{Numeric matrix.
-Matrix of starting values of \code{mu}.}
+\item{mu_start}{Numeric vector.
+Optional vector of starting values for \code{mu}.}
+
+\item{mu_lbound}{Numeric vector.
+Optional vector of lower bound values for \code{mu}.}
+
+\item{mu_ubound}{Numeric vector.
+Optional vector of upper bound values for \code{mu}.}
 
 \item{sigma_l_start}{Numeric matrix.
-Matrix of starting values of \code{t(chol(sigma))}.}
+Optional matrix of starting values for \code{t(chol(sigma))}.}
+
+\item{sigma_l_lbound}{Numeric matrix.
+Optional matrix of lower bound values for \code{t(chol(sigma))}.}
+
+\item{sigma_l_ubound}{Numeric matrix.
+Optional matrix of upper bound values for \code{t(chol(sigma))}.}
 
 \item{try}{Positive integer.
 Number of extra tries for \code{\link[OpenMx:mxTryHard]{OpenMx::mxTryHard()}}.}
