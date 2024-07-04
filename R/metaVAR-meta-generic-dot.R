@@ -3,7 +3,11 @@
                          n,
                          p,
                          mu_start = NULL,
+                         mu_lbound = NULL,
+                         mu_ubound = NULL,
                          sigma_l_start = NULL,
+                         sigma_l_lbound = NULL,
+                         sigma_l_ubound = NULL,
                          try = 1000,
                          ncores = NULL) {
   varnames <- paste0(
@@ -31,12 +35,16 @@
   mu <- .MetaMu(
     p = p,
     varnames = varnames,
-    mu_start = mu_start
+    mu_start = mu_start,
+    mu_lbound = mu_lbound,
+    mu_ubound = mu_ubound
   )
   sigma <- .MetaSigma(
     p = p,
     varnames = varnames,
-    sigma_l_start = sigma_l_start
+    sigma_l_start = sigma_l_start,
+    sigma_l_lbound = sigma_l_lbound,
+    sigma_l_ubound = sigma_l_ubound
   )
   sigma_l <- sigma$sigma_l
   sigma <- sigma$sigma
@@ -76,8 +84,10 @@
       )
     )
   )
-  OpenMx::mxTryHard(
-    model = model,
-    extraTries = try
+  return(
+    OpenMx::mxTryHard(
+      model = model,
+      extraTries = try
+    )
   )
 }

@@ -58,10 +58,17 @@ print.metavarmeta <- function(x,
       ]
     )
   }
+  het <- .I2(object = x)
   base::print(
-    round(
-      x = ci,
-      digits = digits
+    list(
+      estimates = round(
+        x = ci,
+        digits = digits
+      ),
+      heterogeneity = round(
+        x = het,
+        digits = digits
+      )
     )
   )
 }
@@ -126,10 +133,17 @@ summary.metavarmeta <- function(object,
       ]
     )
   }
+  het <- .I2(object = object)
   return(
-    round(
-      x = ci,
-      digits = digits
+    list(
+      estimates = round(
+        x = ci,
+        digits = digits
+      ),
+      heterogeneity = round(
+        x = het,
+        digits = digits
+      )
     )
   )
 }
@@ -148,18 +162,7 @@ summary.metavarmeta <- function(object,
 #' @export
 coef.metavarmeta <- function(object,
                              ...) {
-  ci <- .CIWald(
-    est = object$transform$est,
-    se = sqrt(
-      diag(
-        object$transform$vcov
-      )
-    ),
-    theta = 0,
-    alpha = 0.05,
-    z = TRUE,
-    test = FALSE
-  )
+  est <- object$transform$est
   parnames <- names(object$args$y[[1]])
   if (!is.null(parnames)) {
     v_names <- matrix(
@@ -179,7 +182,7 @@ coef.metavarmeta <- function(object,
         }
       }
     }
-    rownames(ci) <- c(
+    names(est) <- c(
       paste0(
         "mu_",
         parnames
@@ -194,9 +197,8 @@ coef.metavarmeta <- function(object,
   }
   idx <- grep(
     pattern = "^mu_",
-    x = rownames(ci)
+    x = names(est)
   )
-  est <- ci[, "est"]
   est <- est[idx]
   if (!is.null(parnames)) {
     names(est) <- parnames
@@ -218,18 +220,7 @@ coef.metavarmeta <- function(object,
 #' @export
 vcov.metavarmeta <- function(object,
                              ...) {
-  ci <- .CIWald(
-    est = object$transform$est,
-    se = sqrt(
-      diag(
-        object$transform$vcov
-      )
-    ),
-    theta = 0,
-    alpha = 0.05,
-    z = TRUE,
-    test = FALSE
-  )
+  est <- object$transform$est
   parnames <- names(object$args$y[[1]])
   if (!is.null(parnames)) {
     v_names <- matrix(
@@ -249,7 +240,7 @@ vcov.metavarmeta <- function(object,
         }
       }
     }
-    rownames(ci) <- c(
+    names(est) <- c(
       paste0(
         "mu_",
         parnames
@@ -264,9 +255,8 @@ vcov.metavarmeta <- function(object,
   }
   idx <- grep(
     pattern = "^sigma_",
-    x = rownames(ci)
+    x = names(est)
   )
-  est <- ci[, "est"]
   sym <- matrix(
     data = 0,
     nrow = object$args$p,

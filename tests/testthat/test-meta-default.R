@@ -82,7 +82,7 @@ lapply(
                   ]
                 )
               ) - round(
-                x = summary(meta)[, "est"],
+                x = summary(meta)$estimates[, "est"],
                 digits = 2
               )
             ) <= tol
