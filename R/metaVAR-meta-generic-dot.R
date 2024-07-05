@@ -85,7 +85,7 @@
     )
   )
   return(
-    OpenMx::mxTryHard(
+    OpenMx::mxTryHardctsem(
       model = model,
       extraTries = try
     )
