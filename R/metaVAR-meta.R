@@ -62,7 +62,7 @@
 #' @param sigma_l_ubound Numeric matrix.
 #'   Optional matrix of upper bound values for `t(chol(sigma))`.
 #' @param try Positive integer.
-#'   Number of extra tries for [OpenMx::mxTryHard()].
+#'   Number of extra optimization tries.
 #' @param ncores Positive integer.
 #'   Number of cores to use.
 #'
