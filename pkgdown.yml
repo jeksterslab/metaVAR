@@ -2,10 +2,11 @@ pandoc: 3.2.1
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
+  fit-ct-var-id: fit-ct-var-id.html
   fit-dt-var-id: fit-dt-var-id.html
   metaVAR: metaVAR.html
   session: session.html
-last_built: 2024-07-05T20:08Z
+last_built: 2024-07-07T07:54Z
 urls:
   reference: https://github.com/jeksterslab/metaVAR/reference
   article: https://github.com/jeksterslab/metaVAR/articles
