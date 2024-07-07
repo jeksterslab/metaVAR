@@ -1,5 +1,5 @@
 ---
-title: "Multivariate Meta-Analysis of VAR Estimates"
+title: "Multivariate Meta-Analysis of Discrete-Time VAR Estimates"
 author: Ivan Jacob Agaloos Pesigan
 date: "`r Sys.Date()`"
 bibliography: "vignettes.bib"
@@ -10,7 +10,7 @@ nocite: |
   @Hunter-2017
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Multivariate Meta-Analysis of VAR Estimates}
+  %\VignetteIndexEntry{Multivariate Meta-Analysis of Discrete-Time VAR Estimates}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -284,7 +284,7 @@ psi_l
 library(simStateSpace)
 sim <- SimSSMVARIVary(
   n = 5,
-  time = 20,
+  time = 50,
   mu0 = mu0,
   sigma0_l = sigma0_l,
   alpha = alpha,
@@ -320,7 +320,12 @@ plot(sim)
 
 ## Model Fitting
 
-The `FitDTVARIDMx` function from the `fitDTVARMx` package fits a DT-VAR model on each individual $i$.
+The `FitDTVARIDMx` function fits a DT-VAR model on each individual $i$.
+
+```{r}
+#| include = FALSE
+library(fitDTVARMx)
+```
 
 ```{r}
 library(fitDTVARMx)
@@ -328,8 +333,6 @@ fit <- FitDTVARIDMx(
   data = data,
   observed = paste0("y", seq_len(k)),
   id = "id",
-  beta_start = beta_mu,
-  psi_start = psi,
   ncores = parallel::detectCores()
 )
 fit
@@ -337,19 +340,19 @@ fit
 
 ## Multivariate Meta-Analysis
 
-The `MetaVAR` function performs multivariate meta-analysis using the estimated transition matrices $\boldsymbol{\beta}$
+The `MetaVARMx` function performs multivariate meta-analysis using the estimated parameters
 and the corresponding sampling variance-covariance matrix for each individual $i$.
 
 ```{r}
 library(metaVAR)
-meta <- MetaVAR(
+meta <- MetaVARMx(
   object = fit,
   ncores = parallel::detectCores()
 )
 summary(meta)
 ```
 
-The `coef` and `vcov` functions extract the estimated mean vector and covariance matrix from the output of the `MetaVAR` function.
+The `coef` and `vcov` functions extract the estimated mean vector and covariance matrix from the output of the `MetaVARMx` function.
 
 ```{r}
 coef(meta)

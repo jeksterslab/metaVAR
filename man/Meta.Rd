@@ -95,7 +95,7 @@ is the sampling variance-covariance matrix of \eqn{\mathbf{y}_{i}}.
 }
 \seealso{
 Other Meta-Analysis of VAR Functions: 
-\code{\link{MetaVAR}()}
+\code{\link{MetaVARMx}()}
 }
 \author{
 Ivan Jacob Agaloos Pesigan

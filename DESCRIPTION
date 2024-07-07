@@ -21,9 +21,11 @@ Depends:
 Imports:
     numDeriv,
     Matrix,
-    fitDTVARMx
+    fitDTVARMx,
+    fitCTVARMx
 Remotes:
-    jeksterslab/fitDTVARMx
+    jeksterslab/fitDTVARMx,
+    jeksterslab/fitCTVARMx
 Suggests:
     knitr,
     rmarkdown,
