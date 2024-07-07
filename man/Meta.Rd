@@ -45,7 +45,7 @@ Optional matrix of lower bound values for \code{t(chol(sigma))}.}
 Optional matrix of upper bound values for \code{t(chol(sigma))}.}
 
 \item{try}{Positive integer.
-Number of extra tries for \code{\link[OpenMx:mxTryHard]{OpenMx::mxTryHard()}}.}
+Number of extra optimization tries.}
 
 \item{ncores}{Positive integer.
 Number of cores to use.}
