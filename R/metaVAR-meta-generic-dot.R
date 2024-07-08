@@ -23,6 +23,7 @@
   )
   y <- estimates$y
   v <- estimates$v
+  # nocov start
   if (!is.null(ncores)) {
     ncores <- as.integer(ncores)
     if (ncores > 1) {
@@ -32,6 +33,7 @@
       )
     }
   }
+  # nocov end
   mu <- .MetaMu(
     p = p,
     varnames = varnames,

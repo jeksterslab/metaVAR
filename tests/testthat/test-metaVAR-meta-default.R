@@ -60,8 +60,12 @@ lapply(
     meta <- Meta(
       y = y,
       v = v,
-      mu_start = NULL,
-      sigma_l_start = NULL,
+      mu_start = mu,
+      mu_lbound = rep(x = NA, times = p),
+      mu_ubound = rep(x = NA, times = p),
+      sigma_l_start = t(chol(sigma)),
+      sigma_l_lbound = matrix(data = NA, nrow = p, ncol = p),
+      sigma_l_ubound = matrix(data = NA, nrow = p, ncol = p),
       try = 1000,
       ncores = NULL
     )
