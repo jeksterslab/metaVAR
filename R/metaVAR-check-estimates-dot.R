@@ -4,13 +4,33 @@
                             varnames,
                             ncores = NULL) {
   par <- FALSE
+  # nocov start
   if (!is.null(ncores)) {
     ncores <- as.integer(ncores)
     if (ncores > 1) {
       par <- TRUE
     }
   }
+  foo <- function(x) {
+    if (
+      any(
+        eigen(
+          x = x,
+          symmetric = TRUE,
+          only.values = TRUE
+        )$values <= 1e-06
+      )
+    ) {
+      x <- as.matrix(
+        Matrix::nearPD(x)$mat
+      )
+    }
+    colnames(x) <- rownames(x) <- varnames
+    return(x)
+  }
+  # nocov end
   if (par) {
+    # nocov start
     cl <- parallel::makeCluster(ncores)
     on.exit(
       parallel::stopCluster(cl = cl)
@@ -26,24 +46,9 @@
     v <- parallel::parLapply(
       cl = cl,
       X = v,
-      fun = function(x) {
-        if (
-          any(
-            eigen(
-              x = x,
-              symmetric = TRUE,
-              only.values = TRUE
-            )$values <= 1e-06
-          )
-        ) {
-          x <- as.matrix(
-            Matrix::nearPD(x)$mat
-          )
-        }
-        colnames(x) <- rownames(x) <- varnames
-        return(x)
-      }
+      fun = foo
     )
+    # nocov end
   } else {
     y <- lapply(
       X = y,
@@ -54,23 +59,7 @@
     )
     v <- lapply(
       X = v,
-      FUN = function(x) {
-        if (
-          any(
-            eigen(
-              x = x,
-              symmetric = TRUE,
-              only.values = TRUE
-            )$values <= 1e-06
-          )
-        ) {
-          x <- as.matrix(
-            Matrix::nearPD(x)$mat
-          )
-        }
-        colnames(x) <- rownames(x) <- varnames
-        return(x)
-      }
+      FUN = foo
     )
   }
   return(
