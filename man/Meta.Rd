@@ -93,6 +93,15 @@ in \eqn{\boldsymbol{\mu}} and \eqn{\boldsymbol{\Sigma}}, and
 \eqn{\mathbb{V} \left( \mathbf{y}_{i} \right)}
 is the sampling variance-covariance matrix of \eqn{\mathbf{y}_{i}}.
 }
+\references{
+Neale, M. C., Hunter, M. D., Pritikin, J. N.,
+Zahery, M., Brick, T. R., Kirkpatrick, R. M., Estabrook, R.,
+Bates, T. C., Maes, H. H., & Boker, S. M. (2015).
+OpenMx 2.0: Extended structural equation and statistical modeling.
+\emph{Psychometrika},
+\emph{81}(2), 535–549.
+\doi{10.1007/s11336-014-9435-8}
+}
 \seealso{
 Other Meta-Analysis of VAR Functions: 
 \code{\link{MetaVARMx}()}

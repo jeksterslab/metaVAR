@@ -66,6 +66,15 @@
 #' @param ncores Positive integer.
 #'   Number of cores to use.
 #'
+#' @references
+#' Neale, M. C., Hunter, M. D., Pritikin, J. N.,
+#' Zahery, M., Brick, T. R., Kirkpatrick, R. M., Estabrook, R.,
+#' Bates, T. C., Maes, H. H., & Boker, S. M. (2015).
+#' OpenMx 2.0: Extended structural equation and statistical modeling.
+#' *Psychometrika*,
+#' *81*(2), 535–549.
+#' \doi{10.1007/s11336-014-9435-8}
+#'
 #' @family Meta-Analysis of VAR Functions
 #' @keywords metaVAR meta
 #' @import OpenMx
