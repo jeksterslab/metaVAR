@@ -316,6 +316,8 @@ fit
 The `MetaVARMx` function performs multivariate meta-analysis using the estimated parameters
 and the corresponding sampling variance-covariance matrix for each individual $i$.
 
+> **Note:** By default, the `MetaVARMx` function estimates all the elements of the symmetric covariance matrix $\boldsymbol{\Sigma}$. Setting `diag = TRUE` constrains $\boldsymbol{\Sigma}$ to be a diagonal matrix.
+
 
 ``` r
 library(metaVAR)

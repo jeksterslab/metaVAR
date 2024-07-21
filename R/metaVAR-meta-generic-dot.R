@@ -8,6 +8,7 @@
                          sigma_l_start = NULL,
                          sigma_l_lbound = NULL,
                          sigma_l_ubound = NULL,
+                         diag = FALSE,
                          try = 1000,
                          ncores = NULL) {
   varnames <- paste0(
@@ -46,7 +47,8 @@
     varnames = varnames,
     sigma_l_start = sigma_l_start,
     sigma_l_lbound = sigma_l_lbound,
-    sigma_l_ubound = sigma_l_ubound
+    sigma_l_ubound = sigma_l_ubound,
+    diag = diag
   )
   sigma_l <- sigma$sigma_l
   sigma <- sigma$sigma

@@ -61,6 +61,11 @@
 #'   Optional matrix of lower bound values for `t(chol(sigma))`.
 #' @param sigma_l_ubound Numeric matrix.
 #'   Optional matrix of upper bound values for `t(chol(sigma))`.
+#' @param diag Logical.
+#'   If `diag = TRUE`,
+#'   `sigma` is a diagonal matrix.
+#'   If `diag = FALSE`,
+#'   `sigma` is a symmetric matrix.
 #' @param try Positive integer.
 #'   Number of extra optimization tries.
 #' @param ncores Positive integer.
@@ -88,6 +93,7 @@ Meta <- function(y,
                  sigma_l_start = NULL,
                  sigma_l_lbound = NULL,
                  sigma_l_ubound = NULL,
+                 diag = FALSE,
                  try = 1000,
                  ncores = NULL) {
   n <- length(y)
@@ -103,6 +109,7 @@ Meta <- function(y,
     sigma_l_start = sigma_l_start,
     sigma_l_lbound = sigma_l_lbound,
     sigma_l_ubound = sigma_l_ubound,
+    diag = diag,
     try = try,
     ncores = ncores
   )
@@ -117,6 +124,7 @@ Meta <- function(y,
     sigma_l_start = sigma_l_start,
     sigma_l_lbound = sigma_l_lbound,
     sigma_l_ubound = sigma_l_ubound,
+    diag = diag,
     try = try,
     ncores = ncores
   )
@@ -128,7 +136,8 @@ Meta <- function(y,
     transform = .Transform(
       coef = coef(output),
       vcov = vcov(output),
-      p = p
+      p = p,
+      diag = diag
     )
   )
   class(out) <- c(
