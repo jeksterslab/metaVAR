@@ -3,6 +3,9 @@
                        sigma_l_start = NULL,
                        sigma_l_lbound = NULL,
                        sigma_l_ubound = NULL) {
+  # TODO
+  # - diag
+  # - null
   sigma_l_labels <- matrix(
     data = NA,
     nrow = p,
