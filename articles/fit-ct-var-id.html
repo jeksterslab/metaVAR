@@ -414,7 +414,7 @@ Initial Condition)<a class="anchor" aria-label="anchor" href="#visualizing-the-d
 <div class="section level2">
 <h2 id="model-fitting">Model Fitting<a class="anchor" aria-label="anchor" href="#model-fitting"></a>
 </h2>
-<p>The <code>FitCTVARIDMx</code> function fits a DT-VAR model on each
+<p>The <code>FitCTVARIDMx</code> function fits a CT-VAR model on each
 individual
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -441,6 +441,14 @@ individual
 meta-analysis using the estimated parameters and the corresponding
 sampling variance-covariance matrix for each individual
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.</p>
+<blockquote>
+<p><strong>Note:</strong> By default, the <code>MetaVARMx</code>
+function estimates all the elements of the symmetric covariance matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚺</mi><annotation encoding="application/x-tex">\boldsymbol{\Sigma}</annotation></semantics></math>.
+Setting <code>diag = TRUE</code> constrains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚺</mi><annotation encoding="application/x-tex">\boldsymbol{\Sigma}</annotation></semantics></math>
+to be a diagonal matrix.</p>
+</blockquote>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeksterslab/metaVAR">metaVAR</a></span><span class="op">)</span></span>
 <span><span class="va">meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MetaVARMx.html">MetaVARMx</a></span><span class="op">(</span></span>

@@ -58,6 +58,7 @@ from each individual.</p>
 <span>  sigma_l_start <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sigma_l_lbound <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sigma_l_ubound <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  diag <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  noise <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  error <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  try <span class="op">=</span> <span class="fl">1000</span>,</span>
@@ -102,6 +103,14 @@ Optional matrix of lower bound values for <code>t(chol(sigma))</code>.</p></dd>
 <dt id="arg-sigma-l-ubound">sigma_l_ubound<a class="anchor" aria-label="anchor" href="#arg-sigma-l-ubound"></a></dt>
 <dd><p>Numeric matrix.
 Optional matrix of upper bound values for <code>t(chol(sigma))</code>.</p></dd>
+
+
+<dt id="arg-diag">diag<a class="anchor" aria-label="anchor" href="#arg-diag"></a></dt>
+<dd><p>Logical.
+If <code>diag = TRUE</code>,
+<code>sigma</code> is a diagonal matrix.
+If <code>diag = FALSE</code>,
+<code>sigma</code> is a symmetric matrix.</p></dd>
 
 
 <dt id="arg-noise">noise<a class="anchor" aria-label="anchor" href="#arg-noise"></a></dt>
