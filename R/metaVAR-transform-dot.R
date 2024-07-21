@@ -1,34 +1,47 @@
 .Transform <- function(coef,
                        vcov,
-                       p) {
-  k <- ((p * (p - 1)) / 2) + p
-  sigma_names <- outer(
-    X = seq_len(p),
-    Y = seq_len(p),
-    FUN = function(x,
-                   y) {
-      paste0(
-        "sigma_",
-        x,
-        "_",
-        y
-      )
-    }
-  )
-  sigma_names <- sigma_names[
-    lower.tri(
-      x = sigma_names,
-      diag = TRUE
-    )
-  ]
+                       p,
+                       diag) {
+  idx <- seq_len(p)
   mu_names <- paste0(
     "mu_",
-    seq_len(p)
+    idx
   )
-  varnames <- c(
-    mu_names,
-    sigma_names
-  )
+  if (diag) {
+    varnames <- c(
+      mu_names,
+      paste0(
+        "sigma_",
+        idx,
+        idx
+      )
+    )
+  } else {
+    k <- ((p * (p - 1)) / 2) + p
+    sigma_names <- outer(
+      X = idx,
+      Y = idx,
+      FUN = function(x,
+                     y) {
+        paste0(
+          "sigma_",
+          x,
+          "_",
+          y
+        )
+      }
+    )
+    sigma_names <- sigma_names[
+      lower.tri(
+        x = sigma_names,
+        diag = TRUE
+      )
+    ]
+    varnames <- c(
+      mu_names,
+      sigma_names
+    )
+  }
   chol2cov <- function(x,
                        p,
                        k) {
@@ -37,19 +50,28 @@
       nrow = p,
       ncol = p
     )
-    sigma_l[lower.tri(sigma_l, diag = TRUE)] <- x[seq_len(k)]
-    sigma <- sigma_l %*% t(sigma_l)
-    out <- unname(
-      c(
-        x[(k + 1):length(x)],
-        sigma[
-          lower.tri(
-            x = sigma,
-            diag = TRUE
-          )
-        ]
+    if (diag) {
+      out <- unname(
+        c(
+          x[(p + 1):length(x)],
+          (x[seq_len(p)])^2
+        )
       )
-    )
+    } else {
+      sigma_l[lower.tri(sigma_l, diag = TRUE)] <- x[seq_len(k)]
+      sigma <- sigma_l %*% t(sigma_l)
+      out <- unname(
+        c(
+          x[(k + 1):length(x)],
+          sigma[
+            lower.tri(
+              x = sigma,
+              diag = TRUE
+            )
+          ]
+        )
+      )
+    }
     return(
       out
     )

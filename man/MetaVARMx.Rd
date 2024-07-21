@@ -12,6 +12,7 @@ MetaVARMx(
   sigma_l_start = NULL,
   sigma_l_lbound = NULL,
   sigma_l_ubound = NULL,
+  diag = FALSE,
   noise = FALSE,
   error = FALSE,
   try = 1000,
@@ -39,6 +40,12 @@ Optional matrix of lower bound values for \code{t(chol(sigma))}.}
 
 \item{sigma_l_ubound}{Numeric matrix.
 Optional matrix of upper bound values for \code{t(chol(sigma))}.}
+
+\item{diag}{Logical.
+If \code{diag = TRUE},
+\code{sigma} is a diagonal matrix.
+If \code{diag = FALSE},
+\code{sigma} is a symmetric matrix.}
 
 \item{noise}{Logical.
 If \code{noise = TRUE},

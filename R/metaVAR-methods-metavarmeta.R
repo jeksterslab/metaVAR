@@ -45,17 +45,22 @@ print.metavarmeta <- function(x,
         }
       }
     }
-    rownames(ci) <- c(
-      paste0(
-        "mu_",
-        parnames
-      ),
-      v_names[
+    if (x$args$diag) {
+      v_names <- diag(v_names)
+    } else {
+      v_names <- v_names[
         lower.tri(
           x = v_names,
           diag = TRUE
         )
       ]
+    }
+    rownames(ci) <- c(
+      paste0(
+        "mu_",
+        parnames
+      ),
+      v_names
     )
   }
   het <- .I2(object = x)
@@ -120,17 +125,22 @@ summary.metavarmeta <- function(object,
         }
       }
     }
-    rownames(ci) <- c(
-      paste0(
-        "mu_",
-        parnames
-      ),
-      v_names[
+    if (object$args$diag) {
+      v_names <- diag(v_names)
+    } else {
+      v_names <- v_names[
         lower.tri(
           x = v_names,
           diag = TRUE
         )
       ]
+    }
+    rownames(ci) <- c(
+      paste0(
+        "mu_",
+        parnames
+      ),
+      v_names
     )
   }
   het <- .I2(object = object)
@@ -182,18 +192,28 @@ coef.metavarmeta <- function(object,
         }
       }
     }
-    names(est) <- c(
-      paste0(
-        "mu_",
-        parnames
-      ),
-      v_names[
-        lower.tri(
-          x = v_names,
-          diag = TRUE
-        )
-      ]
-    )
+    if (object$args$diag) {
+      names(est) <- c(
+        paste0(
+          "mu_",
+          parnames
+        ),
+        diag(v_names)
+      )
+    } else {
+      names(est) <- c(
+        paste0(
+          "mu_",
+          parnames
+        ),
+        v_names[
+          lower.tri(
+            x = v_names,
+            diag = TRUE
+          )
+        ]
+      )
+    }
   }
   idx <- grep(
     pattern = "^mu_",
@@ -240,18 +260,28 @@ vcov.metavarmeta <- function(object,
         }
       }
     }
-    names(est) <- c(
-      paste0(
-        "mu_",
-        parnames
-      ),
-      v_names[
-        lower.tri(
-          x = v_names,
-          diag = TRUE
-        )
-      ]
-    )
+    if (object$args$diag) {
+      names(est) <- c(
+        paste0(
+          "mu_",
+          parnames
+        ),
+        diag(v_names)
+      )
+    } else {
+      names(est) <- c(
+        paste0(
+          "mu_",
+          parnames
+        ),
+        v_names[
+          lower.tri(
+            x = v_names,
+            diag = TRUE
+          )
+        ]
+      )
+    }
   }
   idx <- grep(
     pattern = "^sigma_",
@@ -262,8 +292,12 @@ vcov.metavarmeta <- function(object,
     nrow = object$args$p,
     ncol = object$args$p
   )
-  sym[lower.tri(sym, diag = TRUE)] <- est[idx]
-  sym[upper.tri(sym)] <- t(sym)[upper.tri(sym)]
+  if (object$args$diag) {
+    diag(sym) <- est[idx]
+  } else {
+    sym[lower.tri(sym, diag = TRUE)] <- est[idx]
+    sym[upper.tri(sym)] <- t(sym)[upper.tri(sym)]
+  }
   if (!is.null(parnames)) {
     rownames(sym) <- colnames(sym) <- parnames
   }
