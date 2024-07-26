@@ -59,6 +59,7 @@ from each individual.</p>
 <span>  sigma_l_lbound <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sigma_l_ubound <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  diag <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  intercept <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  noise <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  error <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  try <span class="op">=</span> <span class="fl">1000</span>,</span>
@@ -111,6 +112,14 @@ If <code>diag = TRUE</code>,
 <code>sigma</code> is a diagonal matrix.
 If <code>diag = FALSE</code>,
 <code>sigma</code> is a symmetric matrix.</p></dd>
+
+
+<dt id="arg-intercept">intercept<a class="anchor" aria-label="anchor" href="#arg-intercept"></a></dt>
+<dd><p>Logical.
+If <code>intercept = TRUE</code>,
+include estimates of the process intercept vector, if available.
+If <code>intercept = FALSE</code>,
+exclude estimates of the process intercept vector.</p></dd>
 
 
 <dt id="arg-noise">noise<a class="anchor" aria-label="anchor" href="#arg-noise"></a></dt>
