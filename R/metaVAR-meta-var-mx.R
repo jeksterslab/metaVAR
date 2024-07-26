@@ -45,6 +45,11 @@
 #'
 #' @param object Output of the [fitDTVARMx::FitDTVARIDMx()]
 #'   or [fitCTVARMx::FitCTVARIDMx()] functions.
+#' @param intercept Logical.
+#'   If `intercept = TRUE`,
+#'   include estimates of the process intercept vector, if available.
+#'   If `intercept = FALSE`,
+#'   exclude estimates of the process intercept vector.
 #' @param noise Logical.
 #'   If `noise = TRUE`,
 #'   include estimates of the process noise matrix, if available.
@@ -121,6 +126,7 @@ MetaVARMx <- function(object,
                       sigma_l_lbound = NULL,
                       sigma_l_ubound = NULL,
                       diag = FALSE,
+                      intercept = FALSE,
                       noise = FALSE,
                       error = FALSE,
                       try = 1000,
@@ -142,11 +148,13 @@ MetaVARMx <- function(object,
   ) {
     y <- fitDTVARMx:::coef.fitdtvaridmx(
       object = object,
+      alpha = intercept,
       psi = noise,
       theta = error
     )
     v <- fitDTVARMx:::vcov.fitdtvaridmx(
       object = object,
+      alpha = intercept,
       psi = noise,
       theta = error
     )
@@ -159,11 +167,13 @@ MetaVARMx <- function(object,
   ) {
     y <- fitCTVARMx:::coef.fitctvaridmx(
       object = object,
+      iota = intercept,
       sigma = noise,
       theta = error
     )
     v <- fitCTVARMx:::vcov.fitctvaridmx(
       object = object,
+      iota = intercept,
       sigma = noise,
       theta = error
     )

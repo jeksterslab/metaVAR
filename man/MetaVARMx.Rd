@@ -13,6 +13,7 @@ MetaVARMx(
   sigma_l_lbound = NULL,
   sigma_l_ubound = NULL,
   diag = FALSE,
+  intercept = FALSE,
   noise = FALSE,
   error = FALSE,
   try = 1000,
@@ -46,6 +47,12 @@ If \code{diag = TRUE},
 \code{sigma} is a diagonal matrix.
 If \code{diag = FALSE},
 \code{sigma} is a symmetric matrix.}
+
+\item{intercept}{Logical.
+If \code{intercept = TRUE},
+include estimates of the process intercept vector, if available.
+If \code{intercept = FALSE},
+exclude estimates of the process intercept vector.}
 
 \item{noise}{Logical.
 If \code{noise = TRUE},
