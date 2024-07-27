@@ -94,6 +94,39 @@ lapply(
         )
       }
     )
+    meta <- Meta(
+      y = y,
+      v = v,
+      mu_start = mu,
+      mu_lbound = rep(x = NA, times = p),
+      mu_ubound = rep(x = NA, times = p),
+      sigma_l_start = t(chol(sigma)),
+      sigma_l_lbound = matrix(data = NA, nrow = p, ncol = p),
+      sigma_l_ubound = matrix(data = NA, nrow = p, ncol = p),
+      diag = TRUE,
+      try = 1000,
+      ncores = NULL
+    )
+    testthat::test_that(
+      paste0(text, "Meta", "2"),
+      {
+        testthat::expect_true(
+          all(
+            abs(
+              c(
+                c(
+                  mu,
+                  diag(sigma)
+                )
+              ) - round(
+                x = summary(meta)$estimates[, "est"],
+                digits = 2
+              )
+            ) <= tol
+          )
+        )
+      }
+    )
   },
   text = "test-meta-default",
   tol = 0.001

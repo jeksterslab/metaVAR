@@ -270,7 +270,8 @@ time
 mu0
 sigma0
 sigma0_l
-alpha
+# first alpha in the list of length n
+alpha[[1]]
 # first beta in the list of length n
 beta[[1]]
 psi
@@ -360,16 +361,6 @@ The `coef` and `vcov` functions extract the estimated mean vector and covariance
 coef(meta)
 vcov(meta)
 ```
-
-<!--
-The following shows the difference between the estimated mean vector and covariance matrix and the population values.
-
-```{r}
-tol <- 0.1
-all(abs(coef(meta) - c(beta_mu)) <= tol)
-all(abs(c(vcov(meta)) - c(beta_sigma)) <= tol)
-```
--->
 
 ## References
 

@@ -1,7 +1,7 @@
 ---
 title: "Multivariate Meta-Analysis of Discrete-Time VAR Estimates"
 author: Ivan Jacob Agaloos Pesigan
-date: "2024-07-26"
+date: "2024-07-27"
 bibliography: "vignettes.bib"
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
 nocite: |
@@ -233,8 +233,8 @@ sigma0_l
 #> [1,]    1    0    0
 #> [2,]    0    1    0
 #> [3,]    0    0    1
-alpha
-#> [[1]]
+# first alpha in the list of length n
+alpha[[1]]
 #> [1] 0 0 0
 # first beta in the list of length n
 beta[[1]]
@@ -436,19 +436,6 @@ vcov(meta)
 #> beta_23  0.0010144570  3.091730e-05  0.0121383296 -0.0009650714
 #> beta_33 -0.0008506826 -1.776540e-03 -0.0009650714  0.0093557133
 ```
-
-<!--
-The following shows the difference between the estimated mean vector and covariance matrix and the population values.
-
-
-``` r
-tol <- 0.1
-all(abs(coef(meta) - c(beta_mu)) <= tol)
-#> [1] TRUE
-all(abs(c(vcov(meta)) - c(beta_sigma)) <= tol)
-#> [1] TRUE
-```
--->
 
 ## References
 
