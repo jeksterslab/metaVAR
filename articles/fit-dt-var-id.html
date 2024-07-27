@@ -59,7 +59,7 @@
                         <h4 data-toc-skip class="author">Ivan Jacob
 Agaloos Pesigan</h4>
             
-            <h4 data-toc-skip class="date">2024-07-26</h4>
+            <h4 data-toc-skip class="date">2024-07-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/metaVAR/blob/main/vignettes/fit-dt-var-id.Rmd"><code>vignettes/fit-dt-var-id.Rmd</code></a></small>
       <div class="d-none name"><code>fit-dt-var-id.Rmd</code></div>
@@ -281,8 +281,8 @@ be given by</p>
 <span><span class="co">#&gt; [1,]    1    0    0</span></span>
 <span><span class="co">#&gt; [2,]    0    1    0</span></span>
 <span><span class="co">#&gt; [3,]    0    0    1</span></span>
-<span><span class="va">alpha</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co"># first alpha in the list of length n</span></span>
+<span><span class="va">alpha</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] 0 0 0</span></span>
 <span><span class="co"># first beta in the list of length n</span></span>
 <span><span class="va">beta</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
@@ -482,18 +482,6 @@ estimated mean vector and covariance matrix from the output of the
 <span><span class="co">#&gt; beta_13 -0.0005090511  1.073090e-02  0.0000309173 -0.0017765401</span></span>
 <span><span class="co">#&gt; beta_23  0.0010144570  3.091730e-05  0.0121383296 -0.0009650714</span></span>
 <span><span class="co">#&gt; beta_33 -0.0008506826 -1.776540e-03 -0.0009650714  0.0093557133</span></span></code></pre></div>
-<!--
-The following shows the difference between the estimated mean vector and covariance matrix and the population values.
-
-
-``` r
-tol <- 0.1
-all(abs(coef(meta) - c(beta_mu)) <= tol)
-#> [1] TRUE
-all(abs(c(vcov(meta)) - c(beta_sigma)) <= tol)
-#> [1] TRUE
-```
--->
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>

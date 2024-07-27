@@ -59,7 +59,7 @@
                         <h4 data-toc-skip class="author">Ivan Jacob
 Agaloos Pesigan</h4>
             
-            <h4 data-toc-skip class="date">2024-07-26</h4>
+            <h4 data-toc-skip class="date">2024-07-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/metaVAR/blob/main/vignettes/fit-ct-var-id.Rmd"><code>vignettes/fit-ct-var-id.Rmd</code></a></small>
       <div class="d-none name"><code>fit-ct-var-id.Rmd</code></div>
@@ -558,18 +558,6 @@ estimated mean vector and covariance matrix from the output of the
 <span><span class="co">#&gt; phi_13  0.0005513253  2.796768e-02  8.514022e-05 -0.002112961</span></span>
 <span><span class="co">#&gt; phi_23  0.0009480958  8.514022e-05  3.372110e-02  0.001040214</span></span>
 <span><span class="co">#&gt; phi_33 -0.0140056185 -2.112961e-03  1.040214e-03  0.031660864</span></span></code></pre></div>
-<!--
-The following shows the difference between the estimated mean vector and covariance matrix and the population values.
-
-
-``` r
-tol <- 0.1
-all(abs(coef(meta) - c(phi_mu)) <= tol)
-#> [1] TRUE
-all(abs(c(vcov(meta)) - c(phi_sigma)) <= tol)
-#> [1] TRUE
-```
--->
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
