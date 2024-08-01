@@ -10,7 +10,8 @@
                          sigma_l_ubound = NULL,
                          diag = FALSE,
                          try = 1000,
-                         ncores = NULL) {
+                         ncores = NULL,
+                         ...) {
   varnames <- paste0(
     "y",
     seq_len(p)
@@ -91,7 +92,8 @@
   return(
     OpenMx::mxTryHardctsem(
       model = model,
-      extraTries = try
+      extraTries = try,
+      ...
     )
   )
 }

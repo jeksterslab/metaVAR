@@ -15,7 +15,8 @@ Meta(
   sigma_l_ubound = NULL,
   diag = FALSE,
   try = 1000,
-  ncores = NULL
+  ncores = NULL,
+  ...
 )
 }
 \arguments{
@@ -56,6 +57,8 @@ Number of extra optimization tries.}
 
 \item{ncores}{Positive integer.
 Number of cores to use.}
+
+\item{...}{Additional optional arguments to pass to \code{mxTryHard}.}
 }
 \description{
 This function estimates the mean and covariance matrix
