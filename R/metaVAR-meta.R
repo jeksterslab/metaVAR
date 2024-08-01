@@ -70,6 +70,7 @@
 #'   Number of extra optimization tries.
 #' @param ncores Positive integer.
 #'   Number of cores to use.
+#' @param ... Additional optional arguments to pass to `mxTryHard`.
 #'
 #' @references
 #' Neale, M. C., Hunter, M. D., Pritikin, J. N.,
@@ -95,7 +96,8 @@ Meta <- function(y,
                  sigma_l_ubound = NULL,
                  diag = FALSE,
                  try = 1000,
-                 ncores = NULL) {
+                 ncores = NULL,
+                 ...) {
   n <- length(y)
   p <- length(y[[1]])
   args <- list(
@@ -111,7 +113,8 @@ Meta <- function(y,
     sigma_l_ubound = sigma_l_ubound,
     diag = diag,
     try = try,
-    ncores = ncores
+    ncores = ncores,
+    ...
   )
   output <- .MetaGeneric(
     y = y,
@@ -126,7 +129,8 @@ Meta <- function(y,
     sigma_l_ubound = sigma_l_ubound,
     diag = diag,
     try = try,
-    ncores = ncores
+    ncores = ncores,
+    ...
   )
   out <- list(
     call = match.call(),

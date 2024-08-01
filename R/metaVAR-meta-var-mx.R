@@ -130,7 +130,8 @@ MetaVARMx <- function(object,
                       noise = FALSE,
                       error = FALSE,
                       try = 1000,
-                      ncores = NULL) {
+                      ncores = NULL,
+                      ...) {
   stopifnot(
     inherits(
       object,
@@ -190,7 +191,8 @@ MetaVARMx <- function(object,
       sigma_l_ubound = sigma_l_ubound,
       diag = diag,
       try = try,
-      ncores = ncores
+      ncores = ncores,
+      ...
     )
   )
 }
