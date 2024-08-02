@@ -43,7 +43,7 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] fitDTVARMx_0.0.0.9000    metaVAR_0.9.1            fitCTVARMx_0.0.0.9000   
+#> [1] fitDTVARMx_0.0.0.9000    metaVAR_0.0.0.9000       fitCTVARMx_0.0.0.9000   
 #> [4] OpenMx_2.21.11           simStateSpace_1.2.2.9000
 #> 
 #> loaded via a namespace (and not attached):
@@ -67,11 +67,11 @@ installed.packages()[, c("Package", "Version")]
 #> devtools        "devtools"        "2.4.5.9000"
 #> gert            "gert"            "2.1.0"     
 #> httr2           "httr2"           "1.0.2"     
-#> metaVAR         "metaVAR"         "0.9.1"     
+#> metaVAR         "metaVAR"         "0.0.0.9000"
 #> quarto          "quarto"          "1.4.4"     
 #> Rcpp            "Rcpp"            "1.0.13"    
 #> rProject        "rProject"        "0.0.14"    
-#> shiny           "shiny"           "1.9.0"     
+#> shiny           "shiny"           "1.9.1"     
 #> tinytex         "tinytex"         "0.52.1"    
 #> usethis         "usethis"         "3.0.0"     
 #> withr           "withr"           "3.0.1"     
@@ -505,7 +505,7 @@ installed.packages()[, c("Package", "Version")]
 
 ```
 #>                total        used        free      shared  buff/cache   available
-#> Mem:           125Gi       3.2Gi        68Gi       4.7Gi        54Gi       116Gi
+#> Mem:           125Gi       3.2Gi        59Gi       4.7Gi        62Gi       116Gi
 #> Swap:             0B          0B          0B
-#> Total:         125Gi       3.2Gi        68Gi
+#> Total:         125Gi       3.2Gi        59Gi
 ```
