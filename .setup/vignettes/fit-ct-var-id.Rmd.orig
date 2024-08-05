@@ -441,8 +441,8 @@ fit
 
 The `MetaVARMx` function performs multivariate meta-analysis using the estimated parameters
 and the corresponding sampling variance-covariance matrix for each individual $i$.
-
-> **Note:** By default, the `MetaVARMx` function estimates all the elements of the symmetric covariance matrix $\boldsymbol{\Sigma}$. Setting `diag = TRUE` constrains $\boldsymbol{\Sigma}$ to be a diagonal matrix.
+Estimates with the prefix `beta0` correspond to the estimates of `phi_mu`.
+Estimates with the prefix `tau_sqr` correspond to the estimates of `phi_sigma`.
 
 ```{r}
 library(metaVAR)
@@ -451,13 +451,6 @@ meta <- MetaVARMx(
   ncores = parallel::detectCores()
 )
 summary(meta)
-```
-
-The `coef` and `vcov` functions extract the estimated mean vector and covariance matrix from the output of the `MetaVARMx` function.
-
-```{r}
-coef(meta)
-vcov(meta)
 ```
 
 ## References

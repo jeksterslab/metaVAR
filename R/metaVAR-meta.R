@@ -1,45 +1,9 @@
 #' Fit Multivariate Meta-Analysis
 #'
-#' This function estimates the mean and covariance matrix
-#' of a vector of coefficients
+#' This function estimates
+#' fixed-, random-, or mixed-effects meta-analysis parameters
 #' using the estimated coefficients and sampling variance-covariance matrix
 #' from each individual.
-#'
-#' @details For \eqn{i = \left\{1, \cdots, n \right\}},
-#'   the objective function used to estimate the mean \eqn{\boldsymbol{\mu}}
-#'   and covariance matrix \eqn{\boldsymbol{\Sigma}}
-#'   of the random coefficients \eqn{\mathbf{y}_{i}} is given by
-#'   \deqn{
-#'     \ell
-#'     \left(
-#'     \boldsymbol{\mu} ,
-#'     \boldsymbol{\Sigma} \mid \mathbf{y}_{i},
-#'     \mathbb{V} \left( \mathbf{y}_{i} \right)
-#'     \right)
-#'     =
-#'     - \frac{1}{2}
-#'     \left[
-#'     q \log \left( 2 \pi \right)
-#'     +
-#'     \log
-#'     \left(
-#'     \left|
-#'       \mathbb{V} \left( \mathbf{y}_{i} \right) - \boldsymbol{\Sigma}
-#'     \right|
-#'     \right)
-#'     +
-#'     \left( \mathbf{y}_{i} - \boldsymbol{\mu} \right)^{\prime}
-#'     \left(
-#'       \mathbb{V} \left( \mathbf{y}_{i} \right) - \boldsymbol{\Sigma}
-#'     \right)^{-1}
-#'     \left( \mathbf{y}_{i} - \boldsymbol{\mu} \right)
-#'     \right]
-#'   }
-#'  where
-#'  \eqn{q} is the number of unique elements
-#'  in \eqn{\boldsymbol{\mu}} and \eqn{\boldsymbol{\Sigma}}, and
-#'  \eqn{\mathbb{V} \left( \mathbf{y}_{i} \right)}
-#'  is the sampling variance-covariance matrix of \eqn{\mathbf{y}_{i}}.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -49,23 +13,43 @@
 #' @param v A list.
 #'   Each element of the list
 #'   is a sampling variance-covariance matrix of `y`.
-#' @param mu_start Numeric vector.
-#'   Optional vector of starting values for `mu`.
-#' @param mu_lbound Numeric vector.
-#'   Optional vector of lower bound values for `mu`.
-#' @param mu_ubound Numeric vector.
-#'   Optional vector of upper bound values for `mu`.
-#' @param sigma_l_start Numeric matrix.
-#'   Optional matrix of starting values for `t(chol(sigma))`.
-#' @param sigma_l_lbound Numeric matrix.
-#'   Optional matrix of lower bound values for `t(chol(sigma))`.
-#' @param sigma_l_ubound Numeric matrix.
-#'   Optional matrix of upper bound values for `t(chol(sigma))`.
+#' @param x An optional list.
+#'   Each element of the list is a numeric vector
+#'   of covariates for the mixed-effects model.
+#' @param beta0_values Numeric vector.
+#'   Optional vector of starting values for `beta0`.
+#' @param beta0_free Logical vector.
+#'   Optional vector of free (`TRUE`) parameters for `beta0`.
+#' @param beta0_lbound Numeric vector.
+#'   Optional vector of lower bound values for `beta0`.
+#' @param beta0_ubound Numeric vector.
+#'   Optional vector of upper bound values for `beta0`.
+#' @param beta1_values Numeric matrix.
+#'   Optional matrix of starting values for `beta1`.
+#' @param beta1_free Logical matrix.
+#'   Optional matrix of free (`TRUE`) parameters for `beta1`.
+#' @param beta1_lbound Numeric matrix.
+#'   Optional matrix of lower bound values for `beta1`.
+#' @param beta1_ubound Numeric matrix.
+#'   Optional matrix of upper bound values for `beta1`.
+#' @param tau_values Numeric matrix.
+#'   Optional matrix of starting values for `t(chol(tau_sqr))`.
+#' @param tau_free Numeric matrix.
+#'   Optional matrix of free (`TRUE`) parameters for `t(chol(tau_sqr))`.
+#' @param tau_lbound Numeric matrix.
+#'   Optional matrix of lower bound values for `t(chol(tau_sqr))`.
+#' @param tau_ubound Numeric matrix.
+#'   Optional matrix of upper bound values for `t(chol(tau_sqr))`.
+#' @param random Logical.
+#'   If `random = TRUE`,
+#'   estimates random effects.
+#'   If `random = FALSE`,
+#'   `tau_sqr` is a null matrix.
 #' @param diag Logical.
 #'   If `diag = TRUE`,
-#'   `sigma` is a diagonal matrix.
+#'   `tau_sqr` is a diagonal matrix.
 #'   If `diag = FALSE`,
-#'   `sigma` is a symmetric matrix.
+#'   `tau_sqr` is a symmetric matrix.
 #' @param try Positive integer.
 #'   Number of extra optimization tries.
 #' @param ncores Positive integer.
@@ -73,6 +57,10 @@
 #' @param ... Additional optional arguments to pass to `mxTryHardctsem`.
 #'
 #' @references
+#' Cheung, M. W.-L. (2015).
+#' *Meta-analysis: A structural equation modeling approach*.
+#' Chichester, West Sussex: John Wiley & Sons, Inc.
+#'
 #' Neale, M. C., Hunter, M. D., Pritikin, J. N.,
 #' Zahery, M., Brick, T. R., Kirkpatrick, R. M., Estabrook, R.,
 #' Bates, T. C., Maes, H. H., & Boker, S. M. (2015).
@@ -88,29 +76,57 @@
 #' @export
 Meta <- function(y,
                  v,
-                 mu_start = NULL,
-                 mu_lbound = NULL,
-                 mu_ubound = NULL,
-                 sigma_l_start = NULL,
-                 sigma_l_lbound = NULL,
-                 sigma_l_ubound = NULL,
+                 x = NULL,
+                 beta0_values = NULL,
+                 beta0_free = NULL,
+                 beta0_lbound = NULL,
+                 beta0_ubound = NULL,
+                 beta1_values = NULL,
+                 beta1_free = NULL,
+                 beta1_lbound = NULL,
+                 beta1_ubound = NULL,
+                 tau_values = NULL,
+                 tau_free = NULL,
+                 tau_lbound = NULL,
+                 tau_ubound = NULL,
+                 random = TRUE,
                  diag = FALSE,
                  try = 1000,
                  ncores = NULL,
                  ...) {
-  n <- length(y)
   p <- length(y[[1]])
+  n <- length(y)
+  stopifnot(
+    length(v) == length(y)
+  )
+  if (is.null(x)) {
+    m <- NULL
+  } else {
+    m <- length(m[[1]])
+    stopifnot(
+      length(x) == length(y)
+    )
+  }
   args <- list(
     y = y,
     v = v,
-    n = n,
+    x = x,
     p = p,
-    mu_start = mu_start,
-    mu_lbound = mu_lbound,
-    mu_ubound = mu_ubound,
-    sigma_l_start = sigma_l_start,
-    sigma_l_lbound = sigma_l_lbound,
-    sigma_l_ubound = sigma_l_ubound,
+    m = m,
+    n = n,
+    beta0_values = beta0_values,
+    beta0_free = beta0_free,
+    beta0_lbound = beta0_lbound,
+    beta0_ubound = beta0_ubound,
+    beta1_values = beta1_values,
+    beta1_free = beta1_free,
+    beta1_lbound = beta1_lbound,
+    beta1_ubound = beta1_ubound,
+    tau_values = tau_values,
+    tau_free = tau_free,
+    tau_lbound = tau_lbound,
+    tau_ubound = tau_ubound,
+    random = random,
     diag = diag,
     try = try,
     ncores = ncores,
@@ -119,14 +135,22 @@ Meta <- function(y,
   output <- .MetaGeneric(
     y = y,
     v = v,
-    n = n,
+    x = x,
     p = p,
-    mu_start = mu_start,
-    mu_lbound = mu_lbound,
-    mu_ubound = mu_ubound,
-    sigma_l_start = sigma_l_start,
-    sigma_l_lbound = sigma_l_lbound,
-    sigma_l_ubound = sigma_l_ubound,
+    m = m,
+    beta0_values = beta0_values,
+    beta0_free = beta0_free,
+    beta0_lbound = beta0_lbound,
+    beta0_ubound = beta0_ubound,
+    beta1_values = beta1_values,
+    beta1_free = beta1_free,
+    beta1_lbound = beta1_lbound,
+    beta1_ubound = beta1_ubound,
+    tau_values = tau_values,
+    tau_free = tau_free,
+    tau_lbound = tau_lbound,
+    tau_ubound = tau_ubound,
+    random = random,
     diag = diag,
     try = try,
     ncores = ncores,

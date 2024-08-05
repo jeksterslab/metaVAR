@@ -7,12 +7,20 @@
 Meta(
   y,
   v,
-  mu_start = NULL,
-  mu_lbound = NULL,
-  mu_ubound = NULL,
-  sigma_l_start = NULL,
-  sigma_l_lbound = NULL,
-  sigma_l_ubound = NULL,
+  x = NULL,
+  beta0_values = NULL,
+  beta0_free = NULL,
+  beta0_lbound = NULL,
+  beta0_ubound = NULL,
+  beta1_values = NULL,
+  beta1_free = NULL,
+  beta1_lbound = NULL,
+  beta1_ubound = NULL,
+  tau_values = NULL,
+  tau_free = NULL,
+  tau_lbound = NULL,
+  tau_ubound = NULL,
+  random = TRUE,
   diag = FALSE,
   try = 1000,
   ncores = NULL,
@@ -28,29 +36,57 @@ of estimated coefficients.}
 Each element of the list
 is a sampling variance-covariance matrix of \code{y}.}
 
-\item{mu_start}{Numeric vector.
-Optional vector of starting values for \code{mu}.}
+\item{x}{An optional list.
+Each element of the list is a numeric vector
+of covariates for the mixed-effects model.}
 
-\item{mu_lbound}{Numeric vector.
-Optional vector of lower bound values for \code{mu}.}
+\item{beta0_values}{Numeric vector.
+Optional vector of starting values for \code{beta0}.}
 
-\item{mu_ubound}{Numeric vector.
-Optional vector of upper bound values for \code{mu}.}
+\item{beta0_free}{Logical vector.
+Optional vector of free (\code{TRUE}) parameters for \code{beta0}.}
 
-\item{sigma_l_start}{Numeric matrix.
-Optional matrix of starting values for \code{t(chol(sigma))}.}
+\item{beta0_lbound}{Numeric vector.
+Optional vector of lower bound values for \code{beta0}.}
 
-\item{sigma_l_lbound}{Numeric matrix.
-Optional matrix of lower bound values for \code{t(chol(sigma))}.}
+\item{beta0_ubound}{Numeric vector.
+Optional vector of upper bound values for \code{beta0}.}
 
-\item{sigma_l_ubound}{Numeric matrix.
-Optional matrix of upper bound values for \code{t(chol(sigma))}.}
+\item{beta1_values}{Numeric matrix.
+Optional matrix of starting values for \code{beta1}.}
+
+\item{beta1_free}{Logical matrix.
+Optional matrix of free (\code{TRUE}) parameters for \code{beta1}.}
+
+\item{beta1_lbound}{Numeric matrix.
+Optional matrix of lower bound values for \code{beta1}.}
+
+\item{beta1_ubound}{Numeric matrix.
+Optional matrix of upper bound values for \code{beta1}.}
+
+\item{tau_values}{Numeric matrix.
+Optional matrix of starting values for \code{t(chol(tau_sqr))}.}
+
+\item{tau_free}{Numeric matrix.
+Optional matrix of free (\code{TRUE}) parameters for \code{t(chol(tau_sqr))}.}
+
+\item{tau_lbound}{Numeric matrix.
+Optional matrix of lower bound values for \code{t(chol(tau_sqr))}.}
+
+\item{tau_ubound}{Numeric matrix.
+Optional matrix of upper bound values for \code{t(chol(tau_sqr))}.}
+
+\item{random}{Logical.
+If \code{random = TRUE},
+estimates random effects.
+If \code{random = FALSE},
+\code{tau_sqr} is a null matrix.}
 
 \item{diag}{Logical.
 If \code{diag = TRUE},
-\code{sigma} is a diagonal matrix.
+\code{tau_sqr} is a diagonal matrix.
 If \code{diag = FALSE},
-\code{sigma} is a symmetric matrix.}
+\code{tau_sqr} is a symmetric matrix.}
 
 \item{try}{Positive integer.
 Number of extra optimization tries.}
@@ -61,49 +97,16 @@ Number of cores to use.}
 \item{...}{Additional optional arguments to pass to \code{mxTryHardctsem}.}
 }
 \description{
-This function estimates the mean and covariance matrix
-of a vector of coefficients
+This function estimates
+fixed-, random-, or mixed-effects meta-analysis parameters
 using the estimated coefficients and sampling variance-covariance matrix
 from each individual.
 }
-\details{
-For \eqn{i = \left\{1, \cdots, n \right\}},
-the objective function used to estimate the mean \eqn{\boldsymbol{\mu}}
-and covariance matrix \eqn{\boldsymbol{\Sigma}}
-of the random coefficients \eqn{\mathbf{y}_{i}} is given by
-\deqn{
-    \ell
-    \left(
-    \boldsymbol{\mu} ,
-    \boldsymbol{\Sigma} \mid \mathbf{y}_{i},
-    \mathbb{V} \left( \mathbf{y}_{i} \right)
-    \right)
-    =
-    - \frac{1}{2}
-    \left[
-    q \log \left( 2 \pi \right)
-    +
-    \log
-    \left(
-    \left|
-      \mathbb{V} \left( \mathbf{y}_{i} \right) - \boldsymbol{\Sigma}
-    \right|
-    \right)
-    +
-    \left( \mathbf{y}_{i} - \boldsymbol{\mu} \right)^{\prime}
-    \left(
-      \mathbb{V} \left( \mathbf{y}_{i} \right) - \boldsymbol{\Sigma}
-    \right)^{-1}
-    \left( \mathbf{y}_{i} - \boldsymbol{\mu} \right)
-    \right]
-  }
-where
-\eqn{q} is the number of unique elements
-in \eqn{\boldsymbol{\mu}} and \eqn{\boldsymbol{\Sigma}}, and
-\eqn{\mathbb{V} \left( \mathbf{y}_{i} \right)}
-is the sampling variance-covariance matrix of \eqn{\mathbf{y}_{i}}.
-}
 \references{
+Cheung, M. W.-L. (2015).
+\emph{Meta-analysis: A structural equation modeling approach}.
+Chichester, West Sussex: John Wiley & Sons, Inc.
+
 Neale, M. C., Hunter, M. D., Pritikin, J. N.,
 Zahery, M., Brick, T. R., Kirkpatrick, R. M., Estabrook, R.,
 Bates, T. C., Maes, H. H., & Boker, S. M. (2015).

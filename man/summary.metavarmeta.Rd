@@ -16,6 +16,16 @@ Significance level \eqn{\alpha}.}
 
 \item{...}{further arguments.}
 }
+\value{
+Returns a matrix of
+estimates,
+standard errors,
+test statistics,
+degrees of freedom,
+p-values,
+and
+confidence intervals.
+}
 \description{
 Summary Method for Object of Class \code{metavarmeta}
 }
