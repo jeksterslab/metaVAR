@@ -13,7 +13,7 @@
 \item{...}{further arguments.}
 }
 \value{
-Returns a vector of the mean estimated parameters.
+Returns a vector of estimated parameters.
 }
 \description{
 Estimated Parameter Method for an Object of Class

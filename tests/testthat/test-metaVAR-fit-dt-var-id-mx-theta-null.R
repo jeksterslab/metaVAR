@@ -61,6 +61,10 @@ lapply(
     summary(meta)
     coef(meta)
     vcov(meta)
+    idx <- grep(
+      pattern = "^beta0_",
+      x = names(coef(meta))
+    )
     testthat::test_that(
       text,
       {
@@ -70,7 +74,7 @@ lapply(
               c(
                 beta_mu,
                 diag(psi)
-              ) - coef(meta)
+              ) - coef(meta)[idx]
             ) <= tol
           )
         )

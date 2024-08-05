@@ -13,7 +13,8 @@
 \item{...}{further arguments.}
 }
 \value{
-Returns the variance-covariance matrix of the estimated parameters.
+Returns the sampling variance-covariance matrix
+of the estimated parameters.
 }
 \description{
 Variance-Covariance Matrix Method for an Object of Class

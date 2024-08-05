@@ -3,49 +3,47 @@
                        p,
                        diag) {
   idx <- seq_len(p)
-  mu_names <- paste0(
-    "mu_",
+  beta0_names <- paste0(
+    "beta0_",
     idx
   )
   if (diag) {
     varnames <- c(
-      mu_names,
+      beta0_names,
       paste0(
-        "sigma_",
+        "tau_sqr_",
         idx,
         idx
       )
     )
   } else {
-    k <- ((p * (p - 1)) / 2) + p
-    sigma_names <- outer(
+    tau_sqr_names <- outer(
       X = idx,
       Y = idx,
       FUN = function(x,
                      y) {
         paste0(
-          "sigma_",
+          "tau_sqr_",
           x,
           "_",
           y
         )
       }
     )
-    sigma_names <- sigma_names[
+    tau_sqr_names <- tau_sqr_names[
       lower.tri(
-        x = sigma_names,
+        x = tau_sqr_names,
         diag = TRUE
       )
     ]
     varnames <- c(
-      mu_names,
-      sigma_names
+      beta0_names,
+      tau_sqr_names
     )
   }
   chol2cov <- function(x,
-                       p,
-                       k) {
-    sigma_l <- matrix(
+                       p) {
+    tau <- matrix(
       data = 0,
       nrow = p,
       ncol = p
@@ -53,19 +51,19 @@
     if (diag) {
       out <- unname(
         c(
-          x[(p + 1):length(x)],
-          (x[seq_len(p)])^2
+          x[seq_len(p)],
+          (x[(p + 1):length(x)])^2
         )
       )
     } else {
-      sigma_l[lower.tri(sigma_l, diag = TRUE)] <- x[seq_len(k)]
-      sigma <- sigma_l %*% t(sigma_l)
+      tau[lower.tri(tau, diag = TRUE)] <- x[(p + 1):length(x)]
+      tau_sqr <- tau %*% t(tau)
       out <- unname(
         c(
-          x[(k + 1):length(x)],
-          sigma[
+          x[seq_len(p)],
+          tau_sqr[
             lower.tri(
-              x = sigma,
+              x = tau_sqr,
               diag = TRUE
             )
           ]
@@ -76,22 +74,20 @@
       out
     )
   }
-  constructor <- function(p, k) {
+  constructor <- function(p) {
     return(
       function(x) {
         return(
           chol2cov(
             x = x,
-            p = p,
-            k = k
+            p = p
           )
         )
       }
     )
   }
   func <- constructor(
-    p = p,
-    k = k
+    p = p
   )
   jacobian <- numDeriv::jacobian(
     func = func,

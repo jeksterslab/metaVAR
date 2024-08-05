@@ -7,6 +7,15 @@
 #' @param digits Integer indicating the number of decimal places to display.
 #' @param ... further arguments.
 #'
+#' @return Returns a matrix of
+#'   estimates,
+#'   standard errors,
+#'   test statistics,
+#'   degrees of freedom,
+#'   p-values,
+#'   and
+#'   confidence intervals.
+#'
 #' @method print metavarmeta
 #' @keywords methods
 #' @export
@@ -37,7 +46,7 @@ print.metavarmeta <- function(x,
       for (i in seq_len(x$args$p)) {
         if (i >= j) {
           v_names[i, j] <- paste0(
-            "sigma_",
+            "tau_sqr_",
             parnames[i],
             "_",
             parnames[j]
@@ -57,7 +66,7 @@ print.metavarmeta <- function(x,
     }
     rownames(ci) <- c(
       paste0(
-        "mu_",
+        "beta0_",
         parnames
       ),
       v_names
@@ -86,6 +95,15 @@ print.metavarmeta <- function(x,
 #'   Significance level \eqn{\alpha}.
 #' @param digits Integer indicating the number of decimal places to display.
 #' @param ... further arguments.
+#'
+#' @return Returns a matrix of
+#'   estimates,
+#'   standard errors,
+#'   test statistics,
+#'   degrees of freedom,
+#'   p-values,
+#'   and
+#'   confidence intervals.
 #'
 #' @method summary metavarmeta
 #' @keywords methods
@@ -117,7 +135,7 @@ summary.metavarmeta <- function(object,
       for (i in seq_len(object$args$p)) {
         if (i >= j) {
           v_names[i, j] <- paste0(
-            "sigma_",
+            "tau_sqr_",
             parnames[i],
             "_",
             parnames[j]
@@ -137,7 +155,7 @@ summary.metavarmeta <- function(object,
     }
     rownames(ci) <- c(
       paste0(
-        "mu_",
+        "beta0_",
         parnames
       ),
       v_names
@@ -163,7 +181,7 @@ summary.metavarmeta <- function(object,
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
-#' @return Returns a vector of the mean estimated parameters.
+#' @return Returns a vector of estimated parameters.
 #'
 #' @inheritParams summary.metavarmeta
 #'
@@ -172,58 +190,7 @@ summary.metavarmeta <- function(object,
 #' @export
 coef.metavarmeta <- function(object,
                              ...) {
-  est <- object$transform$est
-  parnames <- names(object$args$y[[1]])
-  if (!is.null(parnames)) {
-    v_names <- matrix(
-      data = NA,
-      nrow = object$args$p,
-      ncol = object$args$p
-    )
-    for (j in seq_len(object$args$p)) {
-      for (i in seq_len(object$args$p)) {
-        if (i >= j) {
-          v_names[i, j] <- paste0(
-            "sigma_",
-            parnames[i],
-            "_",
-            parnames[j]
-          )
-        }
-      }
-    }
-    if (object$args$diag) {
-      names(est) <- c(
-        paste0(
-          "mu_",
-          parnames
-        ),
-        diag(v_names)
-      )
-    } else {
-      names(est) <- c(
-        paste0(
-          "mu_",
-          parnames
-        ),
-        v_names[
-          lower.tri(
-            x = v_names,
-            diag = TRUE
-          )
-        ]
-      )
-    }
-  }
-  idx <- grep(
-    pattern = "^mu_",
-    x = names(est)
-  )
-  est <- est[idx]
-  if (!is.null(parnames)) {
-    names(est) <- parnames
-  }
-  return(est)
+  return(object$transform$est)
 }
 
 #' Variance-Covariance Matrix Method for an Object of Class
@@ -231,7 +198,8 @@ coef.metavarmeta <- function(object,
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
-#' @return Returns the variance-covariance matrix of the estimated parameters.
+#' @return Returns the sampling variance-covariance matrix
+#'   of the estimated parameters.
 #'
 #' @inheritParams summary.metavarmeta
 #'
@@ -240,66 +208,55 @@ coef.metavarmeta <- function(object,
 #' @export
 vcov.metavarmeta <- function(object,
                              ...) {
-  est <- object$transform$est
-  parnames <- names(object$args$y[[1]])
-  if (!is.null(parnames)) {
-    v_names <- matrix(
-      data = NA,
-      nrow = object$args$p,
-      ncol = object$args$p
+  return(object$transform$vcov)
+}
+
+#' Confidence Intervals for an Object of Class
+#' `metavarmeta`
+#'
+#' @author Ivan Jacob Agaloos Pesigan
+#'
+#' @return Returns a matrix of confidence intervals.
+#'
+#' @param object Object of class `metavarmeta`.
+#' @param ... additional arguments.
+#' @param parm a specification of which parameters
+#'   are to be given confidence intervals,
+#'   either a vector of numbers or a vector of names.
+#'   If missing, all parameters are considered.
+#' @param level the confidence level required.
+#'
+#' @keywords methods
+#' @export
+confint.metavarmeta <- function(object,
+                                parm = NULL,
+                                level = 0.95,
+                                ...) {
+  if (is.null(parm)) {
+    parm <- seq_len(
+      length(object$transform$est)
     )
-    for (j in seq_len(object$args$p)) {
-      for (i in seq_len(object$args$p)) {
-        if (i >= j) {
-          v_names[i, j] <- paste0(
-            "sigma_",
-            parnames[i],
-            "_",
-            parnames[j]
-          )
-        }
-      }
-    }
-    if (object$args$diag) {
-      names(est) <- c(
-        paste0(
-          "mu_",
-          parnames
-        ),
-        diag(v_names)
+  }
+  ci <- .CIWald(
+    est = object$transform$est,
+    se = sqrt(
+      diag(
+        object$transform$vcov
       )
-    } else {
-      names(est) <- c(
-        paste0(
-          "mu_",
-          parnames
-        ),
-        v_names[
-          lower.tri(
-            x = v_names,
-            diag = TRUE
-          )
-        ]
-      )
-    }
-  }
-  idx <- grep(
-    pattern = "^sigma_",
-    x = names(est)
+    ),
+    theta = 0,
+    alpha = 1 - level[1],
+    z = TRUE,
+    test = FALSE
+  )[parm, 5:6, drop = FALSE] # always z
+  varnames <- colnames(ci)
+  varnames <- gsub(
+    pattern = "%",
+    replacement = " %",
+    x = varnames
   )
-  sym <- matrix(
-    data = 0,
-    nrow = object$args$p,
-    ncol = object$args$p
+  colnames(ci) <- varnames
+  return(
+    ci
   )
-  if (object$args$diag) {
-    diag(sym) <- est[idx]
-  } else {
-    sym[lower.tri(sym, diag = TRUE)] <- est[idx]
-    sym[upper.tri(sym)] <- t(sym)[upper.tri(sym)]
-  }
-  if (!is.null(parnames)) {
-    rownames(sym) <- colnames(sym) <- parnames
-  }
-  return(sym)
 }

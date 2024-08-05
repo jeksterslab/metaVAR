@@ -1,8 +1,8 @@
 .CheckEstimates <- function(y,
                             v,
                             p,
-                            varnames,
-                            ncores = NULL) {
+                            ynames,
+                            ncores) {
   par <- FALSE
   # nocov start
   if (!is.null(ncores)) {
@@ -25,7 +25,7 @@
         Matrix::nearPD(x)$mat
       )
     }
-    colnames(x) <- rownames(x) <- varnames
+    colnames(x) <- rownames(x) <- ynames
     return(x)
   }
   # nocov end
@@ -39,7 +39,7 @@
       cl = cl,
       X = y,
       fun = function(x) {
-        names(x) <- varnames
+        names(x) <- ynames
         return(x)
       }
     )
@@ -53,7 +53,7 @@
     y <- lapply(
       X = y,
       FUN = function(x) {
-        names(x) <- varnames
+        names(x) <- ynames
         return(x)
       }
     )

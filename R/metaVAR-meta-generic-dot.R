@@ -1,26 +1,62 @@
 .MetaGeneric <- function(y,
                          v,
-                         n,
+                         x,
                          p,
-                         mu_start = NULL,
-                         mu_lbound = NULL,
-                         mu_ubound = NULL,
-                         sigma_l_start = NULL,
-                         sigma_l_lbound = NULL,
-                         sigma_l_ubound = NULL,
-                         diag = FALSE,
-                         try = 1000,
-                         ncores = NULL,
+                         m,
+                         beta0_values,
+                         beta0_free,
+                         beta0_lbound,
+                         beta0_ubound,
+                         beta1_values,
+                         beta1_free,
+                         beta1_lbound,
+                         beta1_ubound,
+                         tau_values,
+                         tau_free,
+                         tau_lbound,
+                         tau_ubound,
+                         random,
+                         diag,
+                         try,
+                         ncores,
                          ...) {
-  varnames <- paste0(
+  idx <- seq_len(p)
+  ynames <- paste0(
     "y",
-    seq_len(p)
+    idx
   )
+  vnames <- outer(
+    X = idx,
+    Y = idx,
+    FUN = function(x, y) {
+      return(
+        paste0(
+          "v",
+          x,
+          y
+        )
+      )
+    }
+  )
+  vnames <- vnames[
+    lower.tri(
+      x = vnames,
+      diag = TRUE
+    )
+  ]
+  if (!is.null(x) && !is.null(m)) {
+    xnames <- paste0(
+      "x",
+      seq_len(m)
+    )
+  } else {
+    xnames <- NULL
+  }
   estimates <- .CheckEstimates(
     y = y,
     v = v,
     p = p,
-    varnames = varnames,
+    ynames = ynames,
     ncores = ncores
   )
   y <- estimates$y
@@ -36,58 +72,58 @@
     }
   }
   # nocov end
-  mu <- .MetaMu(
+  beta <- .MetaBeta(
     p = p,
-    varnames = varnames,
-    mu_start = mu_start,
-    mu_lbound = mu_lbound,
-    mu_ubound = mu_ubound
+    m = m,
+    ynames = ynames,
+    xnames = xnames,
+    beta0_values = beta0_values,
+    beta0_free = beta0_free,
+    beta0_lbound = beta0_lbound,
+    beta0_ubound = beta0_ubound,
+    beta1_values = beta1_values,
+    beta1_free = beta1_free,
+    beta1_lbound = beta1_lbound,
+    beta1_ubound = beta1_ubound
   )
-  sigma <- .MetaSigma(
+  tau_sqr <- .MetaTau(
     p = p,
-    varnames = varnames,
-    sigma_l_start = sigma_l_start,
-    sigma_l_lbound = sigma_l_lbound,
-    sigma_l_ubound = sigma_l_ubound,
+    vnames = vnames,
+    tau_values = tau_values,
+    tau_free = tau_free,
+    tau_lbound = tau_lbound,
+    tau_ubound = tau_ubound,
+    random = random,
     diag = diag
   )
-  sigma_l <- sigma$sigma_l
-  sigma <- sigma$sigma
-  model_i <- vector(
-    mode = "list",
-    length = n
-  )
-  for (i in seq_len(n)) {
-    model_i[[i]] <- OpenMx::mxModel(
-      model = paste0(
-        "Model_",
-        i
-      ),
-      sigma_l,
-      sigma,
-      mu,
-      OpenMx::mxData(
-        type = "cov",
-        observed = v[[i]],
-        means = y[[i]],
-        numObs = n
-      ),
-      OpenMx::mxExpectationNormal(
-        covariance = "sigma",
-        means = "mu"
-      ),
-      OpenMx::mxFitFunctionML()
-    )
-  }
   model <- OpenMx::mxModel(
     model = "Model",
-    model_i,
-    OpenMx::mxFitFunctionMultigroup(
-      paste0(
-        "Model_",
-        seq_len(n)
+    beta$x,
+    beta$beta0,
+    beta$beta1,
+    beta$beta,
+    beta$expected_mean,
+    tau_sqr$tau,
+    tau_sqr$tau_sqr,
+    tau_sqr$v,
+    tau_sqr$expected_covariance,
+    OpenMx::mxData(
+      type = "raw",
+      observed = .PrepData(
+        y = y,
+        v = v,
+        x = x,
+        ynames = ynames,
+        vnames = vnames,
+        xnames = xnames
       )
-    )
+    ),
+    OpenMx::mxExpectationNormal(
+      covariance = "expected_covariance",
+      means = "expected_mean",
+      dimnames = ynames
+    ),
+    OpenMx::mxFitFunctionML()
   )
   return(
     OpenMx::mxTryHardctsem(

@@ -1,45 +1,9 @@
 #' Fit Multivariate Meta-Analysis
 #'
-#' This function estimates the mean and covariance matrix
-#' of a vector of coefficients
+#' This function estimates
+#' fixed-, random-, or mixed-effects meta-analysis parameters
 #' using the estimated coefficients and sampling variance-covariance matrix
 #' from each individual.
-#'
-#' @details For \eqn{i = \left\{1, \cdots, n \right\}},
-#'   the objective function used to estimate the mean \eqn{\boldsymbol{\mu}}
-#'   and covariance matrix \eqn{\boldsymbol{\Sigma}}
-#'   of the random coefficients \eqn{\mathbf{y}_{i}} is given by
-#'   \deqn{
-#'     \ell
-#'     \left(
-#'     \boldsymbol{\mu} ,
-#'     \boldsymbol{\Sigma} \mid \mathbf{y}_{i},
-#'     \mathbb{V} \left( \mathbf{y}_{i} \right)
-#'     \right)
-#'     =
-#'     - \frac{1}{2}
-#'     \left[
-#'     q \log \left( 2 \pi \right)
-#'     +
-#'     \log
-#'     \left(
-#'     \left|
-#'       \mathbb{V} \left( \mathbf{y}_{i} \right) - \boldsymbol{\Sigma}
-#'     \right|
-#'     \right)
-#'     +
-#'     \left( \mathbf{y}_{i} - \boldsymbol{\mu} \right)^{\prime}
-#'     \left(
-#'       \mathbb{V} \left( \mathbf{y}_{i} \right) - \boldsymbol{\Sigma}
-#'     \right)^{-1}
-#'     \left( \mathbf{y}_{i} - \boldsymbol{\mu} \right)
-#'     \right]
-#'   }
-#'  where
-#'  \eqn{q} is the number of unique elements
-#'  in \eqn{\boldsymbol{\mu}} and \eqn{\boldsymbol{\Sigma}}, and
-#'  \eqn{\mathbb{V} \left( \mathbf{y}_{i} \right)}
-#'  is the sampling variance-covariance matrix of \eqn{\mathbf{y}_{i}}.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -107,6 +71,10 @@
 #' }
 #'
 #' @references
+#' Cheung, M. W.-L. (2015).
+#' *Meta-analysis: A structural equation modeling approach*.
+#' Chichester, West Sussex: John Wiley & Sons, Inc.
+#'
 #' Neale, M. C., Hunter, M. D., Pritikin, J. N.,
 #' Zahery, M., Brick, T. R., Kirkpatrick, R. M., Estabrook, R.,
 #' Bates, T. C., Maes, H. H., & Boker, S. M. (2015).
@@ -119,12 +87,20 @@
 #' @keywords metaVAR meta
 #' @export
 MetaVARMx <- function(object,
-                      mu_start = NULL,
-                      mu_lbound = NULL,
-                      mu_ubound = NULL,
-                      sigma_l_start = NULL,
-                      sigma_l_lbound = NULL,
-                      sigma_l_ubound = NULL,
+                      x = NULL,
+                      beta0_values = NULL,
+                      beta0_free = NULL,
+                      beta0_lbound = NULL,
+                      beta0_ubound = NULL,
+                      beta1_values = NULL,
+                      beta1_free = NULL,
+                      beta1_lbound = NULL,
+                      beta1_ubound = NULL,
+                      tau_values = NULL,
+                      tau_free = NULL,
+                      tau_lbound = NULL,
+                      tau_ubound = NULL,
+                      random = TRUE,
                       diag = FALSE,
                       intercept = FALSE,
                       noise = FALSE,
@@ -183,12 +159,20 @@ MetaVARMx <- function(object,
     Meta(
       y = y,
       v = v,
-      mu_start = mu_start,
-      mu_lbound = mu_lbound,
-      mu_ubound = mu_ubound,
-      sigma_l_start = sigma_l_start,
-      sigma_l_lbound = sigma_l_lbound,
-      sigma_l_ubound = sigma_l_ubound,
+      x = x,
+      beta0_values = beta0_values,
+      beta0_free = beta0_free,
+      beta0_lbound = beta0_lbound,
+      beta0_ubound = beta0_ubound,
+      beta1_values = beta1_values,
+      beta1_free = beta1_free,
+      beta1_lbound = beta1_lbound,
+      beta1_ubound = beta1_ubound,
+      tau_values = tau_values,
+      tau_free = tau_free,
+      tau_lbound = tau_lbound,
+      tau_ubound = tau_ubound,
+      random = random,
       diag = diag,
       try = try,
       ncores = ncores,
