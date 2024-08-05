@@ -59,7 +59,7 @@
                         <h4 data-toc-skip class="author">Ivan Jacob
 Agaloos Pesigan</h4>
             
-            <h4 data-toc-skip class="date">2024-08-02</h4>
+            <h4 data-toc-skip class="date">2024-08-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/metaVAR/blob/main/vignettes/fit-dt-var-id.Rmd"><code>vignettes/fit-dt-var-id.Rmd</code></a></small>
       <div class="d-none name"><code>fit-dt-var-id.Rmd</code></div>
@@ -364,15 +364,10 @@ individual
 <p>The <code>MetaVARMx</code> function performs multivariate
 meta-analysis using the estimated parameters and the corresponding
 sampling variance-covariance matrix for each individual
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.</p>
-<blockquote>
-<p><strong>Note:</strong> By default, the <code>MetaVARMx</code>
-function estimates all the elements of the symmetric covariance matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚺</mi><annotation encoding="application/x-tex">\boldsymbol{\Sigma}</annotation></semantics></math>.
-Setting <code>diag = TRUE</code> constrains
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚺</mi><annotation encoding="application/x-tex">\boldsymbol{\Sigma}</annotation></semantics></math>
-to be a diagonal matrix.</p>
-</blockquote>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
+Estimates with the prefix <code>beta0</code> correspond to the estimates
+of <code>beta_mu</code>. Estimates with the prefix <code>tau_sqr</code>
+correspond to the estimates of <code>beta_sigma</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeksterslab/metaVAR">metaVAR</a></span><span class="op">)</span></span>
 <span><span class="va">meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MetaVARMx.html">MetaVARMx</a></span><span class="op">(</span></span>
@@ -384,104 +379,90 @@ to be a diagonal matrix.</p>
 <span><span class="co">#&gt; Beginning initial fit attempt</span></span>
 <span><span class="co">#&gt; Running Model with 54 parameters</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Lowest minimum so far:  -323609.135261474</span></span>
+<span><span class="co">#&gt;  Lowest minimum so far:  -1631.66922916048</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Solution found</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Solution found!  Final fit=-323609.14 (started at 15457.31)  (1 attempt(s): 1 valid, 0 errors)</span></span>
+<span><span class="co">#&gt;  Solution found!  Final fit=-1631.6692 (started at 1808.605)  (1 attempt(s): 1 valid, 0 errors)</span></span>
 <span><span class="co">#&gt;  Start values from best fit:</span></span>
-<span><span class="co">#&gt; 0.101990860755719,-9.63606900625405e-05,-0.0376967828324917,-0.0288359075164934,-0.0132175951176997,-0.0074112180172429,0.0103936192758129,0.00581834875727109,-0.00779474391676822,0.112223975587715,0.00741222399465395,-0.00739852412795529,-0.00354657685452527,0.00926922480202475,-0.00609308218035636,-0.0122526873225983,-0.00169061317496363,0.103934090500565,-0.000867875300360252,-0.00340333956176706,-0.0140425556451069,0.00351296237010426,0.00467430975962579,0.0116042866874398,0.0930097131004134,0.00806260265715464,-0.00668447123810526,-0.0056127833640155,0.00411137508257139,0.00210266424403066,0.0860884051598883,-0.016938970775382,-0.00281189230673905,-0.00240773607889113,-0.00290879057660141,0.105442552129875,-0.0039012870975001,0.0116033609731538,-0.00725554622527771,0.102561106163624,-0.000575848957406504,-0.0172704292911083,0.108511882684719,-0.0086265239632991,0.0933768053051872,0.681708261296643,0.490648500424646,-0.0955985093379615,-0.00455228659034041,0.585829958661633,0.385393126109985,0.00939272530456867,-0.0127207877753325,0.492579400821604</span></span>
+<span><span class="co">#&gt; 0.683628823514327,0.489883839088824,-0.0954795970713642,-0.0044271879659616,0.587129912201771,0.384857977783378,0.00968300667597512,-0.0126066078188316,0.494241695326815,0.0950883408459786,7.02099324851361e-05,-0.0403960184025529,-0.0263352127173484,-0.0139246148636318,-0.00766850426543009,0.00958772056228502,0.00633263201866902,-0.00814930616285518,0.106565373061049,0.00766885886696031,-0.00718485583576928,0.000293250698227311,0.0100288243173326,-0.00678492133046897,-0.0142010556916151,-0.00185693689003376,0.0967655985917438,-0.000639028119979452,-0.00447980235881888,-0.0105206738883803,0.00426148618970741,0.00548778393899724,0.0114306806058099,0.0886759035567596,0.00870375266896268,-0.00677804996594878,-0.00256741071600019,0.00414015916874269,0.00279272900965414,0.0805376513281381,-0.0189809847823669,-0.00315174371254906,0.00274618921210628,-0.00288554375151828,0.100762140962105,-0.00378893573428241,0.0135221995345507,-0.00515136448543722,0.0974554182685406,-0.00074454485536386,-0.0179956898351832,0.103120866673108,-0.00913034483670773,0.0877913878240279</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $estimates</span></span>
-<span><span class="co">#&gt;                           est     se        z      p    2.5%   97.5%</span></span>
-<span><span class="co">#&gt; mu_beta_11             0.6817 0.0010 668.4013 0.0000  0.6797  0.6837</span></span>
-<span><span class="co">#&gt; mu_beta_21             0.4906 0.0011 437.2041 0.0000  0.4884  0.4928</span></span>
-<span><span class="co">#&gt; mu_beta_31            -0.0956 0.0011 -86.2745 0.0000 -0.0978 -0.0934</span></span>
-<span><span class="co">#&gt; mu_beta_12            -0.0046 0.0010  -4.6613 0.0000 -0.0065 -0.0026</span></span>
-<span><span class="co">#&gt; mu_beta_22             0.5858 0.0009 668.6974 0.0000  0.5841  0.5875</span></span>
-<span><span class="co">#&gt; mu_beta_32             0.3854 0.0011 354.9668 0.0000  0.3833  0.3875</span></span>
-<span><span class="co">#&gt; mu_beta_13             0.0094 0.0010   9.0672 0.0000  0.0074  0.0114</span></span>
-<span><span class="co">#&gt; mu_beta_23            -0.0127 0.0011 -11.5461 0.0000 -0.0149 -0.0106</span></span>
-<span><span class="co">#&gt; mu_beta_33             0.4926 0.0010 509.2577 0.0000  0.4907  0.4945</span></span>
-<span><span class="co">#&gt; sigma_beta_11_beta_11  0.0104 0.0001  70.7107 0.0000  0.0101  0.0107</span></span>
-<span><span class="co">#&gt; sigma_beta_21_beta_11  0.0000 0.0001  -0.0859 0.9316 -0.0002  0.0002</span></span>
-<span><span class="co">#&gt; sigma_beta_31_beta_11 -0.0038 0.0001 -32.2073 0.0000 -0.0041 -0.0036</span></span>
-<span><span class="co">#&gt; sigma_beta_12_beta_11 -0.0029 0.0001 -28.3177 0.0000 -0.0031 -0.0027</span></span>
-<span><span class="co">#&gt; sigma_beta_22_beta_11 -0.0013 0.0001 -14.9184 0.0000 -0.0015 -0.0012</span></span>
-<span><span class="co">#&gt; sigma_beta_32_beta_11 -0.0008 0.0001  -6.8103 0.0000 -0.0010 -0.0005</span></span>
-<span><span class="co">#&gt; sigma_beta_13_beta_11  0.0011 0.0001   9.9833 0.0000  0.0009  0.0013</span></span>
-<span><span class="co">#&gt; sigma_beta_23_beta_11  0.0006 0.0001   5.2737 0.0000  0.0004  0.0008</span></span>
-<span><span class="co">#&gt; sigma_beta_33_beta_11 -0.0008 0.0001  -8.0326 0.0000 -0.0010 -0.0006</span></span>
-<span><span class="co">#&gt; sigma_beta_21_beta_21  0.0126 0.0002  70.7107 0.0000  0.0122  0.0129</span></span>
-<span><span class="co">#&gt; sigma_beta_31_beta_21  0.0008 0.0001   6.7034 0.0000  0.0006  0.0011</span></span>
-<span><span class="co">#&gt; sigma_beta_12_beta_21 -0.0008 0.0001  -7.5289 0.0000 -0.0010 -0.0006</span></span>
-<span><span class="co">#&gt; sigma_beta_22_beta_21 -0.0004 0.0001  -4.0320 0.0001 -0.0006 -0.0002</span></span>
-<span><span class="co">#&gt; sigma_beta_32_beta_21  0.0010 0.0001   8.5123 0.0000  0.0008  0.0013</span></span>
-<span><span class="co">#&gt; sigma_beta_13_beta_21 -0.0007 0.0001  -5.8803 0.0000 -0.0009 -0.0005</span></span>
-<span><span class="co">#&gt; sigma_beta_23_beta_21 -0.0014 0.0001 -11.0575 0.0000 -0.0016 -0.0011</span></span>
-<span><span class="co">#&gt; sigma_beta_33_beta_21 -0.0002 0.0001  -1.7407 0.0817 -0.0004  0.0000</span></span>
-<span><span class="co">#&gt; sigma_beta_31_beta_31  0.0123 0.0002  70.7107 0.0000  0.0119  0.0126</span></span>
-<span><span class="co">#&gt; sigma_beta_12_beta_31  0.0009 0.0001   8.6718 0.0000  0.0007  0.0012</span></span>
-<span><span class="co">#&gt; sigma_beta_22_beta_31  0.0001 0.0001   1.2180 0.2232 -0.0001  0.0003</span></span>
-<span><span class="co">#&gt; sigma_beta_32_beta_31 -0.0011 0.0001  -9.1991 0.0000 -0.0013 -0.0009</span></span>
-<span><span class="co">#&gt; sigma_beta_13_beta_31 -0.0001 0.0001  -0.6260 0.5313 -0.0003  0.0002</span></span>
-<span><span class="co">#&gt; sigma_beta_23_beta_31  0.0002 0.0001   1.4388 0.1502 -0.0001  0.0004</span></span>
-<span><span class="co">#&gt; sigma_beta_33_beta_31  0.0015 0.0001  13.7459 0.0000  0.0013  0.0017</span></span>
-<span><span class="co">#&gt; sigma_beta_12_beta_12  0.0095 0.0001  70.7107 0.0000  0.0093  0.0098</span></span>
-<span><span class="co">#&gt; sigma_beta_22_beta_12  0.0012 0.0001  13.4376 0.0000  0.0010  0.0013</span></span>
-<span><span class="co">#&gt; sigma_beta_32_beta_12 -0.0005 0.0001  -4.3756 0.0000 -0.0007 -0.0003</span></span>
-<span><span class="co">#&gt; sigma_beta_13_beta_12 -0.0008 0.0001  -7.6844 0.0000 -0.0010 -0.0006</span></span>
-<span><span class="co">#&gt; sigma_beta_23_beta_12  0.0003 0.0001   2.7984 0.0051  0.0001  0.0005</span></span>
-<span><span class="co">#&gt; sigma_beta_33_beta_12  0.0004 0.0001   4.4711 0.0000  0.0002  0.0006</span></span>
-<span><span class="co">#&gt; sigma_beta_22_beta_22  0.0077 0.0001  70.7106 0.0000  0.0075  0.0079</span></span>
-<span><span class="co">#&gt; sigma_beta_32_beta_22 -0.0014 0.0001 -14.5544 0.0000 -0.0016 -0.0012</span></span>
-<span><span class="co">#&gt; sigma_beta_13_beta_22 -0.0004 0.0001  -4.5686 0.0000 -0.0006 -0.0002</span></span>
-<span><span class="co">#&gt; sigma_beta_23_beta_22 -0.0002 0.0001  -2.3148 0.0206 -0.0004  0.0000</span></span>
-<span><span class="co">#&gt; sigma_beta_33_beta_22 -0.0002 0.0001  -1.9342 0.0531 -0.0003  0.0000</span></span>
-<span><span class="co">#&gt; sigma_beta_32_beta_32  0.0118 0.0002  70.7106 0.0000  0.0115  0.0121</span></span>
-<span><span class="co">#&gt; sigma_beta_13_beta_32 -0.0005 0.0001  -4.5215 0.0000 -0.0007 -0.0003</span></span>
-<span><span class="co">#&gt; sigma_beta_23_beta_32  0.0010 0.0001   8.4505 0.0000  0.0008  0.0012</span></span>
-<span><span class="co">#&gt; sigma_beta_33_beta_32 -0.0009 0.0001  -8.0741 0.0000 -0.0011 -0.0006</span></span>
-<span><span class="co">#&gt; sigma_beta_13_beta_13  0.0107 0.0002  70.7106 0.0000  0.0104  0.0110</span></span>
-<span><span class="co">#&gt; sigma_beta_23_beta_13  0.0000 0.0001   0.2709 0.7865 -0.0002  0.0003</span></span>
-<span><span class="co">#&gt; sigma_beta_33_beta_13 -0.0018 0.0001 -17.4581 0.0000 -0.0020 -0.0016</span></span>
-<span><span class="co">#&gt; sigma_beta_23_beta_23  0.0121 0.0002  70.7107 0.0000  0.0118  0.0125</span></span>
-<span><span class="co">#&gt; sigma_beta_33_beta_23 -0.0010 0.0001  -9.0192 0.0000 -0.0012 -0.0008</span></span>
-<span><span class="co">#&gt; sigma_beta_33_beta_33  0.0094 0.0001  70.7106 0.0000  0.0091  0.0096</span></span>
+<span><span class="co">#&gt;                             est     se       z      p    2.5%   97.5%</span></span>
+<span><span class="co">#&gt; beta0_beta_11            0.6836 0.0098 69.5325 0.0000  0.6644  0.7029</span></span>
+<span><span class="co">#&gt; beta0_beta_21            0.4899 0.0109 44.7564 0.0000  0.4684  0.5113</span></span>
+<span><span class="co">#&gt; beta0_beta_31           -0.0955 0.0108 -8.8345 0.0000 -0.1167 -0.0743</span></span>
+<span><span class="co">#&gt; beta0_beta_12           -0.0044 0.0095 -0.4649 0.6420 -0.0231  0.0142</span></span>
+<span><span class="co">#&gt; beta0_beta_22            0.5871 0.0085 69.0433 0.0000  0.5705  0.6038</span></span>
+<span><span class="co">#&gt; beta0_beta_32            0.3849 0.0106 36.2252 0.0000  0.3640  0.4057</span></span>
+<span><span class="co">#&gt; beta0_beta_13            0.0097 0.0101  0.9594 0.3374 -0.0101  0.0295</span></span>
+<span><span class="co">#&gt; beta0_beta_23           -0.0126 0.0108 -1.1699 0.2421 -0.0337  0.0085</span></span>
+<span><span class="co">#&gt; beta0_beta_33            0.4942 0.0094 52.5155 0.0000  0.4758  0.5127</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_11_beta_11  0.0090 0.0014  6.5987 0.0000  0.0064  0.0117</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_21_beta_11  0.0000 0.0011  0.0062 0.9951 -0.0021  0.0021</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_31_beta_11 -0.0038 0.0011 -3.3983 0.0007 -0.0061 -0.0016</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_12_beta_11 -0.0025 0.0010 -2.5682 0.0102 -0.0044 -0.0006</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_22_beta_11 -0.0013 0.0008 -1.5673 0.1171 -0.0030  0.0003</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_32_beta_11 -0.0007 0.0010 -0.6973 0.4856 -0.0028  0.0013</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_13_beta_11  0.0009 0.0010  0.9150 0.3602 -0.0010  0.0029</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_23_beta_11  0.0006 0.0011  0.5678 0.5701 -0.0015  0.0027</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_33_beta_11 -0.0008 0.0009 -0.8354 0.4035 -0.0026  0.0010</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_21_beta_21  0.0114 0.0017  6.7066 0.0000  0.0080  0.0147</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_31_beta_21  0.0008 0.0012  0.6873 0.4919 -0.0015  0.0031</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_12_beta_21 -0.0008 0.0010 -0.7352 0.4622 -0.0028  0.0013</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_22_beta_21  0.0000 0.0009  0.0326 0.9740 -0.0018  0.0019</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_32_beta_21  0.0011 0.0012  0.9162 0.3596 -0.0012  0.0034</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_13_beta_21 -0.0007 0.0011 -0.6535 0.5134 -0.0029  0.0014</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_23_beta_21 -0.0015 0.0012 -1.2720 0.2034 -0.0038  0.0008</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_33_beta_21 -0.0002 0.0010 -0.1927 0.8472 -0.0022  0.0018</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_31_beta_31  0.0111 0.0017  6.6964 0.0000  0.0078  0.0143</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_12_beta_31  0.0009 0.0010  0.9174 0.3589 -0.0011  0.0030</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_22_beta_31  0.0001 0.0009  0.1430 0.8863 -0.0017  0.0019</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_32_beta_31 -0.0006 0.0011 -0.5496 0.5826 -0.0029  0.0016</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_13_beta_31  0.0000 0.0011 -0.0248 0.9802 -0.0022  0.0021</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_23_beta_31  0.0002 0.0012  0.1428 0.8864 -0.0021  0.0024</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_33_beta_31  0.0014 0.0010  1.3832 0.1666 -0.0006  0.0034</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_12_beta_12  0.0086 0.0013  6.7165 0.0000  0.0061  0.0111</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_22_beta_12  0.0011 0.0008  1.3936 0.1634 -0.0005  0.0027</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_32_beta_12 -0.0005 0.0010 -0.4582 0.6468 -0.0025  0.0015</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_13_beta_12 -0.0004 0.0010 -0.4505 0.6524 -0.0023  0.0015</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_23_beta_12  0.0003 0.0010  0.2915 0.7706 -0.0017  0.0023</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_33_beta_12  0.0005 0.0009  0.5218 0.6018 -0.0013  0.0022</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_22_beta_22  0.0068 0.0010  6.6332 0.0000  0.0048  0.0088</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_32_beta_22 -0.0014 0.0009 -1.5631 0.1180 -0.0032  0.0004</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_13_beta_22 -0.0004 0.0009 -0.5007 0.6166 -0.0021  0.0013</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_23_beta_22  0.0001 0.0009  0.1533 0.8782 -0.0017  0.0019</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_33_beta_22 -0.0001 0.0008 -0.1827 0.8550 -0.0017  0.0014</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_32_beta_32  0.0108 0.0016  6.7790 0.0000  0.0077  0.0140</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_13_beta_32 -0.0005 0.0011 -0.4560 0.6484 -0.0026  0.0016</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_23_beta_32  0.0010 0.0012  0.8985 0.3689 -0.0012  0.0033</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_33_beta_32 -0.0006 0.0010 -0.5561 0.5781 -0.0025  0.0014</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_13_beta_13  0.0097 0.0014  6.7187 0.0000  0.0069  0.0125</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_23_beta_13  0.0000 0.0011  0.0344 0.9726 -0.0021  0.0022</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_33_beta_13 -0.0017 0.0010 -1.8137 0.0697 -0.0036  0.0001</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_23_beta_23  0.0111 0.0016  6.7724 0.0000  0.0079  0.0143</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_33_beta_23 -0.0010 0.0010 -0.9407 0.3469 -0.0029  0.0010</span></span>
+<span><span class="co">#&gt; tau_sqr_beta_33_beta_33  0.0084 0.0012  6.6986 0.0000  0.0059  0.0108</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $heterogeneity</span></span>
-<span><span class="co">#&gt; beta_11 beta_21 beta_31 beta_12 beta_22 beta_32 beta_13 beta_23 beta_33 </span></span>
-<span><span class="co">#&gt;  0.9445  0.9537  0.9525  0.9564  0.9466  0.9643  0.9585  0.9632  0.9529</span></span></code></pre>
-<p>The <code>coef</code> and <code>vcov</code> functions extract the
-estimated mean vector and covariance matrix from the output of the
-<code>MetaVARMx</code> function.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      beta_11      beta_21      beta_31      beta_12      beta_22      beta_32 </span></span>
-<span><span class="co">#&gt;  0.681708261  0.490648500 -0.095598509 -0.004552287  0.585829959  0.385393126 </span></span>
-<span><span class="co">#&gt;      beta_13      beta_23      beta_33 </span></span>
-<span><span class="co">#&gt;  0.009392725 -0.012720788  0.492579401</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/vcov.html" class="external-link">vcov</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="co">#&gt;               beta_11       beta_21       beta_31       beta_12       beta_22</span></span>
-<span><span class="co">#&gt; beta_11  1.040214e-02 -9.827910e-06 -3.844727e-03 -0.0029409990 -0.0013480739</span></span>
-<span><span class="co">#&gt; beta_21 -9.827910e-06  1.259423e-02  8.354617e-04 -0.0008275131 -0.0003967373</span></span>
-<span><span class="co">#&gt; beta_31 -3.844727e-03  8.354617e-04  1.227828e-02  0.0009419796  0.0001182498</span></span>
-<span><span class="co">#&gt; beta_12 -2.940999e-03 -8.275131e-04  9.419796e-04  0.0095378077  0.0011602348</span></span>
-<span><span class="co">#&gt; beta_22 -1.348074e-03 -3.967373e-04  1.182498e-04  0.0011602348  0.0076750848</span></span>
-<span><span class="co">#&gt; beta_32 -7.558765e-04  1.040943e-03 -1.111416e-03 -0.0004644030 -0.0013992672</span></span>
-<span><span class="co">#&gt; beta_13  1.060054e-03 -6.847914e-04 -7.185275e-05 -0.0007797218 -0.0004150498</span></span>
-<span><span class="co">#&gt; beta_23  5.934184e-04 -1.375606e-03  1.756674e-04  0.0003012155 -0.0002234875</span></span>
-<span><span class="co">#&gt; beta_33 -7.949926e-04 -1.889762e-04  1.487387e-03  0.0004227737 -0.0001639299</span></span>
-<span><span class="co">#&gt;               beta_32       beta_13       beta_23       beta_33</span></span>
-<span><span class="co">#&gt; beta_11 -0.0007558765  1.060054e-03  0.0005934184 -0.0007949926</span></span>
-<span><span class="co">#&gt; beta_21  0.0010409434 -6.847914e-04 -0.0013756059 -0.0001889762</span></span>
-<span><span class="co">#&gt; beta_31 -0.0011114156 -7.185275e-05  0.0001756674  0.0014873865</span></span>
-<span><span class="co">#&gt; beta_12 -0.0004644030 -7.797218e-04  0.0003012155  0.0004227737</span></span>
-<span><span class="co">#&gt; beta_22 -0.0013992672 -4.150498e-04 -0.0002234875 -0.0001639299</span></span>
-<span><span class="co">#&gt; beta_32  0.0117877807 -5.090511e-04  0.0010144570 -0.0008506826</span></span>
-<span><span class="co">#&gt; beta_13 -0.0005090511  1.073090e-02  0.0000309173 -0.0017765401</span></span>
-<span><span class="co">#&gt; beta_23  0.0010144570  3.091730e-05  0.0121383296 -0.0009650714</span></span>
-<span><span class="co">#&gt; beta_33 -0.0008506826 -1.776540e-03 -0.0009650714  0.0093557133</span></span></code></pre></div>
+<span><span class="co">#&gt;     beta0_1     beta0_2     beta0_3     beta0_4     beta0_5     beta0_6 </span></span>
+<span><span class="co">#&gt;      0.1365      0.1639      0.1602      0.1727      0.1431      0.2057 </span></span>
+<span><span class="co">#&gt;     beta0_7     beta0_8     beta0_9 tau_sqr_1_1 tau_sqr_2_1 tau_sqr_3_1 </span></span>
+<span><span class="co">#&gt;      0.1797      0.2003      0.1607      0.0031      0.0019      0.0021 </span></span>
+<span><span class="co">#&gt; tau_sqr_4_1 tau_sqr_5_1 tau_sqr_6_1 tau_sqr_7_1 tau_sqr_8_1 tau_sqr_9_1 </span></span>
+<span><span class="co">#&gt;      0.0022      0.0016      0.0025      0.0021      0.0024      0.0019 </span></span>
+<span><span class="co">#&gt; tau_sqr_2_2 tau_sqr_3_2 tau_sqr_4_2 tau_sqr_5_2 tau_sqr_6_2 tau_sqr_7_2 </span></span>
+<span><span class="co">#&gt;      0.0047      0.0023      0.0018      0.0020      0.0031      0.0028 </span></span>
+<span><span class="co">#&gt; tau_sqr_8_2 tau_sqr_9_2 tau_sqr_3_3 tau_sqr_4_3 tau_sqr_5_3 tau_sqr_6_3 </span></span>
+<span><span class="co">#&gt;      0.0030      0.0023      0.0059      0.0017      0.0014      0.0022 </span></span>
+<span><span class="co">#&gt; tau_sqr_7_3 tau_sqr_8_3 tau_sqr_9_3 tau_sqr_4_4 tau_sqr_5_4 tau_sqr_6_4 </span></span>
+<span><span class="co">#&gt;      0.0027      0.0031      0.0024      0.0035      0.0014      0.0022 </span></span>
+<span><span class="co">#&gt; tau_sqr_7_4 tau_sqr_8_4 tau_sqr_9_4 tau_sqr_5_5 tau_sqr_6_5 tau_sqr_7_5 </span></span>
+<span><span class="co">#&gt;      0.0015      0.0017      0.0013      0.0024      0.0019      0.0017 </span></span>
+<span><span class="co">#&gt; tau_sqr_8_5 tau_sqr_9_5 tau_sqr_6_6 tau_sqr_7_6 tau_sqr_8_6 tau_sqr_9_6 </span></span>
+<span><span class="co">#&gt;      0.0018      0.0014      0.0055      0.0019      0.0022      0.0017 </span></span>
+<span><span class="co">#&gt; tau_sqr_7_7 tau_sqr_8_7 tau_sqr_9_7 tau_sqr_8_8 tau_sqr_9_8 tau_sqr_9_9 </span></span>
+<span><span class="co">#&gt;      0.0048      0.0027      0.0021      0.0058      0.0022      0.0034</span></span></code></pre>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
