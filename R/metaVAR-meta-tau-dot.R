@@ -8,7 +8,7 @@
                      tau_ubound,
                      random,
                      diag) {
-  v_hat <- .V_hat(
+  v_hat <- .VHat(
     v = v,
     p = p,
     n = n

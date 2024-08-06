@@ -1,6 +1,6 @@
 .CIMeta <- function(object,
                     alpha = 0.05) {
-  beta0 <- beta1 <- tau_sqr <- i_sqr <- NULL
+  beta0 <- tau_sqr <- i_sqr <- NULL
   # beta0
   beta0_names <- object$output$matrices$beta0$labels
   dim(beta0_names) <- NULL
