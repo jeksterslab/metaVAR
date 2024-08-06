@@ -52,7 +52,7 @@
       Y = seq_len(m),
       FUN = function(x, y) {
         paste0(
-          "beta1_",
+          "b1_",
           x,
           y
         )

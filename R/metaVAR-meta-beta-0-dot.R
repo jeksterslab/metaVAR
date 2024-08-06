@@ -54,7 +54,7 @@
   }
   beta0_labels <- matrix(
     data = paste0(
-      "beta0_",
+      "b0_",
       seq_len(p)
     ),
     ncol = 1

@@ -9,8 +9,9 @@
     Y = idx,
     FUN = function(x, y) {
       paste0(
-        "tau_",
+        "t_",
         x,
+        "_",
         y
       )
     }

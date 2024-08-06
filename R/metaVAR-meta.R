@@ -138,6 +138,7 @@ Meta <- function(y,
     x = x,
     p = p,
     m = m,
+    n = n,
     beta0_values = beta0_values,
     beta0_free = beta0_free,
     beta0_lbound = beta0_lbound,
@@ -160,13 +161,7 @@ Meta <- function(y,
     call = match.call(),
     args = args,
     fun = "Meta",
-    output = output,
-    transform = .Transform(
-      coef = coef(output),
-      vcov = vcov(output),
-      p = p,
-      diag = diag
-    )
+    output = output
   )
   class(out) <- c(
     "metavarmeta",

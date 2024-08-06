@@ -5,6 +5,7 @@ date: "`r Sys.Date()`"
 bibliography: "vignettes.bib"
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
 nocite: |
+  @Cheung-2015
   @RCoreTeam-2024
   @Neale-Hunter-Pritikin-etal-2015
   @Hunter-2017
@@ -343,8 +344,9 @@ fit
 
 The `MetaVARMx` function performs multivariate meta-analysis using the estimated parameters
 and the corresponding sampling variance-covariance matrix for each individual $i$.
-Estimates with the prefix `beta0` correspond to the estimates of `beta_mu`.
-Estimates with the prefix `tau_sqr` correspond to the estimates of `beta_sigma`.
+Estimates with the prefix `b0` correspond to the estimates of `beta_mu`.
+Estimates with the prefix `t2` correspond to the estimates of `beta_sigma`.
+Estimates with the prefix `i2` correspond to the estimates of heterogeniety.
 
 ```{r}
 library(metaVAR)
