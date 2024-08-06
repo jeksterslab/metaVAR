@@ -115,7 +115,8 @@ Number of cores to use.}
 This function estimates
 fixed-, random-, or mixed-effects meta-analysis parameters
 using the estimated coefficients and sampling variance-covariance matrix
-from each individual.
+from each individual fitted using the \code{\link[fitDTVARMx:FitDTVARIDMx]{fitDTVARMx::FitDTVARIDMx()}}
+or \code{\link[fitCTVARMx:FitCTVARIDMx]{fitCTVARMx::FitCTVARIDMx()}} functions.
 }
 \examples{
 \dontrun{
@@ -160,7 +161,6 @@ print(meta)
 summary(meta)
 coef(meta)
 vcov(meta)
-confint(meta)
 }
 
 }
