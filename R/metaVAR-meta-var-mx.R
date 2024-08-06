@@ -3,7 +3,8 @@
 #' This function estimates
 #' fixed-, random-, or mixed-effects meta-analysis parameters
 #' using the estimated coefficients and sampling variance-covariance matrix
-#' from each individual.
+#' from each individual fitted using the [fitDTVARMx::FitDTVARIDMx()]
+#' or [fitCTVARMx::FitCTVARIDMx()] functions.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -69,7 +70,6 @@
 #' summary(meta)
 #' coef(meta)
 #' vcov(meta)
-#' confint(meta)
 #' }
 #'
 #' @references
