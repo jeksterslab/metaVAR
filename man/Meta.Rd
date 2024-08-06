@@ -105,7 +105,8 @@ from each individual.
 \references{
 Cheung, M. W.-L. (2015).
 \emph{Meta-analysis: A structural equation modeling approach}.
-Chichester, West Sussex: John Wiley & Sons, Inc.
+Wiley.
+\doi{10.1002/9781118957813}
 
 Neale, M. C., Hunter, M. D., Pritikin, J. N.,
 Zahery, M., Brick, T. R., Kirkpatrick, R. M., Estabrook, R.,
