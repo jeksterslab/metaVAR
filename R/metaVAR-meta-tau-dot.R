@@ -1,4 +1,6 @@
-.MetaTau <- function(p,
+.MetaTau <- function(v,
+                     p,
+                     n,
                      vnames,
                      tau_values,
                      tau_free,
@@ -6,6 +8,11 @@
                      tau_ubound,
                      random,
                      diag) {
+  v_hat <- .V_hat(
+    v = v,
+    p = p,
+    n = n
+  )
   if (random) {
     if (diag) {
       tau <- .MetaTauDiag(
@@ -40,10 +47,24 @@
     expression = v + tau_sqr,
     name = "expected_covariance"
   )
+  i_sqr <- OpenMx::mxAlgebra(
+    expression = (
+      diag2vec(
+        tau_sqr
+      ) / (
+        diag2vec(
+          tau_sqr
+        ) + v_hat
+      )
+    ),
+    name = "i_sqr"
+  )
   return(
     list(
       tau = tau,
       tau_sqr = tau_sqr,
+      v_hat = v_hat,
+      i_sqr = i_sqr,
       v = v,
       expected_covariance = expected_covariance
     )

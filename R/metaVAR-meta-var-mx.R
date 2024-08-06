@@ -61,6 +61,7 @@
 #'   observed = c("y1", "y2", "y3"),
 #'   id = "id"
 #' )
+#'
 #' # Multivariate meta-analysis-------------------------------------------------
 #' library(metaVAR)
 #' meta <- MetaVARMx(fit)
@@ -68,6 +69,7 @@
 #' summary(meta)
 #' coef(meta)
 #' vcov(meta)
+#' confint(meta)
 #' }
 #'
 #' @references

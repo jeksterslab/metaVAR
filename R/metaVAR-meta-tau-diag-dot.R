@@ -19,9 +19,10 @@
     )
   }
   tau_labels <- paste0(
-    "tau_",
+    "t_",
     paste0(
       idx,
+      "_",
       idx
     )
   )

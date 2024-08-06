@@ -13,16 +13,7 @@
     what = "rbind",
     args = lapply(
       X = v,
-      FUN = function(x) {
-        return(
-          x[
-            lower.tri(
-              x = x,
-              diag = TRUE
-            )
-          ]
-        )
-      }
+      FUN = .Vech
     )
   )
   colnames(v) <- vnames

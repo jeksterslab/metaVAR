@@ -3,6 +3,7 @@
                          x,
                          p,
                          m,
+                         n,
                          beta0_values,
                          beta0_free,
                          beta0_lbound,
@@ -25,26 +26,22 @@
     "y",
     idx
   )
-  vnames <- outer(
-    X = idx,
-    Y = idx,
-    FUN = function(x, y) {
-      return(
-        paste0(
-          "v",
-          x,
-          y
+  vnames <- .Vech(
+    x = outer(
+      X = idx,
+      Y = idx,
+      FUN = function(x, y) {
+        return(
+          paste0(
+            "v",
+            x,
+            y
+          )
         )
-      )
-    }
-  )
-  vnames <- vnames[
-    lower.tri(
-      x = vnames,
-      diag = TRUE
+      }
     )
-  ]
-  if (!is.null(x) && !is.null(m)) {
+  )
+  if (!is.null(x)) {
     xnames <- paste0(
       "x",
       seq_len(m)
@@ -87,7 +84,9 @@
     beta1_ubound = beta1_ubound
   )
   tau_sqr <- .MetaTau(
+    v = v,
     p = p,
+    n = n,
     vnames = vnames,
     tau_values = tau_values,
     tau_free = tau_free,
@@ -105,6 +104,8 @@
     beta$expected_mean,
     tau_sqr$tau,
     tau_sqr$tau_sqr,
+    tau_sqr$v_hat,
+    tau_sqr$i_sqr,
     tau_sqr$v,
     tau_sqr$expected_covariance,
     OpenMx::mxData(

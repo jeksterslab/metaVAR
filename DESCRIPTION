@@ -17,12 +17,12 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Depends: R (>= 3.5.0), OpenMx
-Imports: numDeriv, Matrix, fitDTVARMx, fitCTVARMx
+Imports: Matrix, fitDTVARMx, fitCTVARMx
 Remotes: jeksterslab/fitDTVARMx, jeksterslab/fitCTVARMx
 Suggests: knitr, rmarkdown, testthat, simStateSpace, MASS
 RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2024-08-05 06:32:48 UTC; root
+Packaged: 2024-08-06 03:22:53 UTC; root
 Author: Ivan Jacob Agaloos Pesigan [aut, cre, cph]
     (<https://orcid.org/0000-0003-4818-8420>)
 Maintainer: Ivan Jacob Agaloos Pesigan <r.jeksterslab@gmail.com>
