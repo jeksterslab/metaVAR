@@ -1,6 +1,6 @@
-.V_hat <- function(v,
-                   p,
-                   n) {
+.VHat <- function(v,
+                  p,
+                  n) {
   return(
     OpenMx::mxMatrix(
       type = "Full",
