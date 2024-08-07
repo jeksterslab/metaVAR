@@ -1,17 +1,16 @@
 ---
-title: "metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients"
+title: "metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Estimates"
 author: "Ivan Jacob Agaloos Pesigan"
 output: rmarkdown::html_vignette
 bibliography: "vignettes.bib"
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
 nocite: |
-  @RCoreTeam-2023
-  @Bollen-1987
-  @Deboeck-Preacher-2015
-  @Ryan-Hamaker-2021
-  @Wang-Zhang-2020
+  @Cheung-2015
+  @RCoreTeam-2024
+  @Neale-Hunter-Pritikin-etal-2015
+  @Hunter-2017
 vignette: >
-  %\VignetteIndexEntry{metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients}
+  %\VignetteIndexEntry{metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Estimates}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -30,7 +29,7 @@ vignette: >
 
 ## Description
 
-Estimates the mean vector and covariance matrix of the multivariate meta-analysis of vector autoregressive model coefficients.
+Fits fixed-, random-, or mixed-effects multivariate meta-analysis models using vector autoregressive model estimates from each individual.
 
 ## Installation
 

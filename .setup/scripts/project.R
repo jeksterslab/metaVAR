@@ -18,7 +18,6 @@
 project <- "metaVAR"
 
 pkg_cran <- c(
-  "numDeriv",
   "OpenMx",
   "simStateSpace",
   "Matrix"

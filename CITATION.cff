@@ -7,10 +7,10 @@ cff-version: 1.2.0
 message: 'To cite package "metaVAR" in publications use:'
 type: software
 license: MIT
-title: 'metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients'
+title: 'metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Estimates'
 version: 0.0.0.9000
-abstract: Estimates the mean vector and covariance matrix of the multivariate meta-analysis
-  of vector autoregressive model coefficients.
+abstract: Fits fixed-, random-, or mixed-effects multivariate meta-analysis models
+  using vector autoregressive model estimates from each individual.
 authors:
 - family-names: Pesigan
   given-names: Ivan Jacob Agaloos
@@ -18,7 +18,7 @@ authors:
   orcid: https://orcid.org/0000-0003-4818-8420
 preferred-citation:
   type: manual
-  title: 'metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients'
+  title: 'metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Estimates'
   authors:
   - family-names: Pesigan
     given-names: Ivan Jacob Agaloos

@@ -65,7 +65,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients}
+\title{metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Estimates}
 \author{Ivan Jacob Agaloos Pesigan}
 \date{}
 
@@ -75,7 +75,7 @@
 
 \section*{Description}
 
-Estimates the mean vector and covariance matrix of the multivariate meta-analysis of vector autoregressive model coefficients.
+Fits fixed-, random-, or mixed-effects multivariate meta-analysis models using vector autoregressive model estimates from each individual.
 
 \section*{Installation}
 
@@ -95,8 +95,11 @@ See
 \href{https://jeksterslab.github.io/metaVAR/index.html}{GitHub Pages}
 for package documentation.
 
-\nocite{RCoreTeam-2023}
-
+\nocite{Cheung-2015}
+\nocite{RCoreTeam-2024}
+\nocite{Neale-Hunter-Pritikin-etal-2015}
+\nocite{Hunter-2017}
+  
 \printbibliography
 
 \end{document}
