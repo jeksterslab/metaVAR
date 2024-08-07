@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients • metaVAR</title>
+<title>metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Estimates • metaVAR</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 <link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Estimates">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -55,7 +55,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients</h1>
+      <h1>metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Estimates</h1>
                         <h4 data-toc-skip class="author">Ivan Jacob
 Agaloos Pesigan</h4>
             
@@ -71,8 +71,9 @@ Agaloos Pesigan</h4>
 <div class="section level2">
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h2>
-<p>Estimates the mean vector and covariance matrix of the multivariate
-meta-analysis of vector autoregressive model coefficients.</p>
+<p>Fits fixed-, random-, or mixed-effects multivariate meta-analysis
+models using vector autoregressive model estimates from each
+individual.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -93,29 +94,25 @@ Pages</a> for package documentation.</p>
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-Bollen-1987" class="csl-entry">
-Bollen, K. A. (1987). Total, direct, and indirect effects in structural
-equation models. <em>Sociological Methodology</em>, <em>17</em>, 37. <a href="https://doi.org/10.2307/271028" class="external-link">https://doi.org/10.2307/271028</a>
+<div id="ref-Cheung-2015" class="csl-entry">
+Cheung, M. W.-L. (2015). <em>Meta‐analysis: A structural equation
+modeling approach</em>. Wiley. <a href="https://doi.org/10.1002/9781118957813" class="external-link">https://doi.org/10.1002/9781118957813</a>
 </div>
-<div id="ref-Deboeck-Preacher-2015" class="csl-entry">
-Deboeck, P. R., &amp; Preacher, K. J. (2015). No need to be discrete: A
-method for continuous time mediation analysis. <em>Structural Equation
-Modeling: A Multidisciplinary Journal</em>, <em>23</em>(1), 61–75. <a href="https://doi.org/10.1080/10705511.2014.973960" class="external-link">https://doi.org/10.1080/10705511.2014.973960</a>
+<div id="ref-Hunter-2017" class="csl-entry">
+Hunter, M. D. (2017). State space modeling in an open source, modular,
+structural equation modeling environment. <em>Structural Equation
+Modeling: A Multidisciplinary Journal</em>, <em>25</em>(2), 307–324. <a href="https://doi.org/10.1080/10705511.2017.1369354" class="external-link">https://doi.org/10.1080/10705511.2017.1369354</a>
 </div>
-<div id="ref-RCoreTeam-2023" class="csl-entry">
-R Core Team. (2023). <em><span>R</span>: A language and environment for
+<div id="ref-Neale-Hunter-Pritikin-etal-2015" class="csl-entry">
+Neale, M. C., Hunter, M. D., Pritikin, J. N., Zahery, M., Brick, T. R.,
+Kirkpatrick, R. M., Estabrook, R., Bates, T. C., Maes, H. H., &amp;
+Boker, S. M. (2015). <span>OpenMx</span> 2.0: Extended structural
+equation and statistical modeling. <em>Psychometrika</em>,
+<em>81</em>(2), 535–549. <a href="https://doi.org/10.1007/s11336-014-9435-8" class="external-link">https://doi.org/10.1007/s11336-014-9435-8</a>
+</div>
+<div id="ref-RCoreTeam-2024" class="csl-entry">
+R Core Team. (2024). <em><span>R</span>: A language and environment for
 statistical computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>
-</div>
-<div id="ref-Ryan-Hamaker-2021" class="csl-entry">
-Ryan, O., &amp; Hamaker, E. L. (2021). Time to intervene: A
-continuous-time approach to network analysis and centrality.
-<em>Psychometrika</em>, <em>87</em>(1), 214–252. <a href="https://doi.org/10.1007/s11336-021-09767-0" class="external-link">https://doi.org/10.1007/s11336-021-09767-0</a>
-</div>
-<div id="ref-Wang-Zhang-2020" class="csl-entry">
-Wang, L., &amp; Zhang, Q. (2020). Investigating the impact of the time
-interval selection on autoregressive mediation modeling: Result
-interpretations, effect reporting, and temporal designs.
-<em>Psychological Methods</em>, <em>25</em>(3), 271–291. <a href="https://doi.org/10.1037/met0000235" class="external-link">https://doi.org/10.1037/met0000235</a>
 </div>
 </div>
 </div>
