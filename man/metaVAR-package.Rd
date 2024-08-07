@@ -4,9 +4,9 @@
 \name{metaVAR-package}
 \alias{metaVAR}
 \alias{metaVAR-package}
-\title{metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Coefficients}
+\title{metaVAR: Multivariate Meta-Analysis of Vector Autoregressive Model Estimates}
 \description{
-Estimates the mean vector and covariance matrix of the multivariate meta-analysis of vector autoregressive model coefficients.
+Fits fixed-, random-, or mixed-effects multivariate meta-analysis models using vector autoregressive model estimates from each individual.
 }
 \seealso{
 Useful links:
