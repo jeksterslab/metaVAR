@@ -22,7 +22,7 @@ Remotes: jeksterslab/fitDTVARMx, jeksterslab/fitCTVARMx
 Suggests: knitr, rmarkdown, testthat, simStateSpace
 RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2024-08-07 03:57:06 UTC; root
+Packaged: 2024-08-08 06:21:46 UTC; root
 Author: Ivan Jacob Agaloos Pesigan [aut, cre, cph]
     (<https://orcid.org/0000-0003-4818-8420>)
 Maintainer: Ivan Jacob Agaloos Pesigan <r.jeksterslab@gmail.com>
