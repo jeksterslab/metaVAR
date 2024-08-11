@@ -103,7 +103,7 @@ Meta <- function(y,
   if (is.null(x)) {
     m <- NULL
   } else {
-    m <- length(m[[1]])
+    m <- length(x[[1]])
     stopifnot(
       length(x) == length(y)
     )

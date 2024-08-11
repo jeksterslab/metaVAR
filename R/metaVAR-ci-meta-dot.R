@@ -27,8 +27,29 @@
   if (is.null(object$args$x)) {
     b1 <- NULL
   } else {
-    # TODO: mixed-effects
-    b1 <- NULL
+    # beta1
+    beta1_names <- object$output$matrices$beta1$labels
+    dim(beta1_names) <- NULL
+    coef_beta1 <- OpenMx::mxEval(
+      beta1,
+      model = object$output
+    )
+    dim(coef_beta1) <- NULL
+    names(coef_beta1) <- beta1_names
+    se_beta1 <- OpenMx::mxSE(
+      beta1,
+      model = object$output,
+      silent = TRUE
+    )
+    dim(se_beta1) <- NULL
+    b1 <- .CIWald(
+      est = coef_beta1,
+      se = se_beta1,
+      theta = 0,
+      alpha = alpha,
+      z = TRUE,
+      test = FALSE
+    )
   }
   if (object$args$random) {
     # tau_sqr
