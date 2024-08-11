@@ -19,8 +19,12 @@ reference:
 articles:
 - title: Examples
   contents:
-  - fit-dt-var-id
-  - fit-ct-var-id
+  - fit-dt-var-id-fixed
+  - fit-ct-var-id-fixed
+  - fit-dt-var-id-random
+  - fit-ct-var-id-random
+  - fit-dt-var-id-mixed
+  - fit-ct-var-id-mixed
 - title: Session Information
   contents:
   - session

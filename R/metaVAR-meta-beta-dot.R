@@ -30,28 +30,37 @@
   )
   if (is.null(m)) {
     # intercept only model
+    # x is not used here
     x <- OpenMx::mxMatrix(
       type = "Unit",
       nrow = 1,
       ncol = 1,
       name = "x"
     )
+    # beta = beta0
     beta <- OpenMx::mxAlgebra(
       expression = beta0,
       name = "beta"
     )
+    # mu(theta) = beta = beta0
+    expected_mean <- OpenMx::mxAlgebra(
+      expression = t(beta),
+      name = "expected_mean"
+    )
   } else {
     # mixed-effects model
+    nrow <- 1 + m
+    ncol <- 1
     x_values <- matrix(
       data = NA,
-      nrow = 1 + m,
-      ncol = 1
+      nrow = nrow,
+      ncol = ncol
     )
-    x_values[1, 1] <- NA
+    x_values[1, 1] <- 1
     x_labels <- matrix(
       data = NA,
-      nrow = 1 + m,
-      ncol = 1
+      nrow = nrow,
+      ncol = ncol
     )
     x_labels[, 1] <- c(
       NA,
@@ -62,8 +71,8 @@
     )
     x <- OpenMx::mxMatrix(
       type = "Full",
-      nrow = 1 + m,
-      ncol = 1,
+      nrow = nrow,
+      ncol = ncol,
       free = FALSE,
       values = x_values,
       labels = x_labels,
@@ -76,11 +85,11 @@
       ),
       name = "beta"
     )
+    expected_mean <- OpenMx::mxAlgebra(
+      expression = t(beta %*% x),
+      name = "expected_mean"
+    )
   }
-  expected_mean <- OpenMx::mxAlgebra(
-    expression = x %*% t(beta),
-    name = "expected_mean"
-  )
   return(
     list(
       x = x,
