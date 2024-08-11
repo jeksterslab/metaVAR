@@ -95,8 +95,8 @@ sigma <- matrix(
 sigma_l <- t(chol(sigma))
 nu <- null_vec
 lambda <- iden
-theta <- null_mat
-theta_l <- null_mat
+theta <- 0.2 * iden
+theta_l <- t(chol(theta))
 ```
 
 ## Model
@@ -399,6 +399,7 @@ plot(sim)
 ## Model Fitting
 
 The `FitCTVARIDMx` function fits a CT-VAR model on each individual $i$.
+The argument `theta_fixed = FALSE` is used here to model the measurement error variances.
 
 ```{r}
 #| include = FALSE
