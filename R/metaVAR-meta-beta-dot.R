@@ -30,19 +30,16 @@
   )
   if (is.null(m)) {
     # intercept only model
-    # x is not used here
     x <- OpenMx::mxMatrix(
       type = "Unit",
       nrow = 1,
       ncol = 1,
       name = "x"
     )
-    # beta = beta0
     beta <- OpenMx::mxAlgebra(
       expression = beta0,
       name = "beta"
     )
-    # mu(theta) = beta = beta0
     expected_mean <- OpenMx::mxAlgebra(
       expression = t(beta),
       name = "expected_mean"
