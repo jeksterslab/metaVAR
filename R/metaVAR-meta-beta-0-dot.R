@@ -17,6 +17,7 @@
       )
     }
     stopifnot(
+      is.matrix(beta0_values),
       dim(beta0_values) == c(p, 1)
     )
   }
@@ -33,6 +34,7 @@
       )
     }
     stopifnot(
+      is.matrix(beta0_lbound),
       dim(beta0_lbound) == c(p, 1)
     )
   }
@@ -49,6 +51,7 @@
       )
     }
     stopifnot(
+      is.matrix(beta0_ubound),
       dim(beta0_ubound) == c(p, 1)
     )
   }
@@ -75,6 +78,7 @@
       )
     }
     stopifnot(
+      is.matrix(beta0_free),
       dim(beta0_free) == c(p, 1)
     )
   }
