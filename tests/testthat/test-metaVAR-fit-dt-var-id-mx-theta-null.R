@@ -56,7 +56,7 @@ lapply(
       psi_diag = TRUE,
       ncores = NULL
     )
-    meta <- MetaVARMx(fit, noise = TRUE)
+    meta <- MetaVARMx(object = fit, noise = TRUE)
     print(meta)
     summary(meta)
     coef(meta)
@@ -67,7 +67,7 @@ lapply(
       x = rownames(results)
     )
     testthat::test_that(
-      text,
+      paste(text, 1),
       {
         testthat::expect_true(
           all(
@@ -75,6 +75,54 @@ lapply(
               c(
                 beta_mu,
                 diag(psi)
+              ) - results[idx, "est"]
+            ) <= tol
+          )
+        )
+      }
+    )
+    x <- lapply(
+      X = seq_len(n),
+      FUN = function(x) {
+        stats::rnorm(n = 2)
+      }
+    )
+    meta <- MetaVARMx(
+      object = fit,
+      x = x,
+      beta0_values = c(beta_mu),
+      beta0_free = c(
+        TRUE,
+        TRUE,
+        TRUE,
+        FALSE,
+        TRUE,
+        TRUE,
+        FALSE,
+        FALSE,
+        TRUE
+      ),
+      beta0_lbound = rep(x = NA, times = p * p),
+      beta0_ubound = rep(x = NA, times = p * p)
+    )
+    results <- summary(meta)
+    idx <- grep(
+      pattern = "^b0_",
+      x = rownames(results)
+    )
+    testthat::test_that(
+      paste(text, 2),
+      {
+        testthat::expect_true(
+          all(
+            abs(
+              c(
+                0.7,
+                0.5,
+                -0.1,
+                0.6,
+                0.4,
+                0.5
               ) - results[idx, "est"]
             ) <= tol
           )
