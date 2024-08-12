@@ -207,14 +207,14 @@ be given by</p>
 <p>Let the measurement error covariance matrix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚯</mi><annotation encoding="application/x-tex">\boldsymbol{\Theta}</annotation></semantics></math>
 be given by</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝚯</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝚯</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0.2</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.2</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.2</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \boldsymbol{\Theta}
 =
 \left(
 \begin{array}{ccc}
-  0 &amp; 0 &amp; 0 \\
-  0 &amp; 0 &amp; 0 \\
-  0 &amp; 0 &amp; 0 \\
+  0.2 &amp; 0 &amp; 0 \\
+  0 &amp; 0.2 &amp; 0 \\
+  0 &amp; 0 &amp; 0.2 \\
 \end{array}
 \right) .
 \end{equation}</annotation></semantics></math></p>
@@ -329,9 +329,9 @@ be given by</p>
 <span><span class="co">#&gt; [3,]    0    0    1</span></span>
 <span><span class="va">theta</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]    0    0    0</span></span>
-<span><span class="co">#&gt; [2,]    0    0    0</span></span>
-<span><span class="co">#&gt; [3,]    0    0    0</span></span></code></pre></div>
+<span><span class="co">#&gt; [1,]  0.2  0.0  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.2  0.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0  0.2</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="visualizing-the-dynamics-without-measurement-error-and-process-noise-n-5-with-different-initial-condition">Visualizing the Dynamics Without Measurement Error and Process Noise
@@ -361,13 +361,13 @@ be given by</p>
 <span><span class="op">)</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   id time         y1         y2        y3</span></span>
-<span><span class="co">#&gt; 1  1  0.0 -0.3643096 -0.6633205 0.7045427</span></span>
-<span><span class="co">#&gt; 2  1  0.1 -0.3110063 -0.5721796 0.6786005</span></span>
-<span><span class="co">#&gt; 3  1  0.2 -0.1678794 -0.4024339 0.6742967</span></span>
-<span><span class="co">#&gt; 4  1  0.3 -0.1928237 -0.4319979 0.6036047</span></span>
-<span><span class="co">#&gt; 5  1  0.4 -0.3471445 -0.3433088 0.5366506</span></span>
-<span><span class="co">#&gt; 6  1  0.5 -0.2670547 -0.3036265 0.4856737</span></span>
+<span><span class="co">#&gt;   id time          y1          y2        y3</span></span>
+<span><span class="co">#&gt; 1  1  0.0  0.29937539 -1.37581548 1.3779071</span></span>
+<span><span class="co">#&gt; 2  1  0.1 -0.98770381 -0.03632195 0.8363080</span></span>
+<span><span class="co">#&gt; 3  1  0.2  0.33221051 -0.40321664 1.2054318</span></span>
+<span><span class="co">#&gt; 4  1  0.3 -0.09485392 -0.82030556 1.0272653</span></span>
+<span><span class="co">#&gt; 5  1  0.4 -1.50322069 -0.36841853 0.1821731</span></span>
+<span><span class="co">#&gt; 6  1  0.5 -0.75049839  0.35752476 0.2862544</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></code></pre></div>
 <p><img src="fig-vignettes-fit-ct-var-id-mx-fixed-error-ou-1.png" width="3300"><img src="fig-vignettes-fit-ct-var-id-mx-fixed-error-ou-2.png" width="3300"><img src="fig-vignettes-fit-ct-var-id-mx-fixed-error-ou-3.png" width="3300"></p>
 </div>
@@ -377,7 +377,9 @@ be given by</p>
 </h2>
 <p>The <code>FitCTVARIDMx</code> function fits a CT-VAR model on each
 individual
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
+The argument <code>theta_fixed = FALSE</code> is used here to model the
+measurement error variances.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeksterslab/fitCTVARMx" class="external-link">fitCTVARMx</a></span><span class="op">)</span></span>
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://github.com/jeksterslab/fitCTVARMx/reference/FitCTVARIDMx.html" class="external-link">FitCTVARIDMx</a></span><span class="op">(</span></span>
@@ -391,12 +393,12 @@ individual
 <span><span class="va">fit</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Means of the estimated paramaters per individual.</span></span>
-<span><span class="co">#&gt;        phi_11        phi_21        phi_31        phi_12        phi_22 </span></span>
-<span><span class="co">#&gt; -1.389585e+00  8.071642e-01 -6.582154e-01  9.381451e-01 -5.582381e-01 </span></span>
-<span><span class="co">#&gt;        phi_32        phi_13        phi_23        phi_33      sigma_11 </span></span>
-<span><span class="co">#&gt;  9.176108e-01 -1.137586e+00  7.257164e-02 -8.459467e-01  2.776577e-01 </span></span>
-<span><span class="co">#&gt;      sigma_22      sigma_33      theta_11      theta_22      theta_33 </span></span>
-<span><span class="co">#&gt;  6.722058e-02  7.343983e-02  1.482462e-19  1.618053e-04  1.042342e-07</span></span></code></pre></div>
+<span><span class="co">#&gt;      phi_11      phi_21      phi_31      phi_12      phi_22      phi_32 </span></span>
+<span><span class="co">#&gt; -0.99722949  0.95122711 -0.80239749  0.42068315 -0.67971580  1.03223527 </span></span>
+<span><span class="co">#&gt;      phi_13      phi_23      phi_33    sigma_11    sigma_22    sigma_33 </span></span>
+<span><span class="co">#&gt; -0.58344255  0.15686252 -0.96351172  0.30496054  0.08162716  0.07656524 </span></span>
+<span><span class="co">#&gt;    theta_11    theta_22    theta_33 </span></span>
+<span><span class="co">#&gt;  0.19464192  0.18655239  0.20310336</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="multivariate-meta-analysis">Multivariate Meta-Analysis<a class="anchor" aria-label="anchor" href="#multivariate-meta-analysis"></a>
@@ -419,24 +421,24 @@ Estimates with the prefix <code>b0</code> correspond to the estimates of
 <span><span class="co">#&gt; Beginning initial fit attempt</span></span>
 <span><span class="co">#&gt; Running Model with 9 parameters</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Lowest minimum so far:  -100.842718591273</span></span>
+<span><span class="co">#&gt;  Lowest minimum so far:  -64.1091062816891</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Solution found</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Solution found!  Final fit=-100.84272 (started at 1369.7415)  (1 attempt(s): 1 valid, 0 errors)</span></span>
+<span><span class="co">#&gt;  Solution found!  Final fit=-64.109106 (started at 544.82025)  (1 attempt(s): 1 valid, 0 errors)</span></span>
 <span><span class="co">#&gt;  Start values from best fit:</span></span>
-<span><span class="co">#&gt; -1.02954091089304,0.835704500603728,-0.64481032487246,0.736103948335069,-0.5865943135389,0.893000876154405,-0.812049909764089,0.100516229467731,-0.792245140052837</span></span>
+<span><span class="co">#&gt; -0.430268780300005,0.922592460531924,-0.616172503758499,0.0719151003797164,-0.644603539281568,0.80303030596861,-0.110515674133675,0.103613670327686,-0.664549169846479</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          est     se        z      p    2.5%   97.5%</span></span>
-<span><span class="co">#&gt; b0_1 -1.0295 0.1207  -8.5328 0.0000 -1.2660 -0.7931</span></span>
-<span><span class="co">#&gt; b0_2  0.8357 0.0435  19.2334 0.0000  0.7505  0.9209</span></span>
-<span><span class="co">#&gt; b0_3 -0.6448 0.0463 -13.9405 0.0000 -0.7355 -0.5542</span></span>
-<span><span class="co">#&gt; b0_4  0.7361 0.1105   6.6617 0.0000  0.5195  0.9527</span></span>
-<span><span class="co">#&gt; b0_5 -0.5866 0.0419 -13.9964 0.0000 -0.6687 -0.5045</span></span>
-<span><span class="co">#&gt; b0_6  0.8930 0.0440  20.2743 0.0000  0.8067  0.9793</span></span>
-<span><span class="co">#&gt; b0_7 -0.8120 0.1015  -7.9980 0.0000 -1.0110 -0.6131</span></span>
-<span><span class="co">#&gt; b0_8  0.1005 0.0381   2.6356 0.0084  0.0258  0.1753</span></span>
-<span><span class="co">#&gt; b0_9 -0.7922 0.0410 -19.3297 0.0000 -0.8726 -0.7119</span></span></code></pre>
+<span><span class="co">#&gt; b0_1 -0.4303 0.1439  -2.9900 0.0028 -0.7123 -0.1482</span></span>
+<span><span class="co">#&gt; b0_2  0.9226 0.0780  11.8288 0.0000  0.7697  1.0755</span></span>
+<span><span class="co">#&gt; b0_3 -0.6162 0.0722  -8.5310 0.0000 -0.7577 -0.4746</span></span>
+<span><span class="co">#&gt; b0_4  0.0719 0.1216   0.5913 0.5543 -0.1665  0.3103</span></span>
+<span><span class="co">#&gt; b0_5 -0.6446 0.0723  -8.9206 0.0000 -0.7862 -0.5030</span></span>
+<span><span class="co">#&gt; b0_6  0.8030 0.0667  12.0306 0.0000  0.6722  0.9339</span></span>
+<span><span class="co">#&gt; b0_7 -0.1105 0.0967  -1.1433 0.2529 -0.3000  0.0789</span></span>
+<span><span class="co">#&gt; b0_8  0.1036 0.0627   1.6515 0.0986 -0.0194  0.2266</span></span>
+<span><span class="co">#&gt; b0_9 -0.6645 0.0580 -11.4613 0.0000 -0.7782 -0.5509</span></span></code></pre>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
