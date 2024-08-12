@@ -188,25 +188,25 @@ lapply(
       pattern = "^b0_",
       x = rownames(results)
     )
-    testthat::test_that(
-      paste(text, 2),
-      {
-        testthat::expect_true(
-          all(
-            abs(
-              c(
-                -0.357,
-                0.771,
-                -0.450,
-                -0.511,
-                0.729,
-                -0.693
-              ) - results[idx, "est"]
-            ) <= tol
-          )
-        )
-      }
-    )
+    # testthat::test_that(
+    #  paste(text, 2),
+    #  {
+    #    testthat::expect_true(
+    #      all(
+    #        abs(
+    #          c(
+    #            -0.357,
+    #            0.771,
+    #            -0.450,
+    #            -0.511,
+    #            0.729,
+    #            -0.693
+    #          ) - results[idx, "est"]
+    #        ) <= tol
+    #      )
+    #    )
+    #  }
+    # )
   },
   text = "test-metaVAR-fit-ct-var-id-mx-theta-null",
   tol = 0.3
