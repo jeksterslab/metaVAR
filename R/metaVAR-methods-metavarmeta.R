@@ -79,14 +79,12 @@ summary.metavarmeta <- function(object,
       FUN = is.null
     )
   ]
-  return(
-    round(
-      x = do.call(
-        what = "rbind",
-        args = ci
-      ),
-      digits = digits
-    )
+  round(
+    x = do.call(
+      what = "rbind",
+      args = ci
+    ),
+    digits = digits
   )
 }
 
@@ -104,9 +102,7 @@ summary.metavarmeta <- function(object,
 #' @export
 coef.metavarmeta <- function(object,
                              ...) {
-  return(
-    coef(object$output)
-  )
+  coef(object$output)
 }
 
 #' Variance-Covariance Matrix Method for an Object of Class
@@ -124,7 +120,5 @@ coef.metavarmeta <- function(object,
 #' @export
 vcov.metavarmeta <- function(object,
                              ...) {
-  return(
-    vcov(object$output)
-  )
+  vcov(object$output)
 }

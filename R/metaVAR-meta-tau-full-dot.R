@@ -55,14 +55,19 @@
       nrow = p,
       ncol = p
     )
-  }
-  idx <- seq_len(p)
-  for (i in idx) {
-    for (j in idx) {
-      if (!tau_free[i, j]) {
-        tau_labels[i, j] <- NA
-        tau_lbound[i, j] <- NA
-        tau_ubound[i, j] <- NA
+  } else {
+    stopifnot(
+      is.matrix(tau_free),
+      dim(tau_free) == c(p, p)
+    )
+    idx <- seq_len(p)
+    for (i in idx) {
+      for (j in idx) {
+        if (!tau_free[i, j]) {
+          tau_labels[i, j] <- NA
+          tau_lbound[i, j] <- NA
+          tau_ubound[i, j] <- NA
+        }
       }
     }
   }
@@ -72,18 +77,16 @@
   tau_values[upper.tri(tau_values)] <- 0
   tau_lbound[upper.tri(tau_lbound)] <- NA
   tau_ubound[upper.tri(tau_ubound)] <- NA
-  return(
-    OpenMx::mxMatrix(
-      type = "Lower",
-      nrow = p,
-      ncol = p,
-      free = tau_free,
-      values = tau_values,
-      labels = tau_labels,
-      lbound = tau_lbound,
-      ubound = tau_ubound,
-      byrow = FALSE,
-      name = "tau"
-    )
+  OpenMx::mxMatrix(
+    type = "Lower",
+    nrow = p,
+    ncol = p,
+    free = tau_free,
+    values = tau_values,
+    labels = tau_labels,
+    lbound = tau_lbound,
+    ubound = tau_ubound,
+    byrow = FALSE,
+    name = "tau"
   )
 }

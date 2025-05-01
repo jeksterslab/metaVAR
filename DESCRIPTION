@@ -20,11 +20,9 @@ Depends:
     OpenMx
 Imports:
     Matrix,
-    fitDTVARMx,
-    fitCTVARMx
+    fitDTVARMx
 Remotes:
-    jeksterslab/fitDTVARMx,
-    jeksterslab/fitCTVARMx
+    jeksterslab/fitDTVARMx
 Suggests:
     knitr,
     rmarkdown,

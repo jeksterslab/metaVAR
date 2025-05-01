@@ -32,7 +32,5 @@
       x
     )
   }
-  return(
-    as.data.frame(data)
-  )
+  as.data.frame(data)
 }

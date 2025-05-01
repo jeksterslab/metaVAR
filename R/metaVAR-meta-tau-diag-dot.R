@@ -54,18 +54,16 @@
       length(tau_ubound) == p
     )
   }
-  return(
-    OpenMx::mxMatrix(
-      type = "Diag",
-      nrow = p,
-      ncol = p,
-      free = TRUE,
-      values = tau_values,
-      labels = tau_labels,
-      lbound = tau_lbound,
-      ubound = tau_ubound,
-      byrow = FALSE,
-      name = "tau"
-    )
+  OpenMx::mxMatrix(
+    type = "Diag",
+    nrow = p,
+    ncol = p,
+    free = TRUE,
+    values = tau_values,
+    labels = tau_labels,
+    lbound = tau_lbound,
+    ubound = tau_ubound,
+    byrow = FALSE,
+    name = "tau"
   )
 }
