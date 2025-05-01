@@ -8,12 +8,14 @@
 <title>Multivariate Meta-Analysis of Discrete-Time VAR Estimates (Mixed-Effects Model) • metaVAR</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/JetBrains_Mono-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/Roboto_Slab-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Multivariate Meta-Analysis of Discrete-Time VAR Estimates (Mixed-Effects Model)">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -59,7 +61,7 @@
                         <h4 data-toc-skip class="author">Ivan Jacob
 Agaloos Pesigan</h4>
             
-            <h4 data-toc-skip class="date">2024-08-12</h4>
+            <h4 data-toc-skip class="date">2025-05-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/metaVAR/blob/main/vignettes/fit-dt-var-id-mixed.Rmd"><code>vignettes/fit-dt-var-id-mixed.Rmd</code></a></small>
       <div class="d-none name"><code>fit-dt-var-id-mixed.Rmd</code></div>
@@ -67,31 +69,71 @@ Agaloos Pesigan</h4>
 
     
     
+<blockquote>
+<p><strong>Note:</strong> When the discrete-time vector autoregressive
+model is estimated separately for each ID, any of the parameters can
+vary across individuals. In this example, however, we are only varying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛂</mi><annotation encoding="application/x-tex">\boldsymbol{\alpha}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛃</mi><annotation encoding="application/x-tex">\boldsymbol{\beta}</annotation></semantics></math>.</p>
+</blockquote>
 <div class="section level2">
 <h2 id="model">Model<a class="anchor" aria-label="anchor" href="#model"></a>
 </h2>
 <p>The measurement model is given by
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐲</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>=</mo><msub><mi>𝛈</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\begin{equation}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐲</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>=</mo><mi>𝚲</mi><msub><mi>𝛈</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>𝛆</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>,</mo><mspace width="1.0em"></mspace><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi></mrow><mspace width="1.0em"></mspace><msub><mi>𝛆</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>∼</mo><mi>𝒩</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>𝟎</mn><mo>,</mo><mi>𝚯</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
   \mathbf{y}_{i, t}
   =
+  \boldsymbol{\Lambda}
   \boldsymbol{\eta}_{i, t}
+  +
+  \boldsymbol{\varepsilon}_{i, t},
+  \quad
+  \mathrm{with}
+  \quad
+  \boldsymbol{\varepsilon}_{i, t}
+  \sim
+  \mathcal{N}
+  \left(
+  \mathbf{0},
+  \boldsymbol{\Theta}
+  \right)
 \end{equation}</annotation></semantics></math> where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐲</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\mathbf{y}_{i, t}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛈</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\boldsymbol{\eta}_{i, t}</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛆</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\boldsymbol{\varepsilon}_{i, t}</annotation></semantics></math>
+are random variables and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚲</mi><annotation encoding="application/x-tex">\boldsymbol{\Lambda}</annotation></semantics></math>,
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚯</mi><annotation encoding="application/x-tex">\boldsymbol{\Theta}</annotation></semantics></math>
+are model parameters.
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐲</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\mathbf{y}_{i, t}</annotation></semantics></math>
-represents a vector of observed variables and
+represents a vector of observed random variables,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛈</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\boldsymbol{\eta}_{i, t}</annotation></semantics></math>
-a vector of latent variables for individual
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-and time
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
-Since the observed and latent variables are equal, we only generate data
-from the dynamic structure.</p>
+a vector of latent random variables, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛆</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\boldsymbol{\varepsilon}_{i, t}</annotation></semantics></math>
+a vector of random measurement errors, at time
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+and individual
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚲</mi><annotation encoding="application/x-tex">\boldsymbol{\Lambda}</annotation></semantics></math>
+denotes a matrix of factor loadings, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚯</mi><annotation encoding="application/x-tex">\boldsymbol{\Theta}</annotation></semantics></math>
+the covariance matrix of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛆</mi><annotation encoding="application/x-tex">\boldsymbol{\varepsilon}</annotation></semantics></math>.
+In this model,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚲</mi><annotation encoding="application/x-tex">\boldsymbol{\Lambda}</annotation></semantics></math>
+is an identity matrix and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚯</mi><annotation encoding="application/x-tex">\boldsymbol{\Theta}</annotation></semantics></math>
+is a diagonal matrix.</p>
 <p>The dynamic structure is given by
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝛈</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>=</mo><mi>𝛂</mi><mo>+</mo><mi>𝛃</mi><msub><mi>𝛈</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>𝛇</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>,</mo><mspace width="1.0em"></mspace><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi></mrow><mspace width="1.0em"></mspace><msub><mi>𝛇</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>∼</mo><mi>𝒩</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>𝟎</mn><mo>,</mo><mi>𝚿</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝛈</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>=</mo><msub><mi>𝛂</mi><mi>i</mi></msub><mo>+</mo><msub><mi>𝛃</mi><mi>i</mi></msub><msub><mi>𝛈</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>𝛇</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>,</mo><mspace width="1.0em"></mspace><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi></mrow><mspace width="1.0em"></mspace><msub><mi>𝛇</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>∼</mo><mi>𝒩</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>𝟎</mn><mo>,</mo><mi>𝚿</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
   \boldsymbol{\eta}_{i, t}
   =
-  \boldsymbol{\alpha}
+  \boldsymbol{\alpha}_{i}
   +
-  \boldsymbol{\beta}
+  \boldsymbol{\beta}_{i}
   \boldsymbol{\eta}_{i, t - 1}
   +
   \boldsymbol{\zeta}_{i, t},
@@ -111,8 +153,8 @@ from the dynamic structure.</p>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛇</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\boldsymbol{\zeta}_{i, t}</annotation></semantics></math>
 are random variables, and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛂</mi><annotation encoding="application/x-tex">\boldsymbol{\alpha}</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛃</mi><annotation encoding="application/x-tex">\boldsymbol{\beta}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛂</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\boldsymbol{\alpha}_{i}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛃</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\boldsymbol{\beta}_{i}</annotation></semantics></math>,
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚿</mi><annotation encoding="application/x-tex">\boldsymbol{\Psi}</annotation></semantics></math>
 are model parameters. Here,
@@ -132,129 +174,155 @@ represents a vector of dynamic noise at time
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
 and individual
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛂</mi><annotation encoding="application/x-tex">\boldsymbol{\alpha}</annotation></semantics></math>
-denotes a vector of intercepts,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛃</mi><annotation encoding="application/x-tex">\boldsymbol{\beta}</annotation></semantics></math>
-a matrix of autoregression and cross regression coefficients, and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛂</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\boldsymbol{\alpha}_{i}</annotation></semantics></math>
+denotes a vector of intercepts for individual
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛃</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\boldsymbol{\beta}_{i}</annotation></semantics></math>
+a matrix of autoregression and cross regression coefficients for
+individual
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚿</mi><annotation encoding="application/x-tex">\boldsymbol{\Psi}</annotation></semantics></math>
 the covariance matrix of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛇</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\boldsymbol{\zeta}_{i, t}</annotation></semantics></math>.</p>
-<p>An alternative representation of the dynamic noise is given by
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝛇</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>=</mo><msup><mi>𝚿</mi><mfrac><mn>1</mn><mn>2</mn></mfrac></msup><msub><mi>𝐳</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>,</mo><mspace width="1.0em"></mspace><mrow><mi mathvariant="normal">w</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi></mrow><mspace width="1.0em"></mspace><msub><mi>𝐳</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>∼</mo><mi>𝒩</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>𝟎</mn><mo>,</mo><mi>𝐈</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
-  \boldsymbol{\zeta}_{i, t}
-  =
-  \boldsymbol{\Psi}^{\frac{1}{2}}
-  \mathbf{z}_{i, t},
-  \quad
-  \mathrm{with}
-  \quad
-  \mathbf{z}_{i, t}
-  \sim
-  \mathcal{N}
-  \left(
-  \mathbf{0},
-  \mathbf{I}
-  \right)
-\end{equation}</annotation></semantics></math> where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>𝚿</mi><mfrac><mn>1</mn><mn>2</mn></mfrac></msup><mo stretchy="true" form="postfix">)</mo></mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>𝚿</mi><mfrac><mn>1</mn><mn>2</mn></mfrac></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>′</mi></msup><mo>=</mo><mi>𝚿</mi></mrow><annotation encoding="application/x-tex">\left( \boldsymbol{\Psi}^{\frac{1}{2}} \right) \left( \boldsymbol{\Psi}^{\frac{1}{2}} \right)^{\prime} = \boldsymbol{\Psi}</annotation></semantics></math>
-.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛇</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">\boldsymbol{\zeta}_{i, t}</annotation></semantics></math>.
+In this model,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚿</mi><annotation encoding="application/x-tex">\boldsymbol{\Psi}</annotation></semantics></math>
+is a symmetric matrix.</p>
 </div>
 <div class="section level2">
 <h2 id="data-generation">Data Generation<a class="anchor" aria-label="anchor" href="#data-generation"></a>
 </h2>
+<p>The parameters used in this example were based on <span class="citation">Bringmann et al. (2013)</span>.</p>
 <div class="section level3">
 <h3 id="notation">Notation<a class="anchor" aria-label="anchor" href="#notation"></a>
 </h3>
 <p>Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">t = 500</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">t = 1000</annotation></semantics></math>
 be the number of time points and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">n = 10</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n = 100</annotation></semantics></math>
 be the number of individuals.</p>
+<p>Let the measurement model intecept vector
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛎</mi><annotation encoding="application/x-tex">\boldsymbol{\nu}</annotation></semantics></math>
+be given by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝛎</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\boldsymbol{\nu}
+=
+\left(
+\begin{array}{c}
+  0 \\
+  0 \\
+\end{array}
+\right) .
+\end{equation}</annotation></semantics></math></p>
+<p>Let the factor loadings matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚲</mi><annotation encoding="application/x-tex">\boldsymbol{\Lambda}</annotation></semantics></math>
+be given by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝚲</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\boldsymbol{\Lambda}
+=
+\left(
+\begin{array}{cc}
+  1 &amp; 0 \\
+  0 &amp; 1 \\
+\end{array}
+\right) .
+\end{equation}</annotation></semantics></math></p>
+<p>Let the measurement error covariance matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚯</mi><annotation encoding="application/x-tex">\boldsymbol{\Theta}</annotation></semantics></math>
+be given by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝚯</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0.2</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.2</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\boldsymbol{\Theta}
+=
+\left(
+\begin{array}{cc}
+  0.2 &amp; 0 \\
+  0 &amp; 0.2 \\
+\end{array}
+\right) .
+\end{equation}</annotation></semantics></math></p>
 <p>Let the initial condition
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝛈</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\boldsymbol{\eta}_{0}</annotation></semantics></math>
 be given by</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝛈</mi><mn>0</mn></msub><mo>∼</mo><mi>𝒩</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝛍</mi><mrow><mi>𝛈</mi><mo>∣</mo><mn>0</mn></mrow></msub><mo>,</mo><msub><mi>𝚺</mi><mrow><mi>𝛈</mi><mo>∣</mo><mn>0</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
 \boldsymbol{\eta}_{0} \sim \mathcal{N} \left( \boldsymbol{\mu}_{\boldsymbol{\eta} \mid 0}, \boldsymbol{\Sigma}_{\boldsymbol{\eta} \mid 0} \right)
 \end{equation}</annotation></semantics></math></p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝛍</mi><mrow><mi>𝛈</mi><mo>∣</mo><mn>0</mn></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝛍</mi><mrow><mi>𝛈</mi><mo>∣</mo><mn>0</mn></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>3.8143546</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2.5763481</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
 \boldsymbol{\mu}_{\boldsymbol{\eta} \mid 0}
 =
 \left(
 \begin{array}{c}
-  0 \\
-  0 \\
-  0 \\
+  3.8143546 \\
+  2.5763481 \\
 \end{array}
 \right)
 \end{equation}</annotation></semantics></math></p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝚺</mi><mrow><mi>𝛈</mi><mo>∣</mo><mn>0</mn></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝚺</mi><mrow><mi>𝛈</mi><mo>∣</mo><mn>0</mn></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1.3978842</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.5782369</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0.5782369</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1.6636513</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \boldsymbol{\Sigma}_{\boldsymbol{\eta} \mid 0}
 =
 \left(
-\begin{array}{ccc}
-  1 &amp; 0 &amp; 0 \\
-  0 &amp; 1 &amp; 0 \\
-  0 &amp; 0 &amp; 1 \\
+\begin{array}{cc}
+  1.3978842 &amp; 0.5782369 \\
+  0.5782369 &amp; 1.6636513 \\
 \end{array}
 \right) .
 \end{equation}</annotation></semantics></math></p>
-<p>Let the constant vector
+<p>Let the intercept vector
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛂</mi><annotation encoding="application/x-tex">\boldsymbol{\alpha}</annotation></semantics></math>
-be given by</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝛂</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
-\boldsymbol{\alpha}
-=
+be normally distributed with the following means</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>2.87</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>2.04</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
 \left(
 \begin{array}{c}
-  0 \\
-  0 \\
-  0 \\
+  2.87 \\
+  2.04 \\
+\end{array}
+\right)
+\end{equation}</annotation></semantics></math></p>
+<p>and covariance matrix</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1.2</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.459565</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0.459565</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1.1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\left(
+\begin{array}{cc}
+  1.2 &amp; 0.459565 \\
+  0.459565 &amp; 1.1 \\
 \end{array}
 \right) .
 \end{equation}</annotation></semantics></math></p>
 <p>Let the transition matrix
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛃</mi><annotation encoding="application/x-tex">\boldsymbol{\beta}</annotation></semantics></math>
 be normally distributed with the following means</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0.7</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0.5</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.6</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>0.1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.4</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.5</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0.28</mn></mtd><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>0.048</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>−</mi><mn>0.035</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.26</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
 \left(
-\begin{array}{ccc}
-  0.7 &amp; 0 &amp; 0 \\
-  0.5 &amp; 0.6 &amp; 0 \\
-  -0.1 &amp; 0.4 &amp; 0.5 \\
+\begin{array}{cc}
+  0.28 &amp; -0.048 \\
+  -0.035 &amp; 0.26 \\
 \end{array}
 \right)
 \end{equation}</annotation></semantics></math></p>
 <p>and covariance matrix</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0.01</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.01</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.01</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.01</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.01</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.01</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.01</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.01</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.01</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0.0169</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.00468</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.001456</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.00832</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0.00468</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.0081</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.001008</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.00576</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0.001456</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.001008</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.000784</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.001792</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0.00832</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.00576</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.001792</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.0256</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \left(
-\begin{array}{ccc}
-  0.01 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-  0 &amp; 0.01 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-  0 &amp; 0 &amp; 0.01 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-  0 &amp; 0 &amp; 0 &amp; 0.01 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.01 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.01 &amp; 0 &amp; 0 &amp; 0 \\
-  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.01 &amp; 0 &amp; 0 \\
-  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.01 &amp; 0 \\
-  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0.01 \\
+\begin{array}{cccc}
+  0.0169 &amp; 0.00468 &amp; 0.001456 &amp; 0.00832 \\
+  0.00468 &amp; 0.0081 &amp; 0.001008 &amp; 0.00576 \\
+  0.001456 &amp; 0.001008 &amp; 0.000784 &amp; 0.001792 \\
+  0.00832 &amp; 0.00576 &amp; 0.001792 &amp; 0.0256 \\
 \end{array}
 \right) .
 \end{equation}</annotation></semantics></math></p>
-<p>The <code>SimBetaN</code> function from the
-<code>simStateSpace</code> package generates random transition matrices
-from the multivariate normal distribution. Note that the function
-generates transition matrices that are weakly stationary.</p>
+<p>The <code>SimAlphaN</code> and <code>SimBetaN</code> functions from
+the <code>simStateSpace</code> package generates random intercept
+vectors and transition matrices from the multivariate normal
+distribution. Note that the <code>SimBetaN</code> function generates
+transition matrices that are weakly stationary.</p>
 <p>Let the dynamic process noise
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝚿</mi><annotation encoding="application/x-tex">\boldsymbol{\Psi}</annotation></semantics></math>
 be given by</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝚿</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>0.1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.1</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.1</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝚿</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>1.3</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>0.5696315</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0.5696315</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>1.56</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
 \boldsymbol{\Psi}
 =
 \left(
-\begin{array}{ccc}
-  0.1 &amp; 0 &amp; 0 \\
-  0 &amp; 0.1 &amp; 0 \\
-  0 &amp; 0 &amp; 0.1 \\
+\begin{array}{cc}
+  1.3 &amp; 0.5696315 \\
+  0.5696315 &amp; 1.56 \\
 \end{array}
 \right) .
 \end{equation}</annotation></semantics></math></p>
@@ -264,99 +332,411 @@ be given by</p>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span></span>
-<span><span class="co">#&gt; [1] 10</span></span>
+<span><span class="co">#&gt; [1] 100</span></span>
 <span><span class="va">time</span></span>
-<span><span class="co">#&gt; [1] 500</span></span>
+<span><span class="co">#&gt; [1] 1000</span></span>
 <span><span class="va">mu0</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] 0 0 0</span></span>
+<span><span class="co">#&gt; [1] 3.814355 2.576348</span></span>
 <span><span class="va">sigma0</span></span>
-<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]    1    0    0</span></span>
-<span><span class="co">#&gt; [2,]    0    1    0</span></span>
-<span><span class="co">#&gt; [3,]    0    0    1</span></span>
+<span><span class="co">#&gt;           [,1]      [,2]</span></span>
+<span><span class="co">#&gt; [1,] 1.3978842 0.5782369</span></span>
+<span><span class="co">#&gt; [2,] 0.5782369 1.6636513</span></span>
 <span><span class="va">sigma0_l</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]    1    0    0</span></span>
-<span><span class="co">#&gt; [2,]    0    1    0</span></span>
-<span><span class="co">#&gt; [3,]    0    0    1</span></span>
+<span><span class="co">#&gt;           [,1]     [,2]</span></span>
+<span><span class="co">#&gt; [1,] 1.1823215 0.000000</span></span>
+<span><span class="co">#&gt; [2,] 0.4890691 1.193509</span></span>
 <span><span class="co"># first alpha in the list of length n</span></span>
 <span><span class="va">alpha</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] 0 0 0</span></span>
+<span><span class="co">#&gt; [1] 0.8481424 2.1983711</span></span>
 <span><span class="co"># first beta in the list of length n</span></span>
 <span><span class="va">beta</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co">#&gt;           [,1]       [,2]       [,3]</span></span>
-<span><span class="co">#&gt; [1,] 0.6468498 0.02987347 0.09881764</span></span>
-<span><span class="co">#&gt; [2,] 0.5821253 0.64048586 0.12907652</span></span>
-<span><span class="co">#&gt; [3,] 0.1217450 0.33748281 0.46598132</span></span>
+<span><span class="co">#&gt;            [,1]       [,2]</span></span>
+<span><span class="co">#&gt; [1,] 0.21090478 0.00660174</span></span>
+<span><span class="co">#&gt; [2,] 0.01360809 0.37057228</span></span>
 <span><span class="va">psi</span></span>
-<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]  0.1  0.0  0.0</span></span>
-<span><span class="co">#&gt; [2,]  0.0  0.1  0.0</span></span>
-<span><span class="co">#&gt; [3,]  0.0  0.0  0.1</span></span>
+<span><span class="co">#&gt;           [,1]      [,2]</span></span>
+<span><span class="co">#&gt; [1,] 1.3000000 0.5696315</span></span>
+<span><span class="co">#&gt; [2,] 0.5696315 1.5600000</span></span>
 <span><span class="va">psi_l</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt;           [,1]      [,2]      [,3]</span></span>
-<span><span class="co">#&gt; [1,] 0.3162278 0.0000000 0.0000000</span></span>
-<span><span class="co">#&gt; [2,] 0.0000000 0.3162278 0.0000000</span></span>
-<span><span class="co">#&gt; [3,] 0.0000000 0.0000000 0.3162278</span></span></code></pre></div>
+<span><span class="co">#&gt;           [,1]     [,2]</span></span>
+<span><span class="co">#&gt; [1,] 1.1401754 0.000000</span></span>
+<span><span class="co">#&gt; [2,] 0.4995998 1.144727</span></span>
+<span><span class="va">nu</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 0 0</span></span>
+<span><span class="va">lambda</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]    1    0</span></span>
+<span><span class="co">#&gt; [2,]    0    1</span></span>
+<span><span class="va">theta</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]  0.2  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.2</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="visualizing-the-dynamics-without-process-noise-n-5-with-different-initial-condition">Visualizing the Dynamics Without Process Noise (n = 5 with Different
 Initial Condition)<a class="anchor" aria-label="anchor" href="#visualizing-the-dynamics-without-process-noise-n-5-with-different-initial-condition"></a>
 </h3>
-<p><img src="fig-vignettes-fit-dt-var-id-mx-mixed-no-error-1.png" width="3300"><img src="fig-vignettes-fit-dt-var-id-mx-mixed-no-error-2.png" width="3300"><img src="fig-vignettes-fit-dt-var-id-mx-mixed-no-error-3.png" width="3300"></p>
+<p><img src="fig-vignettes-fit-dt-var-id-mx-mixed-no-error-1.png" width="3300"><img src="fig-vignettes-fit-dt-var-id-mx-mixed-no-error-2.png" width="3300"></p>
 </div>
 <div class="section level3">
-<h3 id="using-the-simssmvarivary-function-from-the-simstatespace-package-to-simulate-data">Using the <code>SimSSMVARIVary</code> Function from the
-<code>simStateSpace</code> Package to Simulate Data<a class="anchor" aria-label="anchor" href="#using-the-simssmvarivary-function-from-the-simstatespace-package-to-simulate-data"></a>
+<h3 id="using-the-simssmivary-function-from-the-simstatespace-package-to-simulate-data">Using the <code>SimSSMIVary</code> Function from the
+<code>simStateSpace</code> Package to Simulate Data<a class="anchor" aria-label="anchor" href="#using-the-simssmivary-function-from-the-simstatespace-package-to-simulate-data"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeksterslab/simStateSpace" class="external-link">simStateSpace</a></span><span class="op">)</span></span>
-<span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://github.com/jeksterslab/simStateSpace/reference/SimSSMVARIVary.html" class="external-link">SimSSMVARIVary</a></span><span class="op">(</span></span>
+<span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://github.com/jeksterslab/simStateSpace/reference/SimSSMIVary.html" class="external-link">SimSSMIVary</a></span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="va">n</span>,</span>
 <span>  time <span class="op">=</span> <span class="va">time</span>,</span>
 <span>  mu0 <span class="op">=</span> <span class="va">mu0</span>,</span>
 <span>  sigma0_l <span class="op">=</span> <span class="va">sigma0_l</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="va">alpha</span>,</span>
 <span>  beta <span class="op">=</span> <span class="va">beta</span>,</span>
-<span>  psi_l <span class="op">=</span> <span class="va">psi_l</span></span>
+<span>  psi_l <span class="op">=</span> <span class="va">psi_l</span>,</span>
+<span>  nu <span class="op">=</span> <span class="va">nu</span>,</span>
+<span>  lambda <span class="op">=</span> <span class="va">lambda</span>,</span>
+<span>  theta_l <span class="op">=</span> <span class="va">theta_l</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   id time          y1         y2         y3</span></span>
-<span><span class="co">#&gt; 1  1    0 -0.01667824  0.3471271 -0.5695179</span></span>
-<span><span class="co">#&gt; 2  1    1  0.05129435  0.2859970 -0.2306270</span></span>
-<span><span class="co">#&gt; 3  1    2 -0.33999076  0.6114834 -0.2472465</span></span>
-<span><span class="co">#&gt; 4  1    3 -0.01661439 -0.2579420  0.2733639</span></span>
-<span><span class="co">#&gt; 5  1    4 -0.50080900  0.2572493  0.1186636</span></span>
-<span><span class="co">#&gt; 6  1    5 -0.19775105  0.1878050  0.3271472</span></span>
+<span><span class="co">#&gt;   id time         y1       y2</span></span>
+<span><span class="co">#&gt; 1  1    0  4.2923877 3.340872</span></span>
+<span><span class="co">#&gt; 2  1    1  1.0083994 5.277654</span></span>
+<span><span class="co">#&gt; 3  1    2  0.1329195 3.635821</span></span>
+<span><span class="co">#&gt; 4  1    3 -0.5846274 3.113339</span></span>
+<span><span class="co">#&gt; 5  1    4 -0.6400584 3.361309</span></span>
+<span><span class="co">#&gt; 6  1    5  1.9021483 4.217966</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></code></pre></div>
-<p><img src="fig-vignettes-fit-dt-var-id-mx-mixed-error-1.png" width="3300"><img src="fig-vignettes-fit-dt-var-id-mx-mixed-error-2.png" width="3300"><img src="fig-vignettes-fit-dt-var-id-mx-mixed-error-3.png" width="3300"></p>
+<p><img src="fig-vignettes-fit-dt-var-id-mx-mixed-error-1.png" width="3300"><img src="fig-vignettes-fit-dt-var-id-mx-mixed-error-2.png" width="3300"></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="model-fitting">Model Fitting<a class="anchor" aria-label="anchor" href="#model-fitting"></a>
 </h2>
-<p>The <code>FitDTVARIDMx</code> function fits a DT-VAR model on each
+<p>The <code>DTVAR</code> function fits a DT-VAR model on each
 individual
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+using the <code>byid = TRUE</code> argument. The model type is specified
+using the <code>model</code> argument.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeksterslab/fitDTVARMx" class="external-link">fitDTVARMx</a></span><span class="op">)</span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://github.com/jeksterslab/fitDTVARMx/reference/FitDTVARIDMx.html" class="external-link">FitDTVARIDMx</a></span><span class="op">(</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://github.com/jeksterslab/fitDTVARMx/reference/DTVAR.html" class="external-link">DTVAR</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
 <span>  observed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  id <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  model <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  byid <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ncores <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">fit</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Means of the estimated paramaters per individual.</span></span>
-<span><span class="co">#&gt;     beta_11     beta_21     beta_31     beta_12     beta_22     beta_32 </span></span>
-<span><span class="co">#&gt;  0.65993097  0.50030159 -0.06447561  0.04378504  0.64014151  0.43853603 </span></span>
-<span><span class="co">#&gt;     beta_13     beta_23     beta_33      psi_11      psi_22      psi_33 </span></span>
-<span><span class="co">#&gt; -0.03958630  0.01326219  0.49408009  0.10016808  0.09849587  0.09896985</span></span></code></pre></div>
+<span><span class="co">#&gt;  paramaters per individual.</span></span>
+<span><span class="co">#&gt;            beta_11      beta_21      beta_12     beta_22     alpha_1</span></span>
+<span><span class="co">#&gt;   [1,] -0.85947202 -0.012039283  0.434889876  0.36735476  0.47422602</span></span>
+<span><span class="co">#&gt;   [2,] -0.56931349  0.013647063  0.282539772  0.46303247  7.34815478</span></span>
+<span><span class="co">#&gt;   [3,]  0.35629928  0.035702733 -0.038112320  0.37052714  2.28917684</span></span>
+<span><span class="co">#&gt;   [4,]  0.23362144 -0.018121573 -0.111949908  0.64425424  3.81489295</span></span>
+<span><span class="co">#&gt;   [5,]  0.25064634 -0.108838468 -0.063033384  0.33983988  3.72374889</span></span>
+<span><span class="co">#&gt;   [6,] -0.36511967 -0.019155111  0.183874623  0.42571408  4.48652081</span></span>
+<span><span class="co">#&gt;   [7,]  0.08039087 -0.017185376 -0.029697123  0.46285191  3.01127613</span></span>
+<span><span class="co">#&gt;   [8,] -0.05513484 -0.283072525 -0.093020931  0.24247882  3.23487616</span></span>
+<span><span class="co">#&gt;   [9,]  0.44748821 -0.044627969 -0.063223146  0.43703848  2.69334343</span></span>
+<span><span class="co">#&gt;  [10,]  0.12109333 -0.317562695 -0.075898969  0.31548924  3.24493909</span></span>
+<span><span class="co">#&gt;  [11,]  0.25645603 -0.055748428 -0.023033995  0.21344898  4.08297077</span></span>
+<span><span class="co">#&gt;  [12,]  0.41733201  0.415840643  0.107619360 -0.48104553  1.72934818</span></span>
+<span><span class="co">#&gt;  [13,]  0.16698735 -0.061132769  0.059904553  0.25070305  3.38839986</span></span>
+<span><span class="co">#&gt;  [14,] -0.31027461  0.123863698  0.073924266  0.12108149  4.33555313</span></span>
+<span><span class="co">#&gt;  [15,]  0.31768033 -0.189503381 -0.123262488  0.49286217  3.35619498</span></span>
+<span><span class="co">#&gt;  [16,] -0.48744881 -0.084122585  0.187381706  0.37529271  5.24647407</span></span>
+<span><span class="co">#&gt;  [17,] -1.15790596 -0.518976174  3.429764928  1.46844378  1.99327435</span></span>
+<span><span class="co">#&gt;  [18,]  0.23868229  0.232738943  0.004730939 -0.53061437  4.02993146</span></span>
+<span><span class="co">#&gt;  [19,]  0.48219827  0.341100004  0.030405375 -0.45312834  2.67847849</span></span>
+<span><span class="co">#&gt;  [20,]  0.05642135 -0.504268532 -0.001201734  0.36356535  3.62402997</span></span>
+<span><span class="co">#&gt;  [21,]  0.30501244 -0.063076132 -0.039522058  0.43654694  1.50648738</span></span>
+<span><span class="co">#&gt;  [22,] -0.58545241 -0.239358697  0.410807724  0.78852655 10.56971799</span></span>
+<span><span class="co">#&gt;  [23,]  0.30024289  0.102794060 -0.042459356  0.11650886  2.77325242</span></span>
+<span><span class="co">#&gt;  [24,]  0.52891003  0.182397326 -0.009206871  0.37841175  4.22817897</span></span>
+<span><span class="co">#&gt;  [25,] -0.40330082  0.009710887  0.202390908  0.39944792  1.54066345</span></span>
+<span><span class="co">#&gt;  [26,]  0.48593872 -0.043068226 -0.022951677  0.45626082  1.86222070</span></span>
+<span><span class="co">#&gt;  [27,] -0.64365606 -0.338969285  0.381042632  0.69145078  3.71488669</span></span>
+<span><span class="co">#&gt;  [28,]  0.38339239  0.402546070  0.006469959 -0.46655966  4.04938292</span></span>
+<span><span class="co">#&gt;  [29,]  0.52347332 -0.037825817 -0.004383104  0.32534299  2.83120308</span></span>
+<span><span class="co">#&gt;  [30,]  0.32892122  0.054408189 -0.089147662  0.42650082  2.47404080</span></span>
+<span><span class="co">#&gt;  [31,]  0.31886830 -0.081924995  0.062691420  0.30686921  3.01633783</span></span>
+<span><span class="co">#&gt;  [32,]  0.32976246 -0.175525290 -0.117155172 -0.13163322  3.82597310</span></span>
+<span><span class="co">#&gt;  [33,]  0.40719047 -0.163904346 -0.070585596  0.37051147  3.97997740</span></span>
+<span><span class="co">#&gt;  [34,] -0.26185080 -0.358025792  0.179980186  0.25617054  3.76218205</span></span>
+<span><span class="co">#&gt;  [35,]  0.44270710  0.068575578 -0.046388656  0.40877036  0.08393501</span></span>
+<span><span class="co">#&gt;  [36,]  0.20586803 -0.193954828 -0.152547981  0.42200382  0.86945003</span></span>
+<span><span class="co">#&gt;  [37,]  0.36800513 -0.073496453 -0.117703931  0.18003090  3.42102426</span></span>
+<span><span class="co">#&gt;  [38,] -0.51445530  0.058118126  0.333726603  0.33928646  4.70655855</span></span>
+<span><span class="co">#&gt;  [39,]  0.33624131 -0.014780858 -0.001962437  0.37077835  3.02349007</span></span>
+<span><span class="co">#&gt;  [40,] -0.36576397  0.296468414  0.136779210  0.02236368  1.96303818</span></span>
+<span><span class="co">#&gt;  [41,]  0.13507293 -0.086350083 -0.047291966  0.43210403  2.10504955</span></span>
+<span><span class="co">#&gt;  [42,] -0.47628146 -0.035744870  0.203431610  0.32919445  2.90459446</span></span>
+<span><span class="co">#&gt;  [43,]  0.41694732 -0.142837761 -0.135422514  0.40909447  1.14388258</span></span>
+<span><span class="co">#&gt;  [44,]  0.26024309  0.158142281 -0.014289358 -0.51695114  4.79967348</span></span>
+<span><span class="co">#&gt;  [45,]  0.20686903  0.027817284 -0.099460995  0.03424789  2.08529588</span></span>
+<span><span class="co">#&gt;  [46,]  0.14458255 -0.144050063  0.062758651  0.01829476  2.18216042</span></span>
+<span><span class="co">#&gt;  [47,]  0.17064144  0.135796679 -0.013720383 -0.22566514  3.68578064</span></span>
+<span><span class="co">#&gt;  [48,] -0.54980850 -0.137886901  0.163030713  0.31883901  3.15976155</span></span>
+<span><span class="co">#&gt;  [49,]  0.26181890 -0.160762025 -0.172230118  0.23762861  3.54742517</span></span>
+<span><span class="co">#&gt;  [50,]  0.20283765 -0.101614488 -0.074407294  0.44687554  2.44842228</span></span>
+<span><span class="co">#&gt;  [51,]  0.20941324 -0.164575202  0.093660426  0.47899626  3.05619201</span></span>
+<span><span class="co">#&gt;  [52,]  0.26906304 -0.175799585 -0.077956536  0.31125898  3.31855210</span></span>
+<span><span class="co">#&gt;  [53,]  0.23778521  0.157106732 -0.205129317 -0.42529102  2.78746935</span></span>
+<span><span class="co">#&gt;  [54,]  0.20543198  0.112256503  0.217610619 -0.25461847  3.72278759</span></span>
+<span><span class="co">#&gt;  [55,]  0.27140851 -0.418553775 -0.052127066  0.15915746  4.80886191</span></span>
+<span><span class="co">#&gt;  [56,]  0.22767886 -0.186896229 -0.073326246  0.16086751  2.81334350</span></span>
+<span><span class="co">#&gt;  [57,]  0.26699908 -0.094400501 -0.095047442  0.23646179  2.55558516</span></span>
+<span><span class="co">#&gt;  [58,] -0.16976709 -1.439399107  0.054452802  0.69499723  3.58171497</span></span>
+<span><span class="co">#&gt;  [59,]  0.52141338 -0.061236821 -0.187748030  0.31109066  2.46541690</span></span>
+<span><span class="co">#&gt;  [60,]  0.40837255  0.002049213 -0.612145729  0.04969306  2.90558849</span></span>
+<span><span class="co">#&gt;  [61,]  0.26280168 -0.242125000 -0.220932798 -0.01742405  3.99100477</span></span>
+<span><span class="co">#&gt;  [62,] -1.22385434 -0.428433623  3.600947552  1.29779934  2.68623267</span></span>
+<span><span class="co">#&gt;  [63,]  0.14423558 -0.107973584 -0.063785576  0.44924603  2.86292699</span></span>
+<span><span class="co">#&gt;  [64,]  0.12403212  0.004944022  0.001596223  0.48017765  2.30154955</span></span>
+<span><span class="co">#&gt;  [65,] -0.24991197  0.288326298  0.261678104  0.12322331  2.57302772</span></span>
+<span><span class="co">#&gt;  [66,]  0.36025743 -0.071491262 -0.069815918  0.06123015  1.19973681</span></span>
+<span><span class="co">#&gt;  [67,]  0.29769126 -0.092040783 -0.002074986  0.11617225  2.59956028</span></span>
+<span><span class="co">#&gt;  [68,] -0.46356005 -0.058444988  0.248699985  0.46707428  2.63025033</span></span>
+<span><span class="co">#&gt;  [69,]  0.51521112  0.545211591  0.146742453 -0.53882746  3.68972657</span></span>
+<span><span class="co">#&gt;  [70,]  0.20110290 -0.273352840 -0.015699472  0.33552623  3.37524988</span></span>
+<span><span class="co">#&gt;  [71,]  0.52483547  0.160524590 -0.070144298  0.48389277  3.01137217</span></span>
+<span><span class="co">#&gt;  [72,]  0.18935165 -0.156446969 -0.110502489  0.13064781  2.95109510</span></span>
+<span><span class="co">#&gt;  [73,]  0.38565162 -0.091260289 -0.082359692  0.19667252  3.50172279</span></span>
+<span><span class="co">#&gt;  [74,]  0.59533298 -0.028476952 -0.021770297  0.18629008  4.65359832</span></span>
+<span><span class="co">#&gt;  [75,]  0.35623221  0.145214837 -0.027240409  0.32077861  1.92207620</span></span>
+<span><span class="co">#&gt;  [76,]  0.28017344  0.244180859  0.027166658 -0.61492351  4.47436786</span></span>
+<span><span class="co">#&gt;  [77,]  0.22991724 -0.127730062 -0.033033143  0.28816612  2.00865673</span></span>
+<span><span class="co">#&gt;  [78,]  0.49501931  0.234990486 -0.097351169 -0.49981133  1.00319115</span></span>
+<span><span class="co">#&gt;  [79,]  0.16572238 -0.044307158 -0.106232023  0.33940371  2.18065392</span></span>
+<span><span class="co">#&gt;  [80,]  0.34965317 -0.094836867 -0.154184128  0.49443121  3.77111931</span></span>
+<span><span class="co">#&gt;  [81,]  0.19810387 -0.115402910 -0.104751539  0.12968958  2.07929561</span></span>
+<span><span class="co">#&gt;  [82,]  0.27017718 -0.131426504 -0.332525162 -0.05532521  2.99518600</span></span>
+<span><span class="co">#&gt;  [83,]  0.51242759  0.038647983 -0.007383279  0.84373825  1.63439430</span></span>
+<span><span class="co">#&gt;  [84,]  0.29900180 -0.069606071 -0.061749950 -0.02777781  1.74008370</span></span>
+<span><span class="co">#&gt;  [85,]  0.13711310 -0.032408616  0.012832564  0.29046932  2.09622961</span></span>
+<span><span class="co">#&gt;  [86,]  0.21593520 -0.029299385 -0.074454308  0.27494343  0.63514011</span></span>
+<span><span class="co">#&gt;  [87,] -0.42817568  0.053253747  0.325345195  0.26760104  1.12695737</span></span>
+<span><span class="co">#&gt;  [88,]  0.15591356 -0.420268517 -0.026449806  0.27918492  2.57524614</span></span>
+<span><span class="co">#&gt;  [89,]  0.21839225 -0.312486017 -0.084933690  0.22713881  1.92508604</span></span>
+<span><span class="co">#&gt;  [90,]  0.18169680 -0.080038324 -0.096445827  0.18411951  1.73758252</span></span>
+<span><span class="co">#&gt;  [91,] -0.49483160  0.141867903  0.231870056  0.20100249  4.77862457</span></span>
+<span><span class="co">#&gt;  [92,]  0.20822005 -0.420509520 -0.064791322  0.17309780  3.41848796</span></span>
+<span><span class="co">#&gt;  [93,]  0.16750988  0.034628006 -0.081072830  0.23286861  3.02253406</span></span>
+<span><span class="co">#&gt;  [94,]  0.43663053  0.379812339  0.122856711 -0.45647016  3.21722674</span></span>
+<span><span class="co">#&gt;  [95,]  0.38815275  0.476292427 -0.007807346 -0.52508931  3.25226109</span></span>
+<span><span class="co">#&gt;  [96,]  0.17529171 -0.147459557  0.022371694  0.09043369  2.89326134</span></span>
+<span><span class="co">#&gt;  [97,]  0.26100465 -0.072521671 -0.026934798  0.47319918  2.36752548</span></span>
+<span><span class="co">#&gt;  [98,]  0.26535530 -0.075956408 -0.056603361  0.15803546  2.33032786</span></span>
+<span><span class="co">#&gt;  [99,]  0.17614036 -0.094232800 -0.085205252  0.23181216  3.14905471</span></span>
+<span><span class="co">#&gt; [100,]  0.23964452 -0.146178092  0.010911675  0.09804725  4.33027294</span></span>
+<span><span class="co">#&gt;            alpha_2        psi_11    psi_21        psi_22      theta_11</span></span>
+<span><span class="co">#&gt;   [1,]  2.26866995  1.534180e-01 0.5192412  1.561854e+00  1.443110e+00</span></span>
+<span><span class="co">#&gt;   [2,]  3.34370998 2.225074e-308 0.5232572  1.763502e+00  1.635158e+00</span></span>
+<span><span class="co">#&gt;   [3,]  0.43691307  7.741899e-01 0.5468848  1.531423e+00  6.266520e-01</span></span>
+<span><span class="co">#&gt;   [4,]  1.86199367  1.447022e+00 0.5467411  1.368753e+00  7.579624e-02</span></span>
+<span><span class="co">#&gt;   [5,]  3.11765008  1.011369e+00 0.6305239  1.748665e+00  5.075090e-01</span></span>
+<span><span class="co">#&gt;   [6,]  1.45360916  2.145529e-17 0.6660325  1.678225e+00  1.570653e+00</span></span>
+<span><span class="co">#&gt;   [7,]  1.76674312  1.406811e+00 0.5487181  8.900281e-01  3.901390e-17</span></span>
+<span><span class="co">#&gt;   [8,]  0.89031333  1.541239e+00 0.5766485  1.055400e+00 2.225074e-308</span></span>
+<span><span class="co">#&gt;   [9,]  1.08140759  1.179349e+00 0.6033275  1.263951e+00  3.907030e-01</span></span>
+<span><span class="co">#&gt;  [10,]  4.06570805  8.347573e-01 0.5665074  1.530112e+00  5.671402e-01</span></span>
+<span><span class="co">#&gt;  [11,]  1.04835562  1.528654e+00 0.5277816  1.615504e+00 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [12,] -0.19458632  1.328638e+00 0.5975770  2.642969e-20  1.663255e-01</span></span>
+<span><span class="co">#&gt;  [13,]  1.57088705  1.553537e+00 0.6209979  8.854256e-01  1.061451e-19</span></span>
+<span><span class="co">#&gt;  [14,]  1.48494654  6.586743e-15 0.5121351  1.632897e+00  1.628545e+00</span></span>
+<span><span class="co">#&gt;  [15,]  2.14194969  1.278927e+00 0.5702377  2.953559e-01  2.188905e-01</span></span>
+<span><span class="co">#&gt;  [16,]  1.94336808  1.228450e-18 0.5863629  1.807574e+00  1.514275e+00</span></span>
+<span><span class="co">#&gt;  [17,]  0.69380442  1.739830e+00 0.6874664  2.537968e-01  1.929597e-17</span></span>
+<span><span class="co">#&gt;  [18,]  1.83912831  1.567855e+00 0.6271089 2.225074e-308 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [19,]  5.66479926  1.218698e+00 0.6281741  1.153762e-14  3.506586e-01</span></span>
+<span><span class="co">#&gt;  [20,]  2.58861539  4.534531e-01 0.5461185  1.573505e+00  1.037483e+00</span></span>
+<span><span class="co">#&gt;  [21,]  1.98509468  1.331270e+00 0.4834306  1.485070e+00  2.012220e-01</span></span>
+<span><span class="co">#&gt;  [22,]  5.44002192  4.545596e-10 0.8127169  2.077632e+00  1.898383e+00</span></span>
+<span><span class="co">#&gt;  [23,]  2.05366278  1.645266e+00 0.6356734  1.769637e+00 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [24,]  3.67999519  1.150630e+00 0.5260285  1.427302e+00  2.995563e-01</span></span>
+<span><span class="co">#&gt;  [25,]  1.13568443 2.225074e-308 0.6171610  1.216551e+00  1.627502e+00</span></span>
+<span><span class="co">#&gt;  [26,]  3.23083865  7.115583e-01 0.5601364  1.323402e+00  7.315931e-01</span></span>
+<span><span class="co">#&gt;  [27,]  3.47472654 2.225074e-308 0.6791503  1.513806e+00  1.857448e+00</span></span>
+<span><span class="co">#&gt;  [28,]  2.63926006  1.210577e+00 0.5333779  8.594961e-17  2.307874e-01</span></span>
+<span><span class="co">#&gt;  [29,]  0.01949861  9.490372e-01 0.4743996  1.532927e+00  4.372862e-01</span></span>
+<span><span class="co">#&gt;  [30,]  1.70545412  1.263997e+00 0.5802375  1.361932e+00  1.851205e-01</span></span>
+<span><span class="co">#&gt;  [31,]  0.58601487  1.209262e+00 0.4980185  1.142605e+00  1.854463e-01</span></span>
+<span><span class="co">#&gt;  [32,]  1.99809137  1.131245e+00 0.5887399  1.329092e+00  3.169810e-01</span></span>
+<span><span class="co">#&gt;  [33,]  0.94956336  7.135443e-01 0.5712682  1.072394e+00  6.678274e-01</span></span>
+<span><span class="co">#&gt;  [34,]  1.85953914  1.301065e+00 0.6909727  7.406605e-17  2.344886e-01</span></span>
+<span><span class="co">#&gt;  [35,]  2.21669414  1.315835e+00 0.5050339  1.384559e+00  3.262404e-01</span></span>
+<span><span class="co">#&gt;  [36,]  2.89045373  1.539573e+00 0.5144555  7.797666e-01  3.308716e-21</span></span>
+<span><span class="co">#&gt;  [37,]  1.53849392  6.039533e-01 0.5118836  1.787186e+00  8.446603e-01</span></span>
+<span><span class="co">#&gt;  [38,]  1.32357155  1.177274e-17 0.5541911  1.454124e+00  1.746434e+00</span></span>
+<span><span class="co">#&gt;  [39,]  0.06453525  1.236621e+00 0.5249093  1.361685e+00  3.225829e-01</span></span>
+<span><span class="co">#&gt;  [40,]  4.09338168  2.675306e-17 0.6146516  1.867674e+00  1.638083e+00</span></span>
+<span><span class="co">#&gt;  [41,]  2.42209777  1.481384e+00 0.5683679  1.729104e+00  8.061778e-17</span></span>
+<span><span class="co">#&gt;  [42,]  2.27060941  2.888412e-16 0.6431477  1.889334e+00  1.557683e+00</span></span>
+<span><span class="co">#&gt;  [43,]  0.83176140  1.539731e+00 0.5680510  1.075286e+00 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [44,]  2.54771566  1.481781e+00 0.5855602 2.225074e-308  2.711197e-16</span></span>
+<span><span class="co">#&gt;  [45,]  0.65942811  1.375787e+00 0.4979665  1.730234e+00  2.753549e-18</span></span>
+<span><span class="co">#&gt;  [46,]  0.99282445  1.519311e+00 0.5318764  3.911419e-17  1.971948e-22</span></span>
+<span><span class="co">#&gt;  [47,]  4.77015131  1.338393e+00 0.6200946  4.173709e-17  1.576695e-01</span></span>
+<span><span class="co">#&gt;  [48,]  1.91647014 2.225074e-308 0.5866686  1.769775e+00  1.548363e+00</span></span>
+<span><span class="co">#&gt;  [49,]  2.67789054  1.111213e+00 0.5776334  1.599381e+00  3.671350e-01</span></span>
+<span><span class="co">#&gt;  [50,]  1.40261817  5.276514e-01 0.5299679  1.711947e+00  8.200095e-01</span></span>
+<span><span class="co">#&gt;  [51,]  2.95267870  1.507466e+00 0.5217900  1.140306e+00  8.301070e-17</span></span>
+<span><span class="co">#&gt;  [52,]  3.67459206  1.579173e+00 0.5754444  9.116353e-01  9.645006e-19</span></span>
+<span><span class="co">#&gt;  [53,] -0.88967285  1.505748e+00 0.6055787 2.225074e-308  8.517861e-10</span></span>
+<span><span class="co">#&gt;  [54,]  2.93305382  1.512455e+00 0.5646697  6.518360e-17  1.997087e-17</span></span>
+<span><span class="co">#&gt;  [55,]  1.51823421  8.307865e-01 0.6526764  1.752731e+00  7.414750e-01</span></span>
+<span><span class="co">#&gt;  [56,]  1.99800047  1.192672e+00 0.4979633  1.704362e+00  2.603650e-01</span></span>
+<span><span class="co">#&gt;  [57,]  0.16886990  1.312853e+00 0.5381003  1.762789e+00  1.650092e-01</span></span>
+<span><span class="co">#&gt;  [58,]  5.10326321  3.772321e-01 0.5300449  7.966088e-01  1.129965e+00</span></span>
+<span><span class="co">#&gt;  [59,]  2.27016369  1.330924e+00 0.5398654  1.114226e-17  1.676738e-01</span></span>
+<span><span class="co">#&gt;  [60,]  2.26320119  1.437059e+00 0.6136602  4.111300e-01 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [61,]  1.23917633  1.117894e+00 0.5943774  8.097660e-01  3.666220e-01</span></span>
+<span><span class="co">#&gt;  [62,]  1.19510843  1.830144e+00 0.6763006  2.144720e-01  8.839890e-18</span></span>
+<span><span class="co">#&gt;  [63,]  2.79708801  1.508968e+00 0.5385719  8.564258e-01  8.256212e-18</span></span>
+<span><span class="co">#&gt;  [64,]  1.52458097  1.447233e+00 0.5158323  1.193980e+00  1.746354e-17</span></span>
+<span><span class="co">#&gt;  [65,]  0.14731324  7.754095e-15 0.5550514  8.445312e-01  1.686857e+00</span></span>
+<span><span class="co">#&gt;  [66,]  0.43059671  1.327150e+00 0.5330164  1.691795e+00  2.142268e-01</span></span>
+<span><span class="co">#&gt;  [67,]  3.20675189  1.493956e+00 0.6220944  1.789142e+00 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [68,]  3.05770249 2.225074e-308 0.7764666  1.973620e+00  1.701291e+00</span></span>
+<span><span class="co">#&gt;  [69,]  3.34557892  9.881726e-01 0.4941456 2.225074e-308  4.909821e-01</span></span>
+<span><span class="co">#&gt;  [70,]  1.05737082  1.392339e+00 0.5533862  1.755644e+00 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [71,]  2.02330891  1.361984e+00 0.6169994  1.453937e+00  2.187909e-01</span></span>
+<span><span class="co">#&gt;  [72,]  2.52919137  1.562583e+00 0.6606053  9.057239e-01  9.783608e-19</span></span>
+<span><span class="co">#&gt;  [73,]  2.49072131  1.001464e+00 0.4368844  1.707568e+00  4.208988e-01</span></span>
+<span><span class="co">#&gt;  [74,]  2.77230437  1.378619e+00 0.5441464  1.479458e+00  1.409792e-01</span></span>
+<span><span class="co">#&gt;  [75,]  2.30369087  1.333986e+00 0.5567779  1.747347e+00  9.969053e-02</span></span>
+<span><span class="co">#&gt;  [76,]  4.40035700  1.547640e+00 0.5715170 2.225074e-308 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [77,]  1.08914360  1.586199e+00 0.6041377  1.379945e+00  9.771660e-20</span></span>
+<span><span class="co">#&gt;  [78,]  3.66930075  1.655677e+00 0.6940802  1.993169e-15  1.504514e-15</span></span>
+<span><span class="co">#&gt;  [79,]  2.85135098  1.119484e+00 0.6581339  1.204231e+00  3.614876e-01</span></span>
+<span><span class="co">#&gt;  [80,]  2.59856663  1.319365e+00 0.5441212  9.911526e-01  1.720211e-01</span></span>
+<span><span class="co">#&gt;  [81,]  0.37680334  1.516197e+00 0.5481506  1.697125e+00 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [82,]  2.21514012  1.473909e+00 0.5342306  5.122590e-01 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [83,]  1.75965629  1.320376e+00 0.5619192  1.328984e+00  1.290590e-01</span></span>
+<span><span class="co">#&gt;  [84,]  1.21850224  1.130679e+00 0.6169321  1.764002e+00  3.229148e-01</span></span>
+<span><span class="co">#&gt;  [85,]  2.64809941  1.511100e+00 0.5641618  1.657058e+00 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [86,]  0.32578753  1.544059e+00 0.6250222  1.518975e+00 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [87,]  3.01999137 2.225074e-308 0.5123161  7.900725e-01  1.645256e+00</span></span>
+<span><span class="co">#&gt;  [88,]  2.95913594  9.586578e-01 0.6048904  1.746725e+00  5.573513e-01</span></span>
+<span><span class="co">#&gt;  [89,]  1.96045038  9.519908e-01 0.6726958  1.830432e+00  5.589507e-01</span></span>
+<span><span class="co">#&gt;  [90,]  2.88642354  1.571741e+00 0.6063614  1.770887e+00  6.206858e-19</span></span>
+<span><span class="co">#&gt;  [91,]  2.48574855  3.324771e-16 0.5815963  1.702257e+00  1.695056e+00</span></span>
+<span><span class="co">#&gt;  [92,]  2.84927746  1.167911e+00 0.5723045  1.720708e+00  3.332942e-01</span></span>
+<span><span class="co">#&gt;  [93,]  2.61169778  1.639400e+00 0.7340346  1.916738e+00  1.459248e-16</span></span>
+<span><span class="co">#&gt;  [94,]  1.98818384  1.114288e+00 0.5537672 2.225074e-308  3.678444e-01</span></span>
+<span><span class="co">#&gt;  [95,]  1.71101867  9.026432e-01 0.5512027 2.225074e-308  4.790705e-01</span></span>
+<span><span class="co">#&gt;  [96,]  1.63403995  1.604533e+00 0.6299923  1.712179e+00  2.738550e-16</span></span>
+<span><span class="co">#&gt;  [97,]  0.66665955  1.203202e+00 0.4442784  1.148930e+00  1.853462e-01</span></span>
+<span><span class="co">#&gt;  [98,]  1.35789841  1.517375e+00 0.5801312  1.738695e+00 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [99,]  1.16037917  1.577041e+00 0.6774147  9.999102e-01 2.225074e-308</span></span>
+<span><span class="co">#&gt; [100,]  3.33426115  1.438777e+00 0.5523081  1.729334e+00  3.343966e-18</span></span>
+<span><span class="co">#&gt;             theta_22</span></span>
+<span><span class="co">#&gt;   [1,]  1.633482e-01</span></span>
+<span><span class="co">#&gt;   [2,]  1.529189e-17</span></span>
+<span><span class="co">#&gt;   [3,]  2.556730e-01</span></span>
+<span><span class="co">#&gt;   [4,]  2.362818e-01</span></span>
+<span><span class="co">#&gt;   [5,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;   [6,]  1.063163e-01</span></span>
+<span><span class="co">#&gt;   [7,]  7.055398e-01</span></span>
+<span><span class="co">#&gt;   [8,]  6.741425e-01</span></span>
+<span><span class="co">#&gt;   [9,]  4.577077e-01</span></span>
+<span><span class="co">#&gt;  [10,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [11,]  1.025779e-01</span></span>
+<span><span class="co">#&gt;  [12,]  2.042394e+00</span></span>
+<span><span class="co">#&gt;  [13,]  8.336847e-01</span></span>
+<span><span class="co">#&gt;  [14,]  2.261491e-16</span></span>
+<span><span class="co">#&gt;  [15,]  1.307771e+00</span></span>
+<span><span class="co">#&gt;  [16,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [17,]  1.654757e+00</span></span>
+<span><span class="co">#&gt;  [18,]  1.928396e+00</span></span>
+<span><span class="co">#&gt;  [19,]  1.972160e+00</span></span>
+<span><span class="co">#&gt;  [20,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [21,]  1.078109e-01</span></span>
+<span><span class="co">#&gt;  [22,]  3.704030e-03</span></span>
+<span><span class="co">#&gt;  [23,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [24,]  2.677117e-01</span></span>
+<span><span class="co">#&gt;  [25,]  5.957937e-01</span></span>
+<span><span class="co">#&gt;  [26,]  3.956066e-01</span></span>
+<span><span class="co">#&gt;  [27,]  2.381801e-01</span></span>
+<span><span class="co">#&gt;  [28,]  1.911298e+00</span></span>
+<span><span class="co">#&gt;  [29,]  1.599745e-01</span></span>
+<span><span class="co">#&gt;  [30,]  5.168964e-01</span></span>
+<span><span class="co">#&gt;  [31,]  6.373842e-01</span></span>
+<span><span class="co">#&gt;  [32,]  4.085785e-01</span></span>
+<span><span class="co">#&gt;  [33,]  5.611975e-01</span></span>
+<span><span class="co">#&gt;  [34,]  1.766564e+00</span></span>
+<span><span class="co">#&gt;  [35,]  2.581236e-01</span></span>
+<span><span class="co">#&gt;  [36,]  8.505424e-01</span></span>
+<span><span class="co">#&gt;  [37,]  3.011330e-15</span></span>
+<span><span class="co">#&gt;  [38,]  3.773249e-01</span></span>
+<span><span class="co">#&gt;  [39,]  3.096458e-01</span></span>
+<span><span class="co">#&gt;  [40,]  1.296109e-18</span></span>
+<span><span class="co">#&gt;  [41,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [42,]  3.654289e-16</span></span>
+<span><span class="co">#&gt;  [43,]  5.306753e-01</span></span>
+<span><span class="co">#&gt;  [44,]  1.892426e+00</span></span>
+<span><span class="co">#&gt;  [45,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [46,]  1.733210e+00</span></span>
+<span><span class="co">#&gt;  [47,]  1.764097e+00</span></span>
+<span><span class="co">#&gt;  [48,]  1.191009e-16</span></span>
+<span><span class="co">#&gt;  [49,]  1.451061e-01</span></span>
+<span><span class="co">#&gt;  [50,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [51,]  6.223234e-01</span></span>
+<span><span class="co">#&gt;  [52,]  7.617780e-01</span></span>
+<span><span class="co">#&gt;  [53,]  1.794664e+00</span></span>
+<span><span class="co">#&gt;  [54,]  1.835591e+00</span></span>
+<span><span class="co">#&gt;  [55,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [56,]  2.865167e-03</span></span>
+<span><span class="co">#&gt;  [57,]  9.192619e-18</span></span>
+<span><span class="co">#&gt;  [58,]  7.867035e-01</span></span>
+<span><span class="co">#&gt;  [59,]  1.842880e+00</span></span>
+<span><span class="co">#&gt;  [60,]  1.286114e+00</span></span>
+<span><span class="co">#&gt;  [61,]  9.444839e-01</span></span>
+<span><span class="co">#&gt;  [62,]  1.511763e+00</span></span>
+<span><span class="co">#&gt;  [63,]  8.015826e-01</span></span>
+<span><span class="co">#&gt;  [64,]  4.815890e-01</span></span>
+<span><span class="co">#&gt;  [65,]  9.761654e-01</span></span>
+<span><span class="co">#&gt;  [66,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [67,]  7.321615e-30</span></span>
+<span><span class="co">#&gt;  [68,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [69,]  2.077915e+00</span></span>
+<span><span class="co">#&gt;  [70,]  3.699162e-03</span></span>
+<span><span class="co">#&gt;  [71,]  2.778922e-01</span></span>
+<span><span class="co">#&gt;  [72,]  8.219510e-01</span></span>
+<span><span class="co">#&gt;  [73,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [74,]  2.108862e-01</span></span>
+<span><span class="co">#&gt;  [75,]  4.640232e-02</span></span>
+<span><span class="co">#&gt;  [76,]  2.133648e+00</span></span>
+<span><span class="co">#&gt;  [77,]  4.049936e-01</span></span>
+<span><span class="co">#&gt;  [78,]  1.993383e+00</span></span>
+<span><span class="co">#&gt;  [79,]  5.460556e-01</span></span>
+<span><span class="co">#&gt;  [80,]  7.425673e-01</span></span>
+<span><span class="co">#&gt;  [81,]  5.335475e-18</span></span>
+<span><span class="co">#&gt;  [82,]  1.257354e+00</span></span>
+<span><span class="co">#&gt;  [83,]  3.671494e-01</span></span>
+<span><span class="co">#&gt;  [84,]  8.620644e-17</span></span>
+<span><span class="co">#&gt;  [85,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [86,]  3.027064e-01</span></span>
+<span><span class="co">#&gt;  [87,]  8.810915e-01</span></span>
+<span><span class="co">#&gt;  [88,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [89,]  4.010625e-18</span></span>
+<span><span class="co">#&gt;  [90,]  1.920007e-19</span></span>
+<span><span class="co">#&gt;  [91,]  6.144649e-16</span></span>
+<span><span class="co">#&gt;  [92,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [93,]  2.224308e-17</span></span>
+<span><span class="co">#&gt;  [94,]  1.952991e+00</span></span>
+<span><span class="co">#&gt;  [95,]  2.085391e+00</span></span>
+<span><span class="co">#&gt;  [96,] 2.225074e-308</span></span>
+<span><span class="co">#&gt;  [97,]  4.965539e-01</span></span>
+<span><span class="co">#&gt;  [98,]  1.962868e-17</span></span>
+<span><span class="co">#&gt;  [99,]  7.117343e-01</span></span>
+<span><span class="co">#&gt; [100,] 2.225074e-308</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="multivariate-meta-analysis">Multivariate Meta-Analysis<a class="anchor" aria-label="anchor" href="#multivariate-meta-analysis"></a>
@@ -366,13 +746,13 @@ meta-analysis using the estimated parameters and the corresponding
 sampling variance-covariance matrix for each individual
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
 Estimates with the prefix <code>b0</code> correspond to the estimates of
-<code>beta_mu</code>. Estimates with the prefix <code>b1</code>
-correspond to the estimates of the effects of <code>x</code> on
-<code>y</code>. Note that the effects of <code>x</code> on
-<code>y</code> in this case are all zeros. Estimates with the prefix
-<code>t2</code> correspond to the estimates of <code>beta_sigma</code>.
-Estimates with the prefix <code>i2</code> correspond to the estimates of
-heterogeniety.</p>
+<code>beta_mu</code> and <code>alpha_mu</code>. Estimates with the
+prefix <code>b1</code> correspond to the estimates of the effects of
+<code>x</code> on <code>y</code>. Note that the effects of
+<code>x</code> on <code>y</code> in this case are all zeros. Estimates
+with the prefix <code>t2</code> correspond to the estimates of
+<code>beta_sigma</code> and <code>alpha_sigma</code>. Estimates with the
+prefix <code>i2</code> correspond to the estimates of heterogeniety.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
 <span>  X <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
@@ -387,106 +767,57 @@ heterogeniety.</p>
 <span>  x <span class="op">=</span> <span class="va">x</span>,</span>
 <span>  ncores <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Running Model with 72 parameters</span></span>
+<span><span class="co">#&gt; Running Model with 22 parameters</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Beginning initial fit attempt</span></span>
-<span><span class="co">#&gt; Running Model with 72 parameters</span></span>
+<span><span class="co">#&gt; Running Model with 22 parameters</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Lowest minimum so far:  -271.390852130041</span></span>
+<span><span class="co">#&gt;  Lowest minimum so far:  -190.766889316015</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Solution found</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Solution found!  Final fit=-271.39085 (started at 181.8219)  (1 attempt(s): 1 valid, 0 errors)</span></span>
+<span><span class="co">#&gt;  Solution found!  Final fit=-190.76689 (started at 784.5736)  (1 attempt(s): 1 valid, 0 errors)</span></span>
 <span><span class="co">#&gt;  Start values from best fit:</span></span>
-<span><span class="co">#&gt; 0.657962241220472,0.51033967227259,-0.0567954629371411,0.0436811090007591,0.646664986578893,0.430527116896467,-0.0436390242964322,0.00154840596736853,0.487898856324546,-0.00171536960435824,-0.034191117183634,-0.0113769270104645,0.0127319728424718,-0.0508064711449298,0.0471040811841622,0.01281829562478,0.0546428473180705,0.00622674705947665,-0.0373278899849594,0.014326900038314,0.028172759926688,0.0243067434491325,-0.0599933548337579,0.0411649030024198,-0.00765519846664582,0.0184720225764948,-0.0429177873844594,0.0905260823187534,-0.021491827954899,-0.0684365870852203,-0.0385766717650605,-0.0397820953825144,0.0697830119273889,0.0216721203484656,0.00226476659139843,-0.0387608704309943,0.0938677998194565,0.0560340468885324,-0.00547507779064828,-0.0445965647751857,0.0122944202686715,0.0445209535326955,0.0226673510970409,-0.0177582479425677,0.0803964481064007,-0.00291115918767587,0.0339254072134867,-0.0558721012759551,0.00565473299932731,0.0491000139565992,0.0400736439582104,0.0423325753230253,-0.00259506146832299,0.0589777289459285,0.0182802588818472,0.0231307478025296,-0.0262048351748966,0.0434713659152594,-0.00220143633147934,0.0145752853266376,0.0178717992928919,-0.00739474262589907,0.0314365412417938,-0.0674172052618052,-0.0259762913278114,0.0297884215651565,1.06466555090781e-07,5.12114502520714e-08,-7.09828307697287e-08,1.54526931839517e-08,3.8067107662408e-09,2.2250738585072e-308</span></span>
+<span><span class="co">#&gt; 0.151221293022349,-0.0234425847208405,0.00250304990137803,0.198028893927177,-0.00779616586954404,-0.00669484634453291,-0.00664949199078543,0.0256063423920134,-0.0614535999751947,0.00290312223153409,0.0231056013942936,-0.0305342940284845,0.291639755939433,0.020834144725448,-0.0840707825832182,-0.08929886019029,0.148900235152383,0.0480959638342091,-0.150231785254822,0.0475155472806585,0.0567585038227547,0.220433428984045</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="co">#&gt;            est     se       z      p    2.5%  97.5%</span></span>
-<span><span class="co">#&gt; b0_1    0.6580 0.0318 20.6838 0.0000  0.5956 0.7203</span></span>
-<span><span class="co">#&gt; b0_2    0.5103 0.0336 15.2090 0.0000  0.4446 0.5761</span></span>
-<span><span class="co">#&gt; b0_3   -0.0568 0.0407 -1.3940 0.1633 -0.1366 0.0231</span></span>
-<span><span class="co">#&gt; b0_4    0.0437 0.0211  2.0739 0.0381  0.0024 0.0850</span></span>
-<span><span class="co">#&gt; b0_5    0.6467 0.0282 22.9417 0.0000  0.5914 0.7019</span></span>
-<span><span class="co">#&gt; b0_6    0.4305 0.0379 11.3717 0.0000  0.3563 0.5047</span></span>
-<span><span class="co">#&gt; b0_7   -0.0436 0.0300 -1.4533 0.1461 -0.1025 0.0152</span></span>
-<span><span class="co">#&gt; b0_8    0.0015 0.0238  0.0649 0.9482 -0.0452 0.0483</span></span>
-<span><span class="co">#&gt; b0_9    0.4879 0.0251 19.4167 0.0000  0.4386 0.5371</span></span>
-<span><span class="co">#&gt; b1_11  -0.0017 0.0389 -0.0441 0.9648 -0.0779 0.0745</span></span>
-<span><span class="co">#&gt; b1_21  -0.0342 0.0410 -0.8342 0.4042 -0.1145 0.0461</span></span>
-<span><span class="co">#&gt; b1_31  -0.0114 0.0499 -0.2279 0.8197 -0.1092 0.0865</span></span>
-<span><span class="co">#&gt; b1_41   0.0127 0.0264  0.4831 0.6291 -0.0389 0.0644</span></span>
-<span><span class="co">#&gt; b1_51  -0.0508 0.0349 -1.4542 0.1459 -0.1193 0.0177</span></span>
-<span><span class="co">#&gt; b1_61   0.0471 0.0468  1.0058 0.3145 -0.0447 0.1389</span></span>
-<span><span class="co">#&gt; b1_71   0.0128 0.0367  0.3494 0.7268 -0.0591 0.0847</span></span>
-<span><span class="co">#&gt; b1_81   0.0546 0.0290  1.8835 0.0596 -0.0022 0.1115</span></span>
-<span><span class="co">#&gt; b1_91   0.0062 0.0306  0.2032 0.8390 -0.0538 0.0663</span></span>
-<span><span class="co">#&gt; b1_12  -0.0373 0.0378 -0.9880 0.3232 -0.1114 0.0367</span></span>
-<span><span class="co">#&gt; b1_22   0.0143 0.0398  0.3600 0.7188 -0.0637 0.0923</span></span>
-<span><span class="co">#&gt; b1_32   0.0282 0.0484  0.5822 0.5605 -0.0667 0.1230</span></span>
-<span><span class="co">#&gt; b1_42   0.0243 0.0253  0.9616 0.3362 -0.0252 0.0738</span></span>
-<span><span class="co">#&gt; b1_52  -0.0600 0.0336 -1.7847 0.0743 -0.1259 0.0059</span></span>
-<span><span class="co">#&gt; b1_62   0.0412 0.0451  0.9127 0.3614 -0.0472 0.1296</span></span>
-<span><span class="co">#&gt; b1_72  -0.0077 0.0355 -0.2155 0.8294 -0.0773 0.0620</span></span>
-<span><span class="co">#&gt; b1_82   0.0185 0.0281  0.6564 0.5116 -0.0367 0.0736</span></span>
-<span><span class="co">#&gt; b1_92  -0.0429 0.0297 -1.4438 0.1488 -0.1012 0.0153</span></span>
-<span><span class="co">#&gt; t2_1_1  0.0082 0.0042  1.9436 0.0519 -0.0001 0.0165</span></span>
-<span><span class="co">#&gt; t2_2_1 -0.0019 0.0032 -0.6033 0.5463 -0.0083 0.0044</span></span>
-<span><span class="co">#&gt; t2_3_1 -0.0062 0.0043 -1.4437 0.1488 -0.0146 0.0022</span></span>
-<span><span class="co">#&gt; t2_4_1 -0.0035 0.0024 -1.4776 0.1395 -0.0081 0.0011</span></span>
-<span><span class="co">#&gt; t2_5_1 -0.0036 0.0029 -1.2421 0.2142 -0.0093 0.0021</span></span>
-<span><span class="co">#&gt; t2_6_1  0.0063 0.0041  1.5407 0.1234 -0.0017 0.0144</span></span>
-<span><span class="co">#&gt; t2_7_1  0.0020 0.0029  0.6753 0.4995 -0.0037 0.0077</span></span>
-<span><span class="co">#&gt; t2_8_1  0.0002 0.0022  0.0917 0.9269 -0.0042 0.0046</span></span>
-<span><span class="co">#&gt; t2_9_1 -0.0035 0.0026 -1.3454 0.1785 -0.0086 0.0016</span></span>
-<span><span class="co">#&gt; t2_2_2  0.0093 0.0047  1.9600 0.0500  0.0000 0.0185</span></span>
-<span><span class="co">#&gt; t2_3_2  0.0067 0.0046  1.4726 0.1409 -0.0022 0.0157</span></span>
-<span><span class="co">#&gt; t2_4_2  0.0003 0.0021  0.1502 0.8806 -0.0038 0.0044</span></span>
-<span><span class="co">#&gt; t2_5_2 -0.0033 0.0030 -1.0939 0.2740 -0.0093 0.0026</span></span>
-<span><span class="co">#&gt; t2_6_2 -0.0003 0.0038 -0.0916 0.9270 -0.0077 0.0071</span></span>
-<span><span class="co">#&gt; t2_7_2  0.0037 0.0032  1.1559 0.2477 -0.0026 0.0100</span></span>
-<span><span class="co">#&gt; t2_8_2  0.0021 0.0024  0.8500 0.3953 -0.0027 0.0069</span></span>
-<span><span class="co">#&gt; t2_9_2 -0.0008 0.0025 -0.3330 0.7391 -0.0057 0.0041</span></span>
-<span><span class="co">#&gt; t2_3_3  0.0143 0.0069  2.0667 0.0388  0.0007 0.0278</span></span>
-<span><span class="co">#&gt; t2_4_3  0.0021 0.0026  0.8006 0.4234 -0.0030 0.0072</span></span>
-<span><span class="co">#&gt; t2_5_3  0.0030 0.0035  0.8366 0.4028 -0.0040 0.0099</span></span>
-<span><span class="co">#&gt; t2_6_3 -0.0086 0.0054 -1.5881 0.1123 -0.0192 0.0020</span></span>
-<span><span class="co">#&gt; t2_7_3  0.0015 0.0037  0.4013 0.6882 -0.0057 0.0086</span></span>
-<span><span class="co">#&gt; t2_8_3  0.0051 0.0033  1.5386 0.1239 -0.0014 0.0115</span></span>
-<span><span class="co">#&gt; t2_9_3  0.0049 0.0034  1.4275 0.1534 -0.0018 0.0116</span></span>
-<span><span class="co">#&gt; t2_4_4  0.0033 0.0019  1.7887 0.0737 -0.0003 0.0070</span></span>
-<span><span class="co">#&gt; t2_5_4  0.0016 0.0018  0.8540 0.3931 -0.0020 0.0052</span></span>
-<span><span class="co">#&gt; t2_6_4 -0.0001 0.0024 -0.0421 0.9664 -0.0048 0.0046</span></span>
-<span><span class="co">#&gt; t2_7_4 -0.0003 0.0019 -0.1690 0.8658 -0.0041 0.0034</span></span>
-<span><span class="co">#&gt; t2_8_4  0.0006 0.0015  0.4190 0.6752 -0.0023 0.0035</span></span>
-<span><span class="co">#&gt; t2_9_4  0.0004 0.0016  0.2352 0.8140 -0.0027 0.0034</span></span>
-<span><span class="co">#&gt; t2_5_5  0.0066 0.0033  1.9819 0.0475  0.0001 0.0132</span></span>
-<span><span class="co">#&gt; t2_6_5 -0.0055 0.0036 -1.5134 0.1302 -0.0126 0.0016</span></span>
-<span><span class="co">#&gt; t2_7_5 -0.0021 0.0026 -0.7974 0.4252 -0.0072 0.0030</span></span>
-<span><span class="co">#&gt; t2_8_5  0.0013 0.0020  0.6483 0.5168 -0.0026 0.0052</span></span>
-<span><span class="co">#&gt; t2_9_5  0.0034 0.0024  1.4621 0.1437 -0.0012 0.0081</span></span>
-<span><span class="co">#&gt; t2_6_6  0.0126 0.0060  2.0893 0.0367  0.0008 0.0244</span></span>
-<span><span class="co">#&gt; t2_7_6  0.0007 0.0034  0.1979 0.8431 -0.0060 0.0073</span></span>
-<span><span class="co">#&gt; t2_8_6 -0.0018 0.0027 -0.6546 0.5127 -0.0072 0.0036</span></span>
-<span><span class="co">#&gt; t2_9_6 -0.0058 0.0034 -1.6718 0.0946 -0.0125 0.0010</span></span>
-<span><span class="co">#&gt; t2_7_7  0.0076 0.0038  1.9927 0.0463  0.0001 0.0150</span></span>
-<span><span class="co">#&gt; t2_8_7  0.0038 0.0024  1.5453 0.1223 -0.0010 0.0086</span></span>
-<span><span class="co">#&gt; t2_9_7 -0.0040 0.0026 -1.5527 0.1205 -0.0090 0.0010</span></span>
-<span><span class="co">#&gt; t2_8_8  0.0045 0.0024  1.8871 0.0591 -0.0002 0.0091</span></span>
-<span><span class="co">#&gt; t2_9_8  0.0000 0.0018 -0.0196 0.9843 -0.0035 0.0034</span></span>
-<span><span class="co">#&gt; t2_9_9  0.0051 0.0027  1.9051 0.0568 -0.0001 0.0103</span></span>
-<span><span class="co">#&gt; i2_1    0.8675 0.0591 14.6755 0.0000  0.7516 0.9833</span></span>
-<span><span class="co">#&gt; i2_2    0.8814 0.0533 16.5374 0.0000  0.7770 0.9859</span></span>
-<span><span class="co">#&gt; i2_3    0.9198 0.0357 25.7697 0.0000  0.8498 0.9898</span></span>
-<span><span class="co">#&gt; i2_4    0.7956 0.0909  8.7485 0.0000  0.6173 0.9738</span></span>
-<span><span class="co">#&gt; i2_5    0.8872 0.0505 17.5660 0.0000  0.7882 0.9862</span></span>
-<span><span class="co">#&gt; i2_6    0.9371 0.0282 33.2267 0.0000  0.8818 0.9924</span></span>
-<span><span class="co">#&gt; i2_7    0.8991 0.0455 19.7529 0.0000  0.8099 0.9883</span></span>
-<span><span class="co">#&gt; i2_8    0.8430 0.0701 12.0223 0.0000  0.7055 0.9804</span></span>
-<span><span class="co">#&gt; i2_9    0.8575 0.0642 13.3636 0.0000  0.7317 0.9832</span></span></code></pre>
+<span><span class="co">#&gt;            est     se       z      p    2.5%   97.5%</span></span>
+<span><span class="co">#&gt; b0_1    0.1512 0.0311  4.8628 0.0000  0.0903  0.2122</span></span>
+<span><span class="co">#&gt; b0_2   -0.0234 0.0183 -1.2832 0.1994 -0.0593  0.0124</span></span>
+<span><span class="co">#&gt; b0_3    0.0025 0.0132  0.1897 0.8496 -0.0234  0.0284</span></span>
+<span><span class="co">#&gt; b0_4    0.1980 0.0307  6.4507 0.0000  0.1379  0.2582</span></span>
+<span><span class="co">#&gt; b1_11  -0.0078 0.0274 -0.2842 0.7763 -0.0616  0.0460</span></span>
+<span><span class="co">#&gt; b1_21  -0.0067 0.0154 -0.4342 0.6641 -0.0369  0.0235</span></span>
+<span><span class="co">#&gt; b1_31  -0.0066 0.0112 -0.5917 0.5541 -0.0287  0.0154</span></span>
+<span><span class="co">#&gt; b1_41   0.0256 0.0272  0.9414 0.3465 -0.0277  0.0789</span></span>
+<span><span class="co">#&gt; b1_12  -0.0615 0.0308 -1.9973 0.0458 -0.1218 -0.0011</span></span>
+<span><span class="co">#&gt; b1_22   0.0029 0.0177  0.1642 0.8696 -0.0318  0.0376</span></span>
+<span><span class="co">#&gt; b1_32   0.0231 0.0125  1.8419 0.0655 -0.0015  0.0477</span></span>
+<span><span class="co">#&gt; b1_42  -0.0305 0.0304 -1.0056 0.3146 -0.0900  0.0290</span></span>
+<span><span class="co">#&gt; t2_1_1  0.0851 0.0136  6.2319 0.0000  0.0583  0.1118</span></span>
+<span><span class="co">#&gt; t2_2_1  0.0061 0.0065  0.9288 0.3530 -0.0067  0.0189</span></span>
+<span><span class="co">#&gt; t2_3_1 -0.0245 0.0049 -5.0383 0.0000 -0.0341 -0.0150</span></span>
+<span><span class="co">#&gt; t2_4_1 -0.0260 0.0094 -2.7681 0.0056 -0.0445 -0.0076</span></span>
+<span><span class="co">#&gt; t2_2_2  0.0226 0.0044  5.1703 0.0000  0.0140  0.0312</span></span>
+<span><span class="co">#&gt; t2_3_2  0.0054 0.0030  1.7909 0.0733 -0.0005  0.0113</span></span>
+<span><span class="co">#&gt; t2_4_2 -0.0242 0.0060 -4.0407 0.0001 -0.0360 -0.0125</span></span>
+<span><span class="co">#&gt; t2_3_3  0.0116 0.0023  5.0882 0.0000  0.0072  0.0161</span></span>
+<span><span class="co">#&gt; t2_4_3  0.0030 0.0045  0.6579 0.5106 -0.0059  0.0119</span></span>
+<span><span class="co">#&gt; t2_4_4  0.0824 0.0129  6.3632 0.0000  0.0570  0.1077</span></span>
+<span><span class="co">#&gt; i2_1    0.9156 0.0124 73.8496 0.0000  0.8913  0.9399</span></span>
+<span><span class="co">#&gt; i2_2    0.8241 0.0280 29.3975 0.0000  0.7691  0.8790</span></span>
+<span><span class="co">#&gt; i2_3    0.7860 0.0331 23.7734 0.0000  0.7212  0.8508</span></span>
+<span><span class="co">#&gt; i2_4    0.9268 0.0107 86.9322 0.0000  0.9059  0.9477</span></span></code></pre>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-Bringmann-Vissers-Wichers-etal-2013" class="csl-entry">
+Bringmann, L. F., Vissers, N., Wichers, M., Geschwind, N., Kuppens, P.,
+Peeters, F., Borsboom, D., &amp; Tuerlinckx, F. (2013). A network
+approach to psychopathology: New insights into clinical longitudinal
+data. <em>PLoS ONE</em>, <em>8</em>(4). <a href="https://doi.org/10.1371/journal.pone.0060188" class="external-link">https://doi.org/10.1371/journal.pone.0060188</a>
+</div>
 <div id="ref-Cheung-2015" class="csl-entry">
 Cheung, M. W.-L. (2015). <em>Meta‐analysis: A structural equation
 modeling approach</em>. Wiley. <a href="https://doi.org/10.1002/9781118957813" class="external-link">https://doi.org/10.1002/9781118957813</a>
@@ -520,7 +851,7 @@ statistical computing</em>. R Foundation for Statistical Computing. <a href="htt
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>
