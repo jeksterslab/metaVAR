@@ -78,10 +78,8 @@ lapply(
     y <- lapply(
       X = seq_len(n),
       FUN = function(i) {
-        return(
-          c(
-            y[[i]] + beta %*% x[[i]]
-          )
+        c(
+          y[[i]] + beta %*% x[[i]]
         )
       }
     )

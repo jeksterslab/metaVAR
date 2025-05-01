@@ -141,6 +141,7 @@ alpha <- SimAlphaN(
 
 > **Note:** When the discrete-time vector autoregressive model is estimated separately for each ID,
 > any of the parameters can vary across individuals.
+> In this example, however, we are only varying $\boldsymbol{\alpha}$ and $\boldsymbol{\beta}$.
 
 ## Model
 
