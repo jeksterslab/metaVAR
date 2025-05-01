@@ -6,7 +6,7 @@
       args = lapply(
         X = v,
         FUN = function(i) {
-          return(1 / diag(i))
+          1 / diag(i)
         }
       )
     )
@@ -17,16 +17,14 @@
       args = lapply(
         X = v,
         FUN = function(i) {
-          return(1 / diag(i)^2)
+          1 / diag(i)^2
         }
       )
     )
   )
-  return(
-    (
-      (n - 1) * sum_v_inv
-    ) / (
-      sum_v_inv^2 - sum_v_sqr_inv
-    )
+  (
+    (n - 1) * sum_v_inv
+  ) / (
+    sum_v_inv^2 - sum_v_sqr_inv
   )
 }

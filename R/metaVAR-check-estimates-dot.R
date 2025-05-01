@@ -26,7 +26,7 @@
       )
     }
     colnames(x) <- rownames(x) <- ynames
-    return(x)
+    x
   }
   # nocov end
   if (par) {
@@ -40,7 +40,7 @@
       X = y,
       fun = function(x) {
         names(x) <- ynames
-        return(x)
+        x
       }
     )
     v <- parallel::parLapply(
@@ -54,7 +54,7 @@
       X = y,
       FUN = function(x) {
         names(x) <- ynames
-        return(x)
+        x
       }
     )
     v <- lapply(
@@ -62,10 +62,8 @@
       FUN = foo
     )
   }
-  return(
-    list(
-      y = y,
-      v = v
-    )
+  list(
+    y = y,
+    v = v
   )
 }

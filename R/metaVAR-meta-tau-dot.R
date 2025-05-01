@@ -59,14 +59,12 @@
     ),
     name = "i_sqr"
   )
-  return(
-    list(
-      tau = tau,
-      tau_sqr = tau_sqr,
-      v_hat = v_hat,
-      i_sqr = i_sqr,
-      v = v,
-      expected_covariance = expected_covariance
-    )
+  list(
+    tau = tau,
+    tau_sqr = tau_sqr,
+    v_hat = v_hat,
+    i_sqr = i_sqr,
+    v = v,
+    expected_covariance = expected_covariance
   )
 }

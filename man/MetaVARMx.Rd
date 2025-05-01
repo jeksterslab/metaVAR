@@ -7,14 +7,14 @@
 MetaVARMx(
   object,
   x = NULL,
-  beta0_values = NULL,
-  beta0_free = NULL,
-  beta0_lbound = NULL,
-  beta0_ubound = NULL,
-  beta1_values = NULL,
-  beta1_free = NULL,
-  beta1_lbound = NULL,
-  beta1_ubound = NULL,
+  alpha_values = NULL,
+  alpha_free = NULL,
+  alpha_lbound = NULL,
+  alpha_ubound = NULL,
+  beta_values = NULL,
+  beta_free = NULL,
+  beta_lbound = NULL,
+  beta_ubound = NULL,
   tau_values = NULL,
   tau_free = NULL,
   tau_lbound = NULL,
@@ -30,36 +30,35 @@ MetaVARMx(
 )
 }
 \arguments{
-\item{object}{Output of the \code{\link[fitDTVARMx:FitDTVARIDMx]{fitDTVARMx::FitDTVARIDMx()}}
-or \code{\link[fitCTVARMx:FitCTVARIDMx]{fitCTVARMx::FitCTVARIDMx()}} functions.}
+\item{object}{Output of the \code{\link[fitDTVARMx:FitDTVARIDMx]{fitDTVARMx::FitDTVARIDMx()}} function.}
 
 \item{x}{An optional list.
 Each element of the list is a numeric vector
 of covariates for the mixed-effects model.}
 
-\item{beta0_values}{Numeric vector.
-Optional vector of starting values for \code{beta0}.}
+\item{alpha_values}{Numeric vector.
+Optional vector of starting values for \code{alpha}.}
 
-\item{beta0_free}{Logical vector.
-Optional vector of free (\code{TRUE}) parameters for \code{beta0}.}
+\item{alpha_free}{Logical vector.
+Optional vector of free (\code{TRUE}) parameters for \code{alpha}.}
 
-\item{beta0_lbound}{Numeric vector.
-Optional vector of lower bound values for \code{beta0}.}
+\item{alpha_lbound}{Numeric vector.
+Optional vector of lower bound values for \code{alpha}.}
 
-\item{beta0_ubound}{Numeric vector.
-Optional vector of upper bound values for \code{beta0}.}
+\item{alpha_ubound}{Numeric vector.
+Optional vector of upper bound values for \code{alpha}.}
 
-\item{beta1_values}{Numeric matrix.
-Optional matrix of starting values for \code{beta1}.}
+\item{beta_values}{Numeric matrix.
+Optional matrix of starting values for \code{beta}.}
 
-\item{beta1_free}{Logical matrix.
-Optional matrix of free (\code{TRUE}) parameters for \code{beta1}.}
+\item{beta_free}{Logical matrix.
+Optional matrix of free (\code{TRUE}) parameters for \code{beta}.}
 
-\item{beta1_lbound}{Numeric matrix.
-Optional matrix of lower bound values for \code{beta1}.}
+\item{beta_lbound}{Numeric matrix.
+Optional matrix of lower bound values for \code{beta}.}
 
-\item{beta1_ubound}{Numeric matrix.
-Optional matrix of upper bound values for \code{beta1}.}
+\item{beta_ubound}{Numeric matrix.
+Optional matrix of upper bound values for \code{beta}.}
 
 \item{tau_values}{Numeric matrix.
 Optional matrix of starting values for \code{t(chol(tau_sqr))}.}
@@ -115,8 +114,7 @@ Number of cores to use.}
 This function estimates
 fixed-, random-, or mixed-effects meta-analysis parameters
 using the estimated coefficients and sampling variance-covariance matrix
-from each individual fitted using the \code{\link[fitDTVARMx:FitDTVARIDMx]{fitDTVARMx::FitDTVARIDMx()}}
-or \code{\link[fitCTVARMx:FitCTVARIDMx]{fitCTVARMx::FitCTVARIDMx()}} functions.
+from each individual fitted using the \code{\link[fitDTVARMx:FitDTVARIDMx]{fitDTVARMx::FitDTVARIDMx()}} function.
 }
 \examples{
 \dontrun{

@@ -1,4 +1,4 @@
-## ---- test-metaVAR-fit-dt-var-id-mx-theta-null
+## ---- test-metaVAR-fit-dt-var-id-mx-theta-null-mixed
 lapply(
   X = 1,
   FUN = function(i,
@@ -6,7 +6,7 @@ lapply(
                  tol) {
     message(text)
     set.seed(42)
-    n <- 2
+    n <- 10
     time <- 500
     k <- p <- 3
     iden <- diag(k)
@@ -33,7 +33,7 @@ lapply(
       ),
       nrow = p
     )
-    beta_sigma <- 0.00001 * diag(p * p)
+    beta_sigma <- 0.01 * diag(p * p)
     beta <- simStateSpace::SimBetaN(
       n = n,
       beta = beta_mu,
@@ -56,43 +56,41 @@ lapply(
       psi_diag = TRUE,
       ncores = NULL
     )
-    meta <- MetaVARMx(object = fit, noise = TRUE)
-    print(meta)
-    summary(meta)
-    coef(meta)
-    vcov(meta)
-    results <- summary(meta)
-    idx <- grep(
-      pattern = "^b0_",
-      x = rownames(results)
-    )
-    testthat::test_that(
-      paste(text, 1),
-      {
-        testthat::expect_true(
-          all(
-            abs(
-              c(
-                beta_mu,
-                diag(psi)
-              ) - results[idx, "est"]
-            ) <= tol
-          )
-        )
-      }
-    )
     m <- 2
     x <- lapply(
       X = seq_len(n),
       FUN = function(x) {
-        stats::rnorm(n = m)
+        sample(
+          x = c(0, 1),
+          size = m,
+          replace = TRUE
+        )
       }
     )
-    meta <- MetaVARMx(
-      object = fit,
+    beta <- matrix(
+      data = 0.05,
+      nrow = p * p,
+      ncol = m
+    )
+    beta[, m] <- 0
+    y <- coef(fit)
+    v <- vcov(fit)
+    y <- lapply(
+      X = seq_len(n),
+      FUN = function(i) {
+        return(
+          c(
+            y[[i]] + beta %*% x[[i]]
+          )
+        )
+      }
+    )
+    meta <- Meta(
+      y = y,
+      v = v,
       x = x,
-      beta0_values = c(beta_mu),
-      beta0_free = c(
+      alpha_values = c(beta_mu),
+      alpha_free = c(
         TRUE,
         TRUE,
         TRUE,
@@ -103,24 +101,23 @@ lapply(
         FALSE,
         TRUE
       ),
-      beta0_lbound = rep(x = NA, times = p * p),
-      beta0_ubound = rep(x = NA, times = p * p),
-      beta1_values = matrix(
-        data = 0,
+      alpha_lbound = rep(x = NA, times = p * p),
+      alpha_ubound = rep(x = NA, times = p * p),
+      beta_values = beta,
+      beta_free = matrix(
+        data = c(
+          rep(x = TRUE, times = 9),
+          rep(x = FALSE, times = 9)
+        ),
         nrow = p * p,
         ncol = m
       ),
-      beta1_free = matrix(
-        data = c(TRUE, FALSE),
-        nrow = p * p,
-        ncol = m
-      ),
-      beta1_lbound = matrix(
+      beta_lbound = matrix(
         data = NA,
         nrow = p * p,
         ncol = m
       ),
-      beta1_ubound = matrix(
+      beta_ubound = matrix(
         data = NA,
         nrow = p * p,
         ncol = m
@@ -158,29 +155,31 @@ lapply(
     vcov(meta)
     results <- summary(meta)
     idx <- grep(
-      pattern = "^b0_",
+      pattern = "^b0_|^b1_|^t2_",
       x = rownames(results)
     )
-    # testthat::test_that(
-    #  paste(text, 2),
-    #  {
-    #    testthat::expect_true(
-    #      all(
-    #        abs(
-    #          c(
-    #            0.7,
-    #            0.5,
-    #            -0.1,
-    #            0.6,
-    #            0.4,
-    #            0.5
-    #          ) - results[idx, "est"]
-    #        ) <= tol
-    #      )
-    #    )
-    #  }
-    # )
+    testthat::test_that(
+      paste(text, 1),
+      {
+        testthat::expect_true(
+          all(
+            abs(
+              c(
+                0.7,
+                0.5,
+                -0.1,
+                0.6,
+                0.4,
+                0.5,
+                beta[, 1],
+                diag(beta_sigma)
+              ) - results[idx, "est"]
+            ) <= tol
+          )
+        )
+      }
+    )
   },
-  text = "test-metaVAR-fit-dt-var-id-mx-theta-null",
+  text = "test-metaVAR-fit-dt-var-id-mx-theta-null-mixed",
   tol = 0.3
 )

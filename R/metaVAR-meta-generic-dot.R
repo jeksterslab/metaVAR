@@ -4,14 +4,14 @@
                          p,
                          m,
                          n,
-                         beta0_values,
-                         beta0_free,
-                         beta0_lbound,
-                         beta0_ubound,
-                         beta1_values,
-                         beta1_free,
-                         beta1_lbound,
-                         beta1_ubound,
+                         alpha_values,
+                         alpha_free,
+                         alpha_lbound,
+                         alpha_ubound,
+                         beta_values,
+                         beta_free,
+                         beta_lbound,
+                         beta_ubound,
                          tau_values,
                          tau_free,
                          tau_lbound,
@@ -31,12 +31,10 @@
       X = idx,
       Y = idx,
       FUN = function(x, y) {
-        return(
-          paste0(
-            "v",
-            x,
-            y
-          )
+        paste0(
+          "v",
+          x,
+          y
         )
       }
     )
@@ -69,19 +67,19 @@
     }
   }
   # nocov end
-  beta <- .MetaBeta(
+  mixed <- .MetaMixed(
     p = p,
     m = m,
     ynames = ynames,
     xnames = xnames,
-    beta0_values = beta0_values,
-    beta0_free = beta0_free,
-    beta0_lbound = beta0_lbound,
-    beta0_ubound = beta0_ubound,
-    beta1_values = beta1_values,
-    beta1_free = beta1_free,
-    beta1_lbound = beta1_lbound,
-    beta1_ubound = beta1_ubound
+    alpha_values = alpha_values,
+    alpha_free = alpha_free,
+    alpha_lbound = alpha_lbound,
+    alpha_ubound = alpha_ubound,
+    beta_values = beta_values,
+    beta_free = beta_free,
+    beta_lbound = beta_lbound,
+    beta_ubound = beta_ubound
   )
   tau_sqr <- .MetaTau(
     v = v,
@@ -97,11 +95,11 @@
   )
   model <- OpenMx::mxModel(
     model = "Model",
-    beta$x,
-    beta$beta0,
-    beta$beta1,
-    beta$beta,
-    beta$expected_mean,
+    mixed$x,
+    mixed$alpha,
+    mixed$beta,
+    mixed$mixed,
+    mixed$expected_mean,
     tau_sqr$tau,
     tau_sqr$tau_sqr,
     tau_sqr$v_hat,
@@ -126,11 +124,9 @@
     ),
     OpenMx::mxFitFunctionML()
   )
-  return(
-    OpenMx::mxTryHardctsem(
-      model = model,
-      extraTries = try,
-      ...
-    )
+  OpenMx::mxTryHardctsem(
+    model = model,
+    extraTries = try,
+    ...
   )
 }

@@ -16,22 +16,22 @@
 #' @param x An optional list.
 #'   Each element of the list is a numeric vector
 #'   of covariates for the mixed-effects model.
-#' @param beta0_values Numeric vector.
-#'   Optional vector of starting values for `beta0`.
-#' @param beta0_free Logical vector.
-#'   Optional vector of free (`TRUE`) parameters for `beta0`.
-#' @param beta0_lbound Numeric vector.
-#'   Optional vector of lower bound values for `beta0`.
-#' @param beta0_ubound Numeric vector.
-#'   Optional vector of upper bound values for `beta0`.
-#' @param beta1_values Numeric matrix.
-#'   Optional matrix of starting values for `beta1`.
-#' @param beta1_free Logical matrix.
-#'   Optional matrix of free (`TRUE`) parameters for `beta1`.
-#' @param beta1_lbound Numeric matrix.
-#'   Optional matrix of lower bound values for `beta1`.
-#' @param beta1_ubound Numeric matrix.
-#'   Optional matrix of upper bound values for `beta1`.
+#' @param alpha_values Numeric vector.
+#'   Optional vector of starting values for `alpha`.
+#' @param alpha_free Logical vector.
+#'   Optional vector of free (`TRUE`) parameters for `alpha`.
+#' @param alpha_lbound Numeric vector.
+#'   Optional vector of lower bound values for `alpha`.
+#' @param alpha_ubound Numeric vector.
+#'   Optional vector of upper bound values for `alpha`.
+#' @param beta_values Numeric matrix.
+#'   Optional matrix of starting values for `beta`.
+#' @param beta_free Logical matrix.
+#'   Optional matrix of free (`TRUE`) parameters for `beta`.
+#' @param beta_lbound Numeric matrix.
+#'   Optional matrix of lower bound values for `beta`.
+#' @param beta_ubound Numeric matrix.
+#'   Optional matrix of upper bound values for `beta`.
 #' @param tau_values Numeric matrix.
 #'   Optional matrix of starting values for `t(chol(tau_sqr))`.
 #' @param tau_free Numeric matrix.
@@ -78,14 +78,14 @@
 Meta <- function(y,
                  v,
                  x = NULL,
-                 beta0_values = NULL,
-                 beta0_free = NULL,
-                 beta0_lbound = NULL,
-                 beta0_ubound = NULL,
-                 beta1_values = NULL,
-                 beta1_free = NULL,
-                 beta1_lbound = NULL,
-                 beta1_ubound = NULL,
+                 alpha_values = NULL,
+                 alpha_free = NULL,
+                 alpha_lbound = NULL,
+                 alpha_ubound = NULL,
+                 beta_values = NULL,
+                 beta_free = NULL,
+                 beta_lbound = NULL,
+                 beta_ubound = NULL,
                  tau_values = NULL,
                  tau_free = NULL,
                  tau_lbound = NULL,
@@ -115,14 +115,14 @@ Meta <- function(y,
     p = p,
     m = m,
     n = n,
-    beta0_values = beta0_values,
-    beta0_free = beta0_free,
-    beta0_lbound = beta0_lbound,
-    beta0_ubound = beta0_ubound,
-    beta1_values = beta1_values,
-    beta1_free = beta1_free,
-    beta1_lbound = beta1_lbound,
-    beta1_ubound = beta1_ubound,
+    alpha_values = alpha_values,
+    alpha_free = alpha_free,
+    alpha_lbound = alpha_lbound,
+    alpha_ubound = alpha_ubound,
+    beta_values = beta_values,
+    beta_free = beta_free,
+    beta_lbound = beta_lbound,
+    beta_ubound = beta_ubound,
     tau_values = tau_values,
     tau_free = tau_free,
     tau_lbound = tau_lbound,
@@ -140,14 +140,14 @@ Meta <- function(y,
     p = p,
     m = m,
     n = n,
-    beta0_values = beta0_values,
-    beta0_free = beta0_free,
-    beta0_lbound = beta0_lbound,
-    beta0_ubound = beta0_ubound,
-    beta1_values = beta1_values,
-    beta1_free = beta1_free,
-    beta1_lbound = beta1_lbound,
-    beta1_ubound = beta1_ubound,
+    alpha_values = alpha_values,
+    alpha_free = alpha_free,
+    alpha_lbound = alpha_lbound,
+    alpha_ubound = alpha_ubound,
+    beta_values = beta_values,
+    beta_free = beta_free,
+    beta_lbound = beta_lbound,
+    beta_ubound = beta_ubound,
     tau_values = tau_values,
     tau_free = tau_free,
     tau_lbound = tau_lbound,
@@ -168,5 +168,5 @@ Meta <- function(y,
     "metavarmeta",
     class(out)
   )
-  return(out)
+  out
 }
