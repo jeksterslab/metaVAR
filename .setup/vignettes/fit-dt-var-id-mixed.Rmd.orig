@@ -34,7 +34,7 @@ knitr::opts_chunk$set(
 #| echo = FALSE
 options(scipen = 999)
 set.seed(42)
-n <- 100
+n <- 1000
 time <- 1000
 k <- p <- 2
 iden <- diag(k)
@@ -71,16 +71,20 @@ beta <- matrix(
   ),
   nrow = p
 )
+# mu0 <- list(
+#   simStateSpace::SSMMean(
+#     beta = beta,
+#     alpha = alpha
+#   )
+# )
 mu0 <- list(
-  simStateSpace::SSMMean(
-    beta = beta,
-    alpha = alpha
-  )
+  null_vec
 )
-sigma0 <- simStateSpace::SSMCov(
-  beta = beta,
-  psi = psi
-)
+# sigma0 <- simStateSpace::SSMCov(
+#   beta = beta,
+#   psi = psi
+# )
+sigma0 <- iden
 sigma0_l <- list(
   t(chol(sigma0))
 )
@@ -480,7 +484,6 @@ fit <- DTVAR(
   byid = TRUE,
   ncores = parallel::detectCores()
 )
-fit
 ```
 
 ## Multivariate Meta-Analysis
@@ -506,6 +509,7 @@ library(metaVAR)
 meta <- MetaVARMx(
   object = fit,
   x = x,
+  intercept = TRUE,
   ncores = parallel::detectCores()
 )
 summary(meta)
