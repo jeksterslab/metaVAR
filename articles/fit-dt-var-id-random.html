@@ -197,9 +197,9 @@ is a symmetric matrix.</p>
 <h3 id="notation">Notation<a class="anchor" aria-label="anchor" href="#notation"></a>
 </h3>
 <p>Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">t = 500</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">t = 1000</annotation></semantics></math>
 be the number of time points and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">n = 50</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">n = 1000</annotation></semantics></math>
 be the number of individuals.</p>
 <p>Let the measurement model intecept vector
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛎</mi><annotation encoding="application/x-tex">\boldsymbol{\nu}</annotation></semantics></math>
@@ -332,9 +332,9 @@ be given by</p>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span></span>
-<span><span class="co">#&gt; [1] 50</span></span>
+<span><span class="co">#&gt; [1] 1000</span></span>
 <span><span class="va">time</span></span>
-<span><span class="co">#&gt; [1] 500</span></span>
+<span><span class="co">#&gt; [1] 1000</span></span>
 <span><span class="va">mu0</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 3.814355 2.576348</span></span>
@@ -350,7 +350,7 @@ be given by</p>
 <span><span class="co">#&gt; [2,] 0.4890691 1.193509</span></span>
 <span><span class="co"># first alpha in the list of length n</span></span>
 <span><span class="va">alpha</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co">#&gt; [1] 3.279515 1.566793</span></span>
+<span><span class="co">#&gt; [1] 1.382816 2.056527</span></span>
 <span><span class="co"># first beta in the list of length n</span></span>
 <span><span class="va">beta</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt;            [,1]       [,2]</span></span>
@@ -405,12 +405,12 @@ Initial Condition)<a class="anchor" aria-label="anchor" href="#visualizing-the-d
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   id time       y1       y2</span></span>
-<span><span class="co">#&gt; 1  1    0 5.098111 2.410756</span></span>
-<span><span class="co">#&gt; 2  1    1 4.337732 1.716623</span></span>
-<span><span class="co">#&gt; 3  1    2 3.714441 1.012486</span></span>
-<span><span class="co">#&gt; 4  1    3 3.172793 1.029211</span></span>
-<span><span class="co">#&gt; 5  1    4 3.692510 1.476452</span></span>
-<span><span class="co">#&gt; 6  1    5 3.004031 1.277272</span></span>
+<span><span class="co">#&gt; 1  1    0 3.040533 3.202203</span></span>
+<span><span class="co">#&gt; 2  1    1 3.630653 4.691667</span></span>
+<span><span class="co">#&gt; 3  1    2 2.621350 5.240797</span></span>
+<span><span class="co">#&gt; 4  1    3 2.073843 5.555230</span></span>
+<span><span class="co">#&gt; 5  1    4 2.013430 5.269451</span></span>
+<span><span class="co">#&gt; 6  1    5 1.677296 2.836631</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></code></pre></div>
 <p><img src="fig-vignettes-fit-dt-var-id-mx-random-error-1.png" width="3300"><img src="fig-vignettes-fit-dt-var-id-mx-random-error-2.png" width="3300"></p>
 </div>
@@ -456,48 +456,48 @@ prefix <code>i2</code> correspond to the estimates of heterogeniety.</p>
 <span><span class="co">#&gt; Beginning initial fit attempt</span></span>
 <span><span class="co">#&gt; Running Model with 27 parameters</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Lowest minimum so far:  274.762553672062</span></span>
+<span><span class="co">#&gt;  Lowest minimum so far:  5076.76047088063</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Solution found</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Solution found!  Final fit=274.76255 (started at 1147.2507)  (1 attempt(s): 1 valid, 0 errors)</span></span>
+<span><span class="co">#&gt;  Solution found!  Final fit=5076.7605 (started at 24849.813)  (1 attempt(s): 1 valid, 0 errors)</span></span>
 <span><span class="co">#&gt;  Start values from best fit:</span></span>
-<span><span class="co">#&gt; 0.218185238157288,0.00273937624084777,-0.0197166943573653,0.266070596608769,2.98077815512927,1.62706573648074,0.268921167091368,-0.0602121442240794,-0.0997672707191053,-0.00934275608192788,-0.490386648471232,0.117310552675446,0.195059433989791,-0.0216785628254091,-0.099864586202189,0.242615853784882,-0.421540044381093,0.0684877691121655,0.190773716766779,0.511343814158757,-0.250079255468424,0.164776653911792,-0.627393824463223,-0.227144551773915,0.355119096699593,1.12882928570663,2.82179446009873e-07</span></span>
+<span><span class="co">#&gt; 0.195941235612849,-0.000771326306869664,-0.00732617353003464,0.201735807767578,3.06180422194225,2.04469844375628,0.2784445520813,0.0179432166685555,-0.0766759261524785,-0.0418161254871201,-0.723040365565661,-0.0525944176432962,0.146449158012092,0.0409291821371757,-0.151307086737977,0.0759915404727797,0.137591525419457,0.0509685541134466,0.0743863368478943,0.295031070666098,0.013779549394304,0.231270210105274,0.0247759683488446,-0.160968111556794,1.21439126042039,0.262487408556056,1.05844657014662</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="co">#&gt;            est     se       z      p    2.5%   97.5%</span></span>
-<span><span class="co">#&gt; b0_1    0.2182 0.0430  5.0715 0.0000  0.1339  0.3025</span></span>
-<span><span class="co">#&gt; b0_2    0.0027 0.0364  0.0752 0.9400 -0.0686  0.0741</span></span>
-<span><span class="co">#&gt; b0_3   -0.0197 0.0216 -0.9128 0.3614 -0.0621  0.0226</span></span>
-<span><span class="co">#&gt; b0_4    0.2661 0.0421  6.3150 0.0000  0.1835  0.3486</span></span>
-<span><span class="co">#&gt; b0_5    2.9808 0.1644 18.1351 0.0000  2.6586  3.3029</span></span>
-<span><span class="co">#&gt; b0_6    1.6271 0.1946  8.3595 0.0000  1.2456  2.0085</span></span>
-<span><span class="co">#&gt; t2_1_1  0.0723 0.0193  3.7510 0.0002  0.0345  0.1101</span></span>
-<span><span class="co">#&gt; t2_2_1 -0.0162 0.0124 -1.3107 0.1899 -0.0404  0.0080</span></span>
-<span><span class="co">#&gt; t2_3_1 -0.0268 0.0089 -3.0239 0.0025 -0.0442 -0.0094</span></span>
-<span><span class="co">#&gt; t2_4_1 -0.0025 0.0123 -0.2045 0.8380 -0.0266  0.0216</span></span>
-<span><span class="co">#&gt; t2_5_1 -0.1319 0.0554 -2.3794 0.0173 -0.2405 -0.0232</span></span>
-<span><span class="co">#&gt; t2_6_1  0.0315 0.0599  0.5265 0.5986 -0.0859  0.1490</span></span>
-<span><span class="co">#&gt; t2_2_2  0.0417 0.0127  3.2920 0.0010  0.0169  0.0665</span></span>
-<span><span class="co">#&gt; t2_3_2  0.0018 0.0058  0.3062 0.7594 -0.0096  0.0132</span></span>
-<span><span class="co">#&gt; t2_4_2 -0.0189 0.0115 -1.6509 0.0988 -0.0414  0.0035</span></span>
-<span><span class="co">#&gt; t2_5_2  0.0769 0.0434  1.7725 0.0763 -0.0081  0.1618</span></span>
-<span><span class="co">#&gt; t2_6_2 -0.0893 0.0497 -1.7955 0.0726 -0.1868  0.0082</span></span>
-<span><span class="co">#&gt; t2_3_3  0.0151 0.0054  2.8110 0.0049  0.0046  0.0257</span></span>
-<span><span class="co">#&gt; t2_4_3  0.0162 0.0078  2.0661 0.0388  0.0008  0.0315</span></span>
-<span><span class="co">#&gt; t2_5_3  0.0787 0.0297  2.6465 0.0081  0.0204  0.1370</span></span>
-<span><span class="co">#&gt; t2_6_3 -0.0197 0.0281 -0.7008 0.4835 -0.0748  0.0354</span></span>
-<span><span class="co">#&gt; t2_4_4  0.0736 0.0185  3.9814 0.0001  0.0374  0.1098</span></span>
-<span><span class="co">#&gt; t2_5_4 -0.0255 0.0478 -0.5333 0.5938 -0.1191  0.0682</span></span>
-<span><span class="co">#&gt; t2_6_4 -0.0441 0.0578 -0.7632 0.4453 -0.1575  0.0692</span></span>
-<span><span class="co">#&gt; t2_5_5  1.0805 0.2728  3.9604 0.0001  0.5458  1.6153</span></span>
-<span><span class="co">#&gt; t2_6_5  0.2557 0.2437  1.0494 0.2940 -0.2219  0.7333</span></span>
-<span><span class="co">#&gt; t2_6_6  1.5798 0.3536  4.4675 0.0000  0.8867  2.2730</span></span>
-<span><span class="co">#&gt; i2_1    0.8140 0.0404 20.1695 0.0000  0.7349  0.8931</span></span>
-<span><span class="co">#&gt; i2_2    0.8146 0.0459 17.7575 0.0000  0.7247  0.9045</span></span>
-<span><span class="co">#&gt; i2_3    0.7242 0.0711 10.1916 0.0000  0.5850  0.8635</span></span>
-<span><span class="co">#&gt; i2_4    0.8408 0.0336 25.0130 0.0000  0.7749  0.9067</span></span>
-<span><span class="co">#&gt; i2_5    0.8747 0.0277 31.6018 0.0000  0.8204  0.9289</span></span>
-<span><span class="co">#&gt; i2_6    0.9267 0.0152 60.9906 0.0000  0.8970  0.9565</span></span></code></pre>
+<span><span class="co">#&gt;            est     se        z      p    2.5%   97.5%</span></span>
+<span><span class="co">#&gt; b0_1    0.1959 0.0094  20.7524 0.0000  0.1774  0.2144</span></span>
+<span><span class="co">#&gt; b0_2   -0.0008 0.0057  -0.1365 0.8915 -0.0119  0.0103</span></span>
+<span><span class="co">#&gt; b0_3   -0.0073 0.0040  -1.8243 0.0681 -0.0152  0.0005</span></span>
+<span><span class="co">#&gt; b0_4    0.2017 0.0098  20.6352 0.0000  0.1826  0.2209</span></span>
+<span><span class="co">#&gt; b0_5    3.0618 0.0474  64.5508 0.0000  2.9688  3.1548</span></span>
+<span><span class="co">#&gt; b0_6    2.0447 0.0374  54.6073 0.0000  1.9713  2.1181</span></span>
+<span><span class="co">#&gt; t2_1_1  0.0775 0.0040  19.1976 0.0000  0.0696  0.0854</span></span>
+<span><span class="co">#&gt; t2_2_1  0.0050 0.0020   2.5091 0.0121  0.0011  0.0089</span></span>
+<span><span class="co">#&gt; t2_3_1 -0.0213 0.0014 -15.3565 0.0000 -0.0241 -0.0186</span></span>
+<span><span class="co">#&gt; t2_4_1 -0.0116 0.0028  -4.1480 0.0000 -0.0171 -0.0061</span></span>
+<span><span class="co">#&gt; t2_5_1 -0.2013 0.0161 -12.4687 0.0000 -0.2330 -0.1697</span></span>
+<span><span class="co">#&gt; t2_6_1 -0.0146 0.0116  -1.2604 0.2075 -0.0374  0.0081</span></span>
+<span><span class="co">#&gt; t2_2_2  0.0218 0.0014  15.8317 0.0000  0.0191  0.0245</span></span>
+<span><span class="co">#&gt; t2_3_2  0.0046 0.0009   5.0642 0.0000  0.0028  0.0064</span></span>
+<span><span class="co">#&gt; t2_4_2 -0.0229 0.0019 -12.0839 0.0000 -0.0266 -0.0192</span></span>
+<span><span class="co">#&gt; t2_5_2 -0.0018 0.0088  -0.2100 0.8337 -0.0191  0.0154</span></span>
+<span><span class="co">#&gt; t2_6_2  0.0192 0.0065   2.9660 0.0030  0.0065  0.0319</span></span>
+<span><span class="co">#&gt; t2_3_3  0.0102 0.0007  14.9989 0.0000  0.0088  0.0115</span></span>
+<span><span class="co">#&gt; t2_4_3  0.0008 0.0014   0.5714 0.5678 -0.0020  0.0036</span></span>
+<span><span class="co">#&gt; t2_5_3  0.0736 0.0062  11.8300 0.0000  0.0614  0.0858</span></span>
+<span><span class="co">#&gt; t2_6_3  0.0104 0.0047   2.1863 0.0288  0.0011  0.0197</span></span>
+<span><span class="co">#&gt; t2_4_4  0.0837 0.0043  19.3793 0.0000  0.0752  0.0921</span></span>
+<span><span class="co">#&gt; t2_5_4  0.0464 0.0144   3.2343 0.0012  0.0183  0.0745</span></span>
+<span><span class="co">#&gt; t2_6_4 -0.0548 0.0117  -4.6858 0.0000 -0.0778 -0.0319</span></span>
+<span><span class="co">#&gt; t2_5_5  2.0910 0.1032  20.2541 0.0000  1.8886  2.2933</span></span>
+<span><span class="co">#&gt; t2_6_5  0.3673 0.0601   6.1104 0.0000  0.2495  0.4851</span></span>
+<span><span class="co">#&gt; t2_6_6  1.2370 0.0621  19.9322 0.0000  1.1154  1.3586</span></span>
+<span><span class="co">#&gt; i2_1    0.8979 0.0048 188.0372 0.0000  0.8885  0.9072</span></span>
+<span><span class="co">#&gt; i2_2    0.8101 0.0097  83.3920 0.0000  0.7910  0.8291</span></span>
+<span><span class="co">#&gt; i2_3    0.7549 0.0123  61.1956 0.0000  0.7308  0.7791</span></span>
+<span><span class="co">#&gt; i2_4    0.9163 0.0040 231.6514 0.0000  0.9086  0.9241</span></span>
+<span><span class="co">#&gt; i2_5    0.9663 0.0016 601.3489 0.0000  0.9632  0.9695</span></span>
+<span><span class="co">#&gt; i2_6    0.9557 0.0021 450.2164 0.0000  0.9516  0.9599</span></span></code></pre>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
