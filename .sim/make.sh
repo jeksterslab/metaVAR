@@ -8,7 +8,7 @@
 
 # Define an array of directories
 directories=(
-  "/scratch/ibp5092/metaVAR"
+  "/scratch/ibp5092/metaVAR2"
 )
 
 # SIF path

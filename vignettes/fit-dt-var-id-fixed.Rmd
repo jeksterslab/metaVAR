@@ -1,7 +1,7 @@
 ---
 title: "Multivariate Meta-Analysis of Discrete-Time VAR Estimates (Fixed-Effect Model)"
 author: Ivan Jacob Agaloos Pesigan
-date: "2025-05-03"
+date: "2025-05-07"
 bibliography: "vignettes.bib"
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
 nocite: |
@@ -132,7 +132,7 @@ The parameters used in this example were based on @Bringmann-Vissers-Wichers-eta
 
 ### Notation
 
-Let $t = 1000$ be the number of time points and $n = 1000$ be the number of individuals.
+Let $t = 500$ be the number of time points and $n = 50$ be the number of individuals.
 
 Let the measurement model intecept vector $\boldsymbol{\nu}$ be given by
 
@@ -186,8 +186,8 @@ be given by
 =
 \left(
 \begin{array}{c}
-  0 \\
-  0 \\
+  3.8143546 \\
+  2.5763481 \\
 \end{array}
 \right)
 \end{equation}
@@ -197,8 +197,8 @@ be given by
 =
 \left(
 \begin{array}{cc}
-  1 & 0 \\
-  0 & 1 \\
+  1.3978842 & 0.5782369 \\
+  0.5782369 & 1.6636513 \\
 \end{array}
 \right) .
 \end{equation}
@@ -234,19 +234,19 @@ Let the dynamic process noise $\boldsymbol{\Psi}$ be given by
 
 ``` r
 n
-#> [1] 1000
+#> [1] 50
 time
-#> [1] 1000
+#> [1] 500
 mu0
-#> [1] 0 0
+#> [1] 3.814355 2.576348
 sigma0
-#>      [,1] [,2]
-#> [1,]    1    0
-#> [2,]    0    1
-sigma0_l
-#>      [,1] [,2]
-#> [1,]    1    0
-#> [2,]    0    1
+#>           [,1]      [,2]
+#> [1,] 1.3978842 0.5782369
+#> [2,] 0.5782369 1.6636513
+sigma0_l # sigma0_l <- t(chol(sigma0))
+#>           [,1]     [,2]
+#> [1,] 1.1823215 0.000000
+#> [2,] 0.4890691 1.193509
 alpha
 #> [1] 2.87 2.04
 beta
@@ -257,7 +257,7 @@ psi
 #>           [,1]      [,2]
 #> [1,] 1.3000000 0.5696315
 #> [2,] 0.5696315 1.5600000
-psi_l
+psi_l # psi_l <- t(chol(psi))
 #>           [,1]     [,2]
 #> [1,] 1.1401754 0.000000
 #> [2,] 0.4995998 1.144727
@@ -271,6 +271,10 @@ theta
 #>      [,1] [,2]
 #> [1,]  0.2  0.0
 #> [2,]  0.0  0.2
+theta_l # theta_l <- t(chol(theta))
+#>           [,1]      [,2]
+#> [1,] 0.4472136 0.0000000
+#> [2,] 0.0000000 0.4472136
 ```
 
 ### Visualizing the Dynamics Without Process Noise (n = 5 with Different Initial Condition)
@@ -296,13 +300,13 @@ sim <- SimSSMFixed(
 )
 data <- as.data.frame(sim)
 head(data)
-#>   id time         y1         y2
-#> 1  1    0 -0.2826487 -0.4032862
-#> 2  1    1  4.7613668  0.1714329
-#> 3  1    2  4.1256231  1.4049857
-#> 4  1    3  4.8376927  2.6579244
-#> 5  1    4  2.3087179  0.2121804
-#> 6  1    5  3.3357857  1.9931660
+#>   id time       y1        y2
+#> 1  1    0 3.455114 1.9223092
+#> 2  1    1 5.696312 0.6452660
+#> 3  1    2 4.364664 1.4954592
+#> 4  1    3 4.900281 2.6730811
+#> 5  1    4 2.325515 0.2139305
+#> 6  1    5 3.340405 1.9930331
 plot(sim)
 ```
 
@@ -310,22 +314,22 @@ plot(sim)
 
 ## Model Fitting
 
-The `DTVAR` function fits a DT-VAR model on each individual $i$ using the `byid = TRUE` argument.
-The model type is specified using the `model` argument.
+The `FitDTVARIDMx` function fits a DT-VAR model on each individual $i$.
 
 
 
 
 ``` r
 library(fitDTVARMx)
-fit <- DTVAR(
+fit <- FitDTVARIDMx(
   data = data,
   observed = paste0("y", seq_len(k)),
   id = "id",
-  model = 5,
-  byid = TRUE,
+  mu0_values = mu0[[1]],
+  sigma0_values = sigma0[[1]],
   ncores = parallel::detectCores()
 )
+#> Error in .FitDTVARMu0Fixed(k = k, statenames = statenames, mu0_values = mu0_values): length(mu0_values) == k is not TRUE
 ```
 
 ## Multivariate Meta-Analysis
@@ -343,31 +347,9 @@ meta <- MetaVARMx(
   intercept = TRUE,
   ncores = parallel::detectCores()
 )
-#> Running Model with 6 parameters
-#> 
-#> Beginning initial fit attempt
-#> Running Model with 6 parameters
-#> 
-#>  Lowest minimum so far:  4870.52824456257
-#> 
-#> Solution found
-```
-
-
-
-```
-#> 
-#>  Solution found!  Final fit=4870.5282 (started at 13061341)  (1 attempt(s): 1 valid, 0 errors)
-#>  Start values from best fit:
-#> 0.286799923809201,0.0371078632607097,-0.00732336101563466,0.125108420234586,2.73668780731017,2.11126420064013
+#> Error: object 'fit' not found
 summary(meta)
-#>          est     se        z p    2.5%   97.5%
-#> b0_1  0.2868 0.0024 120.7235 0  0.2821  0.2915
-#> b0_2  0.0371 0.0016  22.5246 0  0.0339  0.0403
-#> b0_3 -0.0073 0.0015  -4.8662 0 -0.0103 -0.0044
-#> b0_4  0.1251 0.0024  52.2532 0  0.1204  0.1298
-#> b0_5  2.7367 0.0076 361.8596 0  2.7219  2.7515
-#> b0_6  2.1113 0.0061 343.5705 0  2.0992  2.1233
+#> Error: object 'meta' not found
 ```
 
 ## References

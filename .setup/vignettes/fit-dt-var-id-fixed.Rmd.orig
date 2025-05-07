@@ -34,8 +34,8 @@ knitr::opts_chunk$set(
 #| echo = FALSE
 options(scipen = 999)
 set.seed(42)
-n <- 1000
-time <- 1000
+n <- 50
+time <- 500
 k <- p <- 2
 iden <- diag(k)
 null_vec <- rep(x = 0, times = k)
@@ -63,16 +63,14 @@ beta <- matrix(
   ),
   nrow = p
 )
-# mu0 <- simStateSpace::SSMMean(
-#   beta = beta,
-#   alpha = alpha
-# )
-mu0 <- null_vec
-# sigma0 <- simStateSpace::SSMCov(
-#   beta = beta,
-#   psi = psi
-# )
-sigma0 <- iden
+mu0 <- simStateSpace::SSMMeanEta(
+  beta = beta,
+  alpha = alpha
+)
+sigma0 <- simStateSpace::SSMCovEta(
+  beta = beta,
+  psi = psi
+)
 sigma0_l <- t(chol(sigma0))
 ```
 
@@ -295,14 +293,15 @@ n
 time
 mu0
 sigma0
-sigma0_l
+sigma0_l # sigma0_l <- t(chol(sigma0))
 alpha
 beta
 psi
-psi_l
+psi_l # psi_l <- t(chol(psi))
 nu
 lambda
 theta
+theta_l # theta_l <- t(chol(theta))
 ```
 
 ### Visualizing the Dynamics Without Process Noise (n = 5 with Different Initial Condition)
@@ -352,8 +351,7 @@ plot(sim)
 
 ## Model Fitting
 
-The `DTVAR` function fits a DT-VAR model on each individual $i$ using the `byid = TRUE` argument.
-The model type is specified using the `model` argument.
+The `FitDTVARIDMx` function fits a DT-VAR model on each individual $i$.
 
 ```{r}
 #| include = FALSE
@@ -362,12 +360,12 @@ library(fitDTVARMx)
 
 ```{r}
 library(fitDTVARMx)
-fit <- DTVAR(
+fit <- FitDTVARIDMx(
   data = data,
   observed = paste0("y", seq_len(k)),
   id = "id",
-  model = 5,
-  byid = TRUE,
+  mu0_values = mu0[[1]],
+  sigma0_values = sigma0[[1]],
   ncores = parallel::detectCores()
 )
 ```
