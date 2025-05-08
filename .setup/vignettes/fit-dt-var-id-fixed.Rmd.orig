@@ -34,8 +34,8 @@ knitr::opts_chunk$set(
 #| echo = FALSE
 options(scipen = 999)
 set.seed(42)
-n <- 1000
-time <- 1000
+n <- 50 # n <- 1000
+time <- 500 # time <- 1000
 k <- p <- 2
 iden <- diag(k)
 null_vec <- rep(x = 0, times = k)
@@ -364,8 +364,8 @@ fit <- FitDTVARIDMx(
   data = data,
   observed = paste0("y", seq_len(k)),
   id = "id",
-  mu0_values = mu0[[1]],
-  sigma0_values = sigma0[[1]],
+  mu0_values = mu0,
+  sigma0_values = sigma0,
   ncores = parallel::detectCores()
 )
 ```

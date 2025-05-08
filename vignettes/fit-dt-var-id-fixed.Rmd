@@ -1,7 +1,7 @@
 ---
 title: "Multivariate Meta-Analysis of Discrete-Time VAR Estimates (Fixed-Effect Model)"
 author: Ivan Jacob Agaloos Pesigan
-date: "2025-05-07"
+date: "2025-05-08"
 bibliography: "vignettes.bib"
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
 nocite: |
@@ -132,7 +132,7 @@ The parameters used in this example were based on @Bringmann-Vissers-Wichers-eta
 
 ### Notation
 
-Let $t = 1000$ be the number of time points and $n = 1000$ be the number of individuals.
+Let $t = 500$ be the number of time points and $n = 50$ be the number of individuals.
 
 Let the measurement model intecept vector $\boldsymbol{\nu}$ be given by
 
@@ -234,9 +234,9 @@ Let the dynamic process noise $\boldsymbol{\Psi}$ be given by
 
 ``` r
 n
-#> [1] 1000
+#> [1] 50
 time
-#> [1] 1000
+#> [1] 500
 mu0
 #> [1] 3.814355 2.576348
 sigma0
@@ -325,11 +325,10 @@ fit <- FitDTVARIDMx(
   data = data,
   observed = paste0("y", seq_len(k)),
   id = "id",
-  mu0_values = mu0[[1]],
-  sigma0_values = sigma0[[1]],
+  mu0_values = mu0,
+  sigma0_values = sigma0,
   ncores = parallel::detectCores()
 )
-#> Error in .FitDTVARMu0Fixed(k = k, statenames = statenames, mu0_values = mu0_values): length(mu0_values) == k is not TRUE
 ```
 
 ## Multivariate Meta-Analysis
@@ -347,9 +346,31 @@ meta <- MetaVARMx(
   intercept = TRUE,
   ncores = parallel::detectCores()
 )
-#> Error: object 'fit' not found
+#> Running Model with 6 parameters
+#> 
+#> Beginning initial fit attempt
+#> Running Model with 6 parameters
+#> 
+#>  Lowest minimum so far:  171.786802011745
+#> 
+#> Solution found
+```
+
+
+
+```
+#> 
+#>  Solution found!  Final fit=171.7868 (started at 311571.58)  (1 attempt(s): 1 valid, 0 errors)
+#>  Start values from best fit:
+#> 0.223121884460189,-0.00920588397041373,-0.00400641582512222,0.214566975207131,2.9944766863646,2.06690930331645
 summary(meta)
-#> Error: object 'meta' not found
+#>          est     se       z      p    2.5%  97.5%
+#> b0_1  0.2231 0.0138 16.2088 0.0000  0.1961 0.2501
+#> b0_2 -0.0092 0.0110 -0.8402 0.4008 -0.0307 0.0123
+#> b0_3 -0.0040 0.0096 -0.4158 0.6775 -0.0229 0.0149
+#> b0_4  0.2146 0.0130 16.5244 0.0000  0.1891 0.2400
+#> b0_5  2.9945 0.0451 66.3377 0.0000  2.9060 3.0829
+#> b0_6  2.0669 0.0380 54.4191 0.0000  1.9925 2.1414
 ```
 
 ## References
