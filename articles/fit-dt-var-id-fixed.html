@@ -61,7 +61,7 @@
                         <h4 data-toc-skip class="author">Ivan Jacob
 Agaloos Pesigan</h4>
             
-            <h4 data-toc-skip class="date">2025-05-07</h4>
+            <h4 data-toc-skip class="date">2025-05-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jeksterslab/metaVAR/blob/main/vignettes/fit-dt-var-id-fixed.Rmd"><code>vignettes/fit-dt-var-id-fixed.Rmd</code></a></small>
       <div class="d-none name"><code>fit-dt-var-id-fixed.Rmd</code></div>
@@ -185,9 +185,9 @@ is a symmetric matrix.</p>
 <h3 id="notation">Notation<a class="anchor" aria-label="anchor" href="#notation"></a>
 </h3>
 <p>Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">t = 1000</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">t = 500</annotation></semantics></math>
 be the number of time points and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">n = 1000</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">n = 50</annotation></semantics></math>
 be the number of individuals.</p>
 <p>Let the measurement model intecept vector
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝛎</mi><annotation encoding="application/x-tex">\boldsymbol{\nu}</annotation></semantics></math>
@@ -284,9 +284,9 @@ be given by</p>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span></span>
-<span><span class="co">#&gt; [1] 1000</span></span>
+<span><span class="co">#&gt; [1] 50</span></span>
 <span><span class="va">time</span></span>
-<span><span class="co">#&gt; [1] 1000</span></span>
+<span><span class="co">#&gt; [1] 500</span></span>
 <span><span class="va">mu0</span></span>
 <span><span class="co">#&gt; [1] 3.814355 2.576348</span></span>
 <span><span class="va">sigma0</span></span>
@@ -375,11 +375,10 @@ individual
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
 <span>  observed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  id <span class="op">=</span> <span class="st">"id"</span>,</span>
-<span>  mu0_values <span class="op">=</span> <span class="va">mu0</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>  sigma0_values <span class="op">=</span> <span class="va">sigma0</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  mu0_values <span class="op">=</span> <span class="va">mu0</span>,</span>
+<span>  sigma0_values <span class="op">=</span> <span class="va">sigma0</span>,</span>
 <span>  ncores <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in .FitDTVARMu0Fixed(k = k, statenames = statenames, mu0_values = mu0_values): length(mu0_values) == k is not TRUE</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="multivariate-meta-analysis">Multivariate Meta-Analysis<a class="anchor" aria-label="anchor" href="#multivariate-meta-analysis"></a>
@@ -398,9 +397,26 @@ Estimates with the prefix <code>b0</code> correspond to the estimates of
 <span>  intercept <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ncores <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: object 'fit' not found</span></span>
+<span><span class="co">#&gt; Running Model with 6 parameters</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Beginning initial fit attempt</span></span>
+<span><span class="co">#&gt; Running Model with 6 parameters</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Lowest minimum so far:  171.786802011745</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Solution found</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Solution found!  Final fit=171.7868 (started at 311571.58)  (1 attempt(s): 1 valid, 0 errors)</span></span>
+<span><span class="co">#&gt;  Start values from best fit:</span></span>
+<span><span class="co">#&gt; 0.223121884460189,-0.00920588397041373,-0.00400641582512222,0.214566975207131,2.9944766863646,2.06690930331645</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: object 'meta' not found</span></span></code></pre></div>
+<span><span class="co">#&gt;          est     se       z      p    2.5%  97.5%</span></span>
+<span><span class="co">#&gt; b0_1  0.2231 0.0138 16.2088 0.0000  0.1961 0.2501</span></span>
+<span><span class="co">#&gt; b0_2 -0.0092 0.0110 -0.8402 0.4008 -0.0307 0.0123</span></span>
+<span><span class="co">#&gt; b0_3 -0.0040 0.0096 -0.4158 0.6775 -0.0229 0.0149</span></span>
+<span><span class="co">#&gt; b0_4  0.2146 0.0130 16.5244 0.0000  0.1891 0.2400</span></span>
+<span><span class="co">#&gt; b0_5  2.9945 0.0451 66.3377 0.0000  2.9060 3.0829</span></span>
+<span><span class="co">#&gt; b0_6  2.0669 0.0380 54.4191 0.0000  1.9925 2.1414</span></span></code></pre>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
